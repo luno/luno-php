@@ -8,12 +8,23 @@ class CancelWithdrawal extends AbstractRequest
    * ID of the withdrawal to cancel.
    */
   protected $id;
-
-  public function getId(): integer {
+  
+  /**
+   * @return int
+   */
+  public function getId(): int
+  {
+    if (!isset($this->id)) {
+      return 0;
+    }
     return $this->id;
   }
 
-  public function setId(integer $id) {
+  /**
+   * @param int $id
+   */
+  public function setId(int $id)
+  {
     $this->id = $id;
   }
 }

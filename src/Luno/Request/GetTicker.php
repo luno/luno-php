@@ -8,12 +8,23 @@ class GetTicker extends AbstractRequest
    * Currency pair
    */
   protected $pair;
-
-  public function getPair(): string {
+  
+  /**
+   * @return string
+   */
+  public function getPair(): string
+  {
+    if (!isset($this->pair)) {
+      return "";
+    }
     return $this->pair;
   }
 
-  public function setPair(string $pair) {
+  /**
+   * @param string $pair
+   */
+  public function setPair(string $pair)
+  {
     $this->pair = $pair;
   }
 }

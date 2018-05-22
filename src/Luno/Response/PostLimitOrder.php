@@ -5,17 +5,25 @@ namespace Luno\Response;
 class PostLimitOrder extends AbstractResponse
 {
   protected $order_id;
-
-  public function getOrderId(): string {
+  
+  /**
+   * @return string
+   */
+  public function getOrderId(): string
+  {
+    if (!isset($this->order_id)) {
+      return "";
+    }
     return $this->order_id;
   }
 
-  public static function make($res): PostLimitOrder {
-    // TODO: implement
-
-    return null;
+  /**
+   * @param string $orderId
+   */
+  public function setOrderId(string $orderId)
+  {
+    $this->order_id = $orderId;
   }
 }
 
 // vi: ft=php
-

@@ -5,17 +5,25 @@ namespace Luno\Response;
 class ListUserTrades extends AbstractResponse
 {
   protected $trades;
-
-  public function getTrades(): array /* Trade */ {
+  
+  /**
+   * @return \Luno\Types\Trade[]
+   */
+  public function getTrades(): array
+  {
+    if (!isset($this->trades)) {
+      return [];
+    }
     return $this->trades;
   }
 
-  public static function make($res): ListUserTrades {
-    // TODO: implement
-
-    return null;
+  /**
+   * @param \Luno\Types\Trade[] $trades
+   */
+  public function setTrades(array $trades)
+  {
+    $this->trades = $trades;
   }
 }
 
 // vi: ft=php
-

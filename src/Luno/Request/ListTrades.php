@@ -14,20 +14,42 @@ class ListTrades extends AbstractRequest
    * milliseconds.
    */
   protected $since;
-
-  public function getPair(): string {
+  
+  /**
+   * @return string
+   */
+  public function getPair(): string
+  {
+    if (!isset($this->pair)) {
+      return "";
+    }
     return $this->pair;
   }
 
-  public function setPair(string $pair) {
+  /**
+   * @param string $pair
+   */
+  public function setPair(string $pair)
+  {
     $this->pair = $pair;
   }
 
-  public function getSince(): integer {
+  /**
+   * @return int
+   */
+  public function getSince(): int
+  {
+    if (!isset($this->since)) {
+      return 0;
+    }
     return $this->since;
   }
 
-  public function setSince(integer $since) {
+  /**
+   * @param int $since
+   */
+  public function setSince(int $since)
+  {
     $this->since = $since;
   }
 }

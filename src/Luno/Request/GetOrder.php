@@ -8,12 +8,23 @@ class GetOrder extends AbstractRequest
    * The order ID.
    */
   protected $id;
-
-  public function getId(): string {
+  
+  /**
+   * @return string
+   */
+  public function getId(): string
+  {
+    if (!isset($this->id)) {
+      return "";
+    }
     return $this->id;
   }
 
-  public function setId(string $id) {
+  /**
+   * @param string $id
+   */
+  public function setId(string $id)
+  {
     $this->id = $id;
   }
 }

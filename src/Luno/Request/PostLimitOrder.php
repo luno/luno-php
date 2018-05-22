@@ -35,52 +35,118 @@ class PostLimitOrder extends AbstractRequest
    * The counter currency account to use in the trade.
    */
   protected $counter_account_id;
-
-  public function getPair(): string {
+  
+  /**
+   * @return string
+   */
+  public function getPair(): string
+  {
+    if (!isset($this->pair)) {
+      return "";
+    }
     return $this->pair;
   }
 
-  public function setPair(string $pair) {
+  /**
+   * @param string $pair
+   */
+  public function setPair(string $pair)
+  {
     $this->pair = $pair;
   }
 
-  public function getPrice(): float {
+  /**
+   * @return float
+   */
+  public function getPrice(): float
+  {
+    if (!isset($this->price)) {
+      return 0;
+    }
     return $this->price;
   }
 
-  public function setPrice(float $price) {
+  /**
+   * @param float $price
+   */
+  public function setPrice(float $price)
+  {
     $this->price = $price;
   }
 
-  public function getType(): string /* OrderType */ {
+  /**
+   * @return string
+   */
+  public function getType(): string
+  {
+    if (!isset($this->type)) {
+      return "";
+    }
     return $this->type;
   }
 
-  public function setType(string /* OrderType */ $type) {
+  /**
+   * @param string $type
+   */
+  public function setType(string $type)
+  {
     $this->type = $type;
   }
 
-  public function getVolume(): float {
+  /**
+   * @return float
+   */
+  public function getVolume(): float
+  {
+    if (!isset($this->volume)) {
+      return 0;
+    }
     return $this->volume;
   }
 
-  public function setVolume(float $volume) {
+  /**
+   * @param float $volume
+   */
+  public function setVolume(float $volume)
+  {
     $this->volume = $volume;
   }
 
-  public function getBaseAccountId(): string {
+  /**
+   * @return string
+   */
+  public function getBaseAccountId(): string
+  {
+    if (!isset($this->base_account_id)) {
+      return "";
+    }
     return $this->base_account_id;
   }
 
-  public function setBaseAccountId(string $baseAccountId) {
+  /**
+   * @param string $baseAccountId
+   */
+  public function setBaseAccountId(string $baseAccountId)
+  {
     $this->base_account_id = $baseAccountId;
   }
 
-  public function getCounterAccountId(): string {
+  /**
+   * @return string
+   */
+  public function getCounterAccountId(): string
+  {
+    if (!isset($this->counter_account_id)) {
+      return "";
+    }
     return $this->counter_account_id;
   }
 
-  public function setCounterAccountId(string $counterAccountId) {
+  /**
+   * @param string $counterAccountId
+   */
+  public function setCounterAccountId(string $counterAccountId)
+  {
     $this->counter_account_id = $counterAccountId;
   }
 }

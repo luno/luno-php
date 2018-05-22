@@ -36,52 +36,118 @@ class PostMarketOrder extends AbstractRequest
    * spend as a decimal string in units of the local currency.
    */
   protected $counter_volume;
-
-  public function getPair(): string {
+  
+  /**
+   * @return string
+   */
+  public function getPair(): string
+  {
+    if (!isset($this->pair)) {
+      return "";
+    }
     return $this->pair;
   }
 
-  public function setPair(string $pair) {
+  /**
+   * @param string $pair
+   */
+  public function setPair(string $pair)
+  {
     $this->pair = $pair;
   }
 
-  public function getType(): string /* OrderType */ {
+  /**
+   * @return string
+   */
+  public function getType(): string
+  {
+    if (!isset($this->type)) {
+      return "";
+    }
     return $this->type;
   }
 
-  public function setType(string /* OrderType */ $type) {
+  /**
+   * @param string $type
+   */
+  public function setType(string $type)
+  {
     $this->type = $type;
   }
 
-  public function getBaseAccountId(): string {
+  /**
+   * @return string
+   */
+  public function getBaseAccountId(): string
+  {
+    if (!isset($this->base_account_id)) {
+      return "";
+    }
     return $this->base_account_id;
   }
 
-  public function setBaseAccountId(string $baseAccountId) {
+  /**
+   * @param string $baseAccountId
+   */
+  public function setBaseAccountId(string $baseAccountId)
+  {
     $this->base_account_id = $baseAccountId;
   }
 
-  public function getBaseVolume(): float {
+  /**
+   * @return float
+   */
+  public function getBaseVolume(): float
+  {
+    if (!isset($this->base_volume)) {
+      return 0;
+    }
     return $this->base_volume;
   }
 
-  public function setBaseVolume(float $baseVolume) {
+  /**
+   * @param float $baseVolume
+   */
+  public function setBaseVolume(float $baseVolume)
+  {
     $this->base_volume = $baseVolume;
   }
 
-  public function getCounterAccountId(): string {
+  /**
+   * @return string
+   */
+  public function getCounterAccountId(): string
+  {
+    if (!isset($this->counter_account_id)) {
+      return "";
+    }
     return $this->counter_account_id;
   }
 
-  public function setCounterAccountId(string $counterAccountId) {
+  /**
+   * @param string $counterAccountId
+   */
+  public function setCounterAccountId(string $counterAccountId)
+  {
     $this->counter_account_id = $counterAccountId;
   }
 
-  public function getCounterVolume(): float {
+  /**
+   * @return float
+   */
+  public function getCounterVolume(): float
+  {
+    if (!isset($this->counter_volume)) {
+      return 0;
+    }
     return $this->counter_volume;
   }
 
-  public function setCounterVolume(float $counterVolume) {
+  /**
+   * @param float $counterVolume
+   */
+  public function setCounterVolume(float $counterVolume)
+  {
     $this->counter_volume = $counterVolume;
   }
 }

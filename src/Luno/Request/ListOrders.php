@@ -23,36 +23,80 @@ class ListOrders extends AbstractRequest
    * Filter to only orders of this state
    */
   protected $state;
-
-  public function getCreatedBefore(): integer {
+  
+  /**
+   * @return int
+   */
+  public function getCreatedBefore(): int
+  {
+    if (!isset($this->created_before)) {
+      return 0;
+    }
     return $this->created_before;
   }
 
-  public function setCreatedBefore(integer $createdBefore) {
+  /**
+   * @param int $createdBefore
+   */
+  public function setCreatedBefore(int $createdBefore)
+  {
     $this->created_before = $createdBefore;
   }
 
-  public function getLimit(): integer {
+  /**
+   * @return int
+   */
+  public function getLimit(): int
+  {
+    if (!isset($this->limit)) {
+      return 0;
+    }
     return $this->limit;
   }
 
-  public function setLimit(integer $limit) {
+  /**
+   * @param int $limit
+   */
+  public function setLimit(int $limit)
+  {
     $this->limit = $limit;
   }
 
-  public function getPair(): string {
+  /**
+   * @return string
+   */
+  public function getPair(): string
+  {
+    if (!isset($this->pair)) {
+      return "";
+    }
     return $this->pair;
   }
 
-  public function setPair(string $pair) {
+  /**
+   * @param string $pair
+   */
+  public function setPair(string $pair)
+  {
     $this->pair = $pair;
   }
 
-  public function getState(): string /* OrderState */ {
+  /**
+   * @return string
+   */
+  public function getState(): string
+  {
+    if (!isset($this->state)) {
+      return "";
+    }
     return $this->state;
   }
 
-  public function setState(string /* OrderState */ $state) {
+  /**
+   * @param string $state
+   */
+  public function setState(string $state)
+  {
     $this->state = $state;
   }
 }

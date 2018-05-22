@@ -5,17 +5,25 @@ namespace Luno\Response;
 class ListOrders extends AbstractResponse
 {
   protected $orders;
-
-  public function getOrders(): array /* Order */ {
+  
+  /**
+   * @return \Luno\Types\Order[]
+   */
+  public function getOrders(): array
+  {
+    if (!isset($this->orders)) {
+      return [];
+    }
     return $this->orders;
   }
 
-  public static function make($res): ListOrders {
-    // TODO: implement
-
-    return null;
+  /**
+   * @param \Luno\Types\Order[] $orders
+   */
+  public function setOrders(array $orders)
+  {
+    $this->orders = $orders;
   }
 }
 
 // vi: ft=php
-

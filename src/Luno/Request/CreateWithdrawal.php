@@ -26,36 +26,80 @@ class CreateWithdrawal extends AbstractRequest
    * For internal use.
    */
   protected $reference;
-
-  public function getAmount(): float {
+  
+  /**
+   * @return float
+   */
+  public function getAmount(): float
+  {
+    if (!isset($this->amount)) {
+      return 0;
+    }
     return $this->amount;
   }
 
-  public function setAmount(float $amount) {
+  /**
+   * @param float $amount
+   */
+  public function setAmount(float $amount)
+  {
     $this->amount = $amount;
   }
 
-  public function getType(): string {
+  /**
+   * @return string
+   */
+  public function getType(): string
+  {
+    if (!isset($this->type)) {
+      return "";
+    }
     return $this->type;
   }
 
-  public function setType(string $type) {
+  /**
+   * @param string $type
+   */
+  public function setType(string $type)
+  {
     $this->type = $type;
   }
 
-  public function getBeneficiaryId(): integer {
+  /**
+   * @return int
+   */
+  public function getBeneficiaryId(): int
+  {
+    if (!isset($this->beneficiary_id)) {
+      return 0;
+    }
     return $this->beneficiary_id;
   }
 
-  public function setBeneficiaryId(integer $beneficiaryId) {
+  /**
+   * @param int $beneficiaryId
+   */
+  public function setBeneficiaryId(int $beneficiaryId)
+  {
     $this->beneficiary_id = $beneficiaryId;
   }
 
-  public function getReference(): string {
+  /**
+   * @return string
+   */
+  public function getReference(): string
+  {
+    if (!isset($this->reference)) {
+      return "";
+    }
     return $this->reference;
   }
 
-  public function setReference(string $reference) {
+  /**
+   * @param string $reference
+   */
+  public function setReference(string $reference)
+  {
     $this->reference = $reference;
   }
 }
