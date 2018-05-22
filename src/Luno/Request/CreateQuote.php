@@ -29,44 +29,99 @@ class CreateQuote extends AbstractRequest
    * Optional account for the pair's counter currency.
    */
   protected $counter_account_id;
-
-  public function getBaseAmount(): float {
+  
+  /**
+   * @return float
+   */
+  public function getBaseAmount(): float
+  {
+    if (!isset($this->base_amount)) {
+      return 0;
+    }
     return $this->base_amount;
   }
 
-  public function setBaseAmount(float $baseAmount) {
+  /**
+   * @param float $baseAmount
+   */
+  public function setBaseAmount(float $baseAmount)
+  {
     $this->base_amount = $baseAmount;
   }
 
-  public function getPair(): string {
+  /**
+   * @return string
+   */
+  public function getPair(): string
+  {
+    if (!isset($this->pair)) {
+      return "";
+    }
     return $this->pair;
   }
 
-  public function setPair(string $pair) {
+  /**
+   * @param string $pair
+   */
+  public function setPair(string $pair)
+  {
     $this->pair = $pair;
   }
 
-  public function getType(): string {
+  /**
+   * @return string
+   */
+  public function getType(): string
+  {
+    if (!isset($this->type)) {
+      return "";
+    }
     return $this->type;
   }
 
-  public function setType(string $type) {
+  /**
+   * @param string $type
+   */
+  public function setType(string $type)
+  {
     $this->type = $type;
   }
 
-  public function getBaseAccountId(): integer {
+  /**
+   * @return int
+   */
+  public function getBaseAccountId(): int
+  {
+    if (!isset($this->base_account_id)) {
+      return 0;
+    }
     return $this->base_account_id;
   }
 
-  public function setBaseAccountId(integer $baseAccountId) {
+  /**
+   * @param int $baseAccountId
+   */
+  public function setBaseAccountId(int $baseAccountId)
+  {
     $this->base_account_id = $baseAccountId;
   }
 
-  public function getCounterAccountId(): integer {
+  /**
+   * @return int
+   */
+  public function getCounterAccountId(): int
+  {
+    if (!isset($this->counter_account_id)) {
+      return 0;
+    }
     return $this->counter_account_id;
   }
 
-  public function setCounterAccountId(integer $counterAccountId) {
+  /**
+   * @param int $counterAccountId
+   */
+  public function setCounterAccountId(int $counterAccountId)
+  {
     $this->counter_account_id = $counterAccountId;
   }
 }

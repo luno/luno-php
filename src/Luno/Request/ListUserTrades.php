@@ -18,28 +18,61 @@ class ListUserTrades extends AbstractRequest
    * Filter to trades on or after this timestamp.
    */
   protected $since;
-
-  public function getPair(): string {
+  
+  /**
+   * @return string
+   */
+  public function getPair(): string
+  {
+    if (!isset($this->pair)) {
+      return "";
+    }
     return $this->pair;
   }
 
-  public function setPair(string $pair) {
+  /**
+   * @param string $pair
+   */
+  public function setPair(string $pair)
+  {
     $this->pair = $pair;
   }
 
-  public function getLimit(): integer {
+  /**
+   * @return int
+   */
+  public function getLimit(): int
+  {
+    if (!isset($this->limit)) {
+      return 0;
+    }
     return $this->limit;
   }
 
-  public function setLimit(integer $limit) {
+  /**
+   * @param int $limit
+   */
+  public function setLimit(int $limit)
+  {
     $this->limit = $limit;
   }
 
-  public function getSince(): integer {
+  /**
+   * @return int
+   */
+  public function getSince(): int
+  {
+    if (!isset($this->since)) {
+      return 0;
+    }
     return $this->since;
   }
 
-  public function setSince(integer $since) {
+  /**
+   * @param int $since
+   */
+  public function setSince(int $since)
+  {
     $this->since = $since;
   }
 }

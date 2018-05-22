@@ -5,17 +5,25 @@ namespace Luno\Response;
 class GetWithdrawals extends AbstractResponse
 {
   protected $withdrawals;
-
-  public function getWithdrawals(): array /* Withdrawal */ {
+  
+  /**
+   * @return \Luno\Types\Withdrawal[]
+   */
+  public function getWithdrawals(): array
+  {
+    if (!isset($this->withdrawals)) {
+      return [];
+    }
     return $this->withdrawals;
   }
 
-  public static function make($res): GetWithdrawals {
-    // TODO: implement
-
-    return null;
+  /**
+   * @param \Luno\Types\Withdrawal[] $withdrawals
+   */
+  public function setWithdrawals(array $withdrawals)
+  {
+    $this->withdrawals = $withdrawals;
   }
 }
 
 // vi: ft=php
-

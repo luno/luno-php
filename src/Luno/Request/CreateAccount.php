@@ -16,20 +16,42 @@ class CreateAccount extends AbstractRequest
    * The label to use for this account
    */
   protected $name;
-
-  public function getCurrency(): string {
+  
+  /**
+   * @return string
+   */
+  public function getCurrency(): string
+  {
+    if (!isset($this->currency)) {
+      return "";
+    }
     return $this->currency;
   }
 
-  public function setCurrency(string $currency) {
+  /**
+   * @param string $currency
+   */
+  public function setCurrency(string $currency)
+  {
     $this->currency = $currency;
   }
 
-  public function getName(): string {
+  /**
+   * @return string
+   */
+  public function getName(): string
+  {
+    if (!isset($this->name)) {
+      return "";
+    }
     return $this->name;
   }
 
-  public function setName(string $name) {
+  /**
+   * @param string $name
+   */
+  public function setName(string $name)
+  {
     $this->name = $name;
   }
 }

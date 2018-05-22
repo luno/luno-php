@@ -37,44 +37,99 @@ class Send extends AbstractRequest
    * an email address.
    */
   protected $message;
-
-  public function getAddress(): string {
+  
+  /**
+   * @return string
+   */
+  public function getAddress(): string
+  {
+    if (!isset($this->address)) {
+      return "";
+    }
     return $this->address;
   }
 
-  public function setAddress(string $address) {
+  /**
+   * @param string $address
+   */
+  public function setAddress(string $address)
+  {
     $this->address = $address;
   }
 
-  public function getAmount(): float {
+  /**
+   * @return float
+   */
+  public function getAmount(): float
+  {
+    if (!isset($this->amount)) {
+      return 0;
+    }
     return $this->amount;
   }
 
-  public function setAmount(float $amount) {
+  /**
+   * @param float $amount
+   */
+  public function setAmount(float $amount)
+  {
     $this->amount = $amount;
   }
 
-  public function getCurrency(): string {
+  /**
+   * @return string
+   */
+  public function getCurrency(): string
+  {
+    if (!isset($this->currency)) {
+      return "";
+    }
     return $this->currency;
   }
 
-  public function setCurrency(string $currency) {
+  /**
+   * @param string $currency
+   */
+  public function setCurrency(string $currency)
+  {
     $this->currency = $currency;
   }
 
-  public function getDescription(): string {
+  /**
+   * @return string
+   */
+  public function getDescription(): string
+  {
+    if (!isset($this->description)) {
+      return "";
+    }
     return $this->description;
   }
 
-  public function setDescription(string $description) {
+  /**
+   * @param string $description
+   */
+  public function setDescription(string $description)
+  {
     $this->description = $description;
   }
 
-  public function getMessage(): string {
+  /**
+   * @return string
+   */
+  public function getMessage(): string
+  {
+    if (!isset($this->message)) {
+      return "";
+    }
     return $this->message;
   }
 
-  public function setMessage(string $message) {
+  /**
+   * @param string $message
+   */
+  public function setMessage(string $message)
+  {
     $this->message = $message;
   }
 }

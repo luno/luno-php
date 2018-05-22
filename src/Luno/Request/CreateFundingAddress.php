@@ -13,20 +13,42 @@ class CreateFundingAddress extends AbstractRequest
    * An optional name for the new address
    */
   protected $name;
-
-  public function getAsset(): string {
+  
+  /**
+   * @return string
+   */
+  public function getAsset(): string
+  {
+    if (!isset($this->asset)) {
+      return "";
+    }
     return $this->asset;
   }
 
-  public function setAsset(string $asset) {
+  /**
+   * @param string $asset
+   */
+  public function setAsset(string $asset)
+  {
     $this->asset = $asset;
   }
 
-  public function getName(): string {
+  /**
+   * @return string
+   */
+  public function getName(): string
+  {
+    if (!isset($this->name)) {
+      return "";
+    }
     return $this->name;
   }
 
-  public function setName(string $name) {
+  /**
+   * @param string $name
+   */
+  public function setName(string $name)
+  {
     $this->name = $name;
   }
 }

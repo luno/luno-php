@@ -5,17 +5,25 @@ namespace Luno\Response;
 class GetTickers extends AbstractResponse
 {
   protected $tickers;
-
-  public function getTickers(): array /* Ticker */ {
+  
+  /**
+   * @return \Luno\Types\Ticker[]
+   */
+  public function getTickers(): array
+  {
+    if (!isset($this->tickers)) {
+      return [];
+    }
     return $this->tickers;
   }
 
-  public static function make($res): GetTickers {
-    // TODO: implement
-
-    return null;
+  /**
+   * @param \Luno\Types\Ticker[] $tickers
+   */
+  public function setTickers(array $tickers)
+  {
+    $this->tickers = $tickers;
   }
 }
 
 // vi: ft=php
-

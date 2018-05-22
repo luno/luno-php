@@ -5,17 +5,25 @@ namespace Luno\Response;
 class StopOrder extends AbstractResponse
 {
   protected $success;
-
-  public function getSuccess(): boolean {
+  
+  /**
+   * @return bool
+   */
+  public function getSuccess(): bool
+  {
+    if (!isset($this->success)) {
+      return false;
+    }
     return $this->success;
   }
 
-  public static function make($res): StopOrder {
-    // TODO: implement
-
-    return null;
+  /**
+   * @param bool $success
+   */
+  public function setSuccess(bool $success)
+  {
+    $this->success = $success;
   }
 }
 
 // vi: ft=php
-

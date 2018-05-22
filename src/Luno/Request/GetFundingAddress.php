@@ -14,20 +14,42 @@ class GetFundingAddress extends AbstractRequest
    * default address will be used.
    */
   protected $address;
-
-  public function getAsset(): string {
+  
+  /**
+   * @return string
+   */
+  public function getAsset(): string
+  {
+    if (!isset($this->asset)) {
+      return "";
+    }
     return $this->asset;
   }
 
-  public function setAsset(string $asset) {
+  /**
+   * @param string $asset
+   */
+  public function setAsset(string $asset)
+  {
     $this->asset = $asset;
   }
 
-  public function getAddress(): string {
+  /**
+   * @return string
+   */
+  public function getAddress(): string
+  {
+    if (!isset($this->address)) {
+      return "";
+    }
     return $this->address;
   }
 
-  public function setAddress(string $address) {
+  /**
+   * @param string $address
+   */
+  public function setAddress(string $address)
+  {
     $this->address = $address;
   }
 }

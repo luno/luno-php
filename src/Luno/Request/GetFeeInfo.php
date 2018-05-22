@@ -8,12 +8,23 @@ class GetFeeInfo extends AbstractRequest
    * Get fee information about this pair.
    */
   protected $pair;
-
-  public function getPair(): string {
+  
+  /**
+   * @return string
+   */
+  public function getPair(): string
+  {
+    if (!isset($this->pair)) {
+      return "";
+    }
     return $this->pair;
   }
 
-  public function setPair(string $pair) {
+  /**
+   * @param string $pair
+   */
+  public function setPair(string $pair)
+  {
     $this->pair = $pair;
   }
 }

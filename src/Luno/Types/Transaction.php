@@ -21,42 +21,178 @@ class Transaction
   protected $description;
   protected $row_index;
   protected $timestamp;
-
-  public function getAccountId(): string {
+  
+  /**
+   * @return string
+   */
+  public function getAccountId(): string
+  {
+    if (!isset($this->account_id)) {
+      return "";
+    }
     return $this->account_id;
   }
 
-  public function getAvailable(): float {
+  /**
+   * @param string $accountId
+   */
+  public function setAccountId(string $accountId)
+  {
+    $this->account_id = $accountId;
+  }
+
+  /**
+   * @return float
+   */
+  public function getAvailable(): float
+  {
+    if (!isset($this->available)) {
+      return 0;
+    }
     return $this->available;
   }
 
-  public function getAvailableDelta(): float {
+  /**
+   * @param float $available
+   */
+  public function setAvailable(float $available)
+  {
+    $this->available = $available;
+  }
+
+  /**
+   * @return float
+   */
+  public function getAvailableDelta(): float
+  {
+    if (!isset($this->available_delta)) {
+      return 0;
+    }
     return $this->available_delta;
   }
 
-  public function getBalance(): float {
+  /**
+   * @param float $availableDelta
+   */
+  public function setAvailableDelta(float $availableDelta)
+  {
+    $this->available_delta = $availableDelta;
+  }
+
+  /**
+   * @return float
+   */
+  public function getBalance(): float
+  {
+    if (!isset($this->balance)) {
+      return 0;
+    }
     return $this->balance;
   }
 
-  public function getBalanceDelta(): float {
+  /**
+   * @param float $balance
+   */
+  public function setBalance(float $balance)
+  {
+    $this->balance = $balance;
+  }
+
+  /**
+   * @return float
+   */
+  public function getBalanceDelta(): float
+  {
+    if (!isset($this->balance_delta)) {
+      return 0;
+    }
     return $this->balance_delta;
   }
 
-  public function getCurrency(): string {
+  /**
+   * @param float $balanceDelta
+   */
+  public function setBalanceDelta(float $balanceDelta)
+  {
+    $this->balance_delta = $balanceDelta;
+  }
+
+  /**
+   * @return string
+   */
+  public function getCurrency(): string
+  {
+    if (!isset($this->currency)) {
+      return "";
+    }
     return $this->currency;
   }
 
-  public function getDescription(): string {
+  /**
+   * @param string $currency
+   */
+  public function setCurrency(string $currency)
+  {
+    $this->currency = $currency;
+  }
+
+  /**
+   * @return string
+   */
+  public function getDescription(): string
+  {
+    if (!isset($this->description)) {
+      return "";
+    }
     return $this->description;
   }
 
-  public function getRowIndex(): integer {
+  /**
+   * @param string $description
+   */
+  public function setDescription(string $description)
+  {
+    $this->description = $description;
+  }
+
+  /**
+   * @return int
+   */
+  public function getRowIndex(): int
+  {
+    if (!isset($this->row_index)) {
+      return 0;
+    }
     return $this->row_index;
   }
 
-  public function getTimestamp(): integer {
+  /**
+   * @param int $rowIndex
+   */
+  public function setRowIndex(int $rowIndex)
+  {
+    $this->row_index = $rowIndex;
+  }
+
+  /**
+   * @return int
+   */
+  public function getTimestamp(): int
+  {
+    if (!isset($this->timestamp)) {
+      return 0;
+    }
     return $this->timestamp;
   }
+
+  /**
+   * @param int $timestamp
+   */
+  public function setTimestamp(int $timestamp)
+  {
+    $this->timestamp = $timestamp;
+  }
+
 }
 
 // vi: ft=php

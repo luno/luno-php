@@ -12,17 +12,12 @@ use GuzzleHttp\Exception\ClientException;
 abstract class AbstractClient
 {
   private static $defaultBaseURL = 'https://api.mybitx.com/';
-
   private static $defaultTimeoutSeconds = 10.0;
 
   protected $baseURL;
-
   protected $timeoutSeconds;
-
   protected $apiKeyID;
-
   protected $apiKeySecret;
-
   protected $client;
 
   public function __construct()

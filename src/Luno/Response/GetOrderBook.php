@@ -7,25 +7,63 @@ class GetOrderBook extends AbstractResponse
   protected $asks;
   protected $bids;
   protected $timestamp;
-
-  public function getAsks(): array /* OrderBookEntry */ {
+  
+  /**
+   * @return \Luno\Types\OrderBookEntry[]
+   */
+  public function getAsks(): array
+  {
+    if (!isset($this->asks)) {
+      return [];
+    }
     return $this->asks;
   }
 
-  public function getBids(): array /* OrderBookEntry */ {
+  /**
+   * @param \Luno\Types\OrderBookEntry[] $asks
+   */
+  public function setAsks(array $asks)
+  {
+    $this->asks = $asks;
+  }
+
+  /**
+   * @return \Luno\Types\OrderBookEntry[]
+   */
+  public function getBids(): array
+  {
+    if (!isset($this->bids)) {
+      return [];
+    }
     return $this->bids;
   }
 
-  public function getTimestamp(): integer {
+  /**
+   * @param \Luno\Types\OrderBookEntry[] $bids
+   */
+  public function setBids(array $bids)
+  {
+    $this->bids = $bids;
+  }
+
+  /**
+   * @return int
+   */
+  public function getTimestamp(): int
+  {
+    if (!isset($this->timestamp)) {
+      return 0;
+    }
     return $this->timestamp;
   }
 
-  public static function make($res): GetOrderBook {
-    // TODO: implement
-
-    return null;
+  /**
+   * @param int $timestamp
+   */
+  public function setTimestamp(int $timestamp)
+  {
+    $this->timestamp = $timestamp;
   }
 }
 
 // vi: ft=php
-

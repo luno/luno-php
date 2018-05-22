@@ -15,50 +15,216 @@ class Trade
   protected $timestamp;
   protected $type;
   protected $volume;
-
-  public function getBase(): float {
+  
+  /**
+   * @return float
+   */
+  public function getBase(): float
+  {
+    if (!isset($this->base)) {
+      return 0;
+    }
     return $this->base;
   }
 
-  public function getCounter(): float {
+  /**
+   * @param float $base
+   */
+  public function setBase(float $base)
+  {
+    $this->base = $base;
+  }
+
+  /**
+   * @return float
+   */
+  public function getCounter(): float
+  {
+    if (!isset($this->counter)) {
+      return 0;
+    }
     return $this->counter;
   }
 
-  public function getFeeBase(): float {
+  /**
+   * @param float $counter
+   */
+  public function setCounter(float $counter)
+  {
+    $this->counter = $counter;
+  }
+
+  /**
+   * @return float
+   */
+  public function getFeeBase(): float
+  {
+    if (!isset($this->fee_base)) {
+      return 0;
+    }
     return $this->fee_base;
   }
 
-  public function getFeeCounter(): float {
+  /**
+   * @param float $feeBase
+   */
+  public function setFeeBase(float $feeBase)
+  {
+    $this->fee_base = $feeBase;
+  }
+
+  /**
+   * @return float
+   */
+  public function getFeeCounter(): float
+  {
+    if (!isset($this->fee_counter)) {
+      return 0;
+    }
     return $this->fee_counter;
   }
 
-  public function getIsBuy(): boolean {
+  /**
+   * @param float $feeCounter
+   */
+  public function setFeeCounter(float $feeCounter)
+  {
+    $this->fee_counter = $feeCounter;
+  }
+
+  /**
+   * @return bool
+   */
+  public function getIsBuy(): bool
+  {
+    if (!isset($this->is_buy)) {
+      return false;
+    }
     return $this->is_buy;
   }
 
-  public function getOrderId(): string {
+  /**
+   * @param bool $isBuy
+   */
+  public function setIsBuy(bool $isBuy)
+  {
+    $this->is_buy = $isBuy;
+  }
+
+  /**
+   * @return string
+   */
+  public function getOrderId(): string
+  {
+    if (!isset($this->order_id)) {
+      return "";
+    }
     return $this->order_id;
   }
 
-  public function getPair(): string {
+  /**
+   * @param string $orderId
+   */
+  public function setOrderId(string $orderId)
+  {
+    $this->order_id = $orderId;
+  }
+
+  /**
+   * @return string
+   */
+  public function getPair(): string
+  {
+    if (!isset($this->pair)) {
+      return "";
+    }
     return $this->pair;
   }
 
-  public function getPrice(): float {
+  /**
+   * @param string $pair
+   */
+  public function setPair(string $pair)
+  {
+    $this->pair = $pair;
+  }
+
+  /**
+   * @return float
+   */
+  public function getPrice(): float
+  {
+    if (!isset($this->price)) {
+      return 0;
+    }
     return $this->price;
   }
 
-  public function getTimestamp(): integer {
+  /**
+   * @param float $price
+   */
+  public function setPrice(float $price)
+  {
+    $this->price = $price;
+  }
+
+  /**
+   * @return int
+   */
+  public function getTimestamp(): int
+  {
+    if (!isset($this->timestamp)) {
+      return 0;
+    }
     return $this->timestamp;
   }
 
-  public function getType(): string {
+  /**
+   * @param int $timestamp
+   */
+  public function setTimestamp(int $timestamp)
+  {
+    $this->timestamp = $timestamp;
+  }
+
+  /**
+   * @return string
+   */
+  public function getType(): string
+  {
+    if (!isset($this->type)) {
+      return "";
+    }
     return $this->type;
   }
 
-  public function getVolume(): float {
+  /**
+   * @param string $type
+   */
+  public function setType(string $type)
+  {
+    $this->type = $type;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVolume(): float
+  {
+    if (!isset($this->volume)) {
+      return 0;
+    }
     return $this->volume;
   }
+
+  /**
+   * @param float $volume
+   */
+  public function setVolume(float $volume)
+  {
+    $this->volume = $volume;
+  }
+
 }
 
 // vi: ft=php

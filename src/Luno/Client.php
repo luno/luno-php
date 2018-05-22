@@ -12,9 +12,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_W_Withdrawals</code>
    */ 
-  public function CancelWithdrawal(Request\CancelWithdrawal $req): Response\CancelWithdrawal {
+  public function CancelWithdrawal(Request\CancelWithdrawal $req): Response\CancelWithdrawal
+  {
     $res = $this->do("DELETE", "/api/1/withdrawals/{id}", $req, true);
-    return Response\CancelWithdrawal::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\CancelWithdrawal);
   }
 
   /**
@@ -24,9 +26,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_W_Addresses</code>
    */ 
-  public function CreateAccount(Request\CreateAccount $req): Response\CreateAccount {
+  public function CreateAccount(Request\CreateAccount $req): Response\CreateAccount
+  {
     $res = $this->do("POST", "/api/1/accounts", $req, true);
-    return Response\CreateAccount::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\CreateAccount);
   }
 
   /**
@@ -38,9 +42,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_W_Addresses</code>
    */ 
-  public function CreateFundingAddress(Request\CreateFundingAddress $req): Response\CreateFundingAddress {
+  public function CreateFundingAddress(Request\CreateFundingAddress $req): Response\CreateFundingAddress
+  {
     $res = $this->do("POST", "/api/1/funding_address", $req, true);
-    return Response\CreateFundingAddress::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\CreateFundingAddress);
   }
 
   /**
@@ -63,9 +69,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_W_Orders</code>
    */ 
-  public function CreateQuote(Request\CreateQuote $req): Response\CreateQuote {
+  public function CreateQuote(Request\CreateQuote $req): Response\CreateQuote
+  {
     $res = $this->do("POST", "/api/1/quotes", $req, true);
-    return Response\CreateQuote::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\CreateQuote);
   }
 
   /**
@@ -75,9 +83,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_W_Withdrawals</code>
    */ 
-  public function CreateWithdrawal(Request\CreateWithdrawal $req): Response\CreateWithdrawal {
+  public function CreateWithdrawal(Request\CreateWithdrawal $req): Response\CreateWithdrawal
+  {
     $res = $this->do("POST", "/api/1/withdrawals", $req, true);
-    return Response\CreateWithdrawal::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\CreateWithdrawal);
   }
 
   /**
@@ -88,9 +98,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_W_Orders</code>
    */ 
-  public function DiscardQuote(Request\DiscardQuote $req): Response\DiscardQuote {
+  public function DiscardQuote(Request\DiscardQuote $req): Response\DiscardQuote
+  {
     $res = $this->do("DELETE", "/api/1/quotes/{id}", $req, true);
-    return Response\DiscardQuote::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\DiscardQuote);
   }
 
   /**
@@ -105,9 +117,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_W_Orders</code>
    */ 
-  public function ExerciseQuote(Request\ExerciseQuote $req): Response\ExerciseQuote {
+  public function ExerciseQuote(Request\ExerciseQuote $req): Response\ExerciseQuote
+  {
     $res = $this->do("PUT", "/api/1/quotes/{id}", $req, true);
-    return Response\ExerciseQuote::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ExerciseQuote);
   }
 
   /**
@@ -117,9 +131,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_R_Balance</code>
    */ 
-  public function GetBalances(Request\GetBalances $req): Response\GetBalances {
+  public function GetBalances(Request\GetBalances $req): Response\GetBalances
+  {
     $res = $this->do("GET", "/api/1/balance", $req, true);
-    return Response\GetBalances::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetBalances);
   }
 
   /**
@@ -130,9 +146,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_R_Orders</code>
    */ 
-  public function GetFeeInfo(Request\GetFeeInfo $req): Response\GetFeeInfo {
+  public function GetFeeInfo(Request\GetFeeInfo $req): Response\GetFeeInfo
+  {
     $res = $this->do("GET", "/api/1/fee_info", $req, true);
-    return Response\GetFeeInfo::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetFeeInfo);
   }
 
   /**
@@ -147,9 +165,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_R_Addresses</code>
    */ 
-  public function GetFundingAddress(Request\GetFundingAddress $req): Response\GetFundingAddress {
+  public function GetFundingAddress(Request\GetFundingAddress $req): Response\GetFundingAddress
+  {
     $res = $this->do("GET", "/api/1/funding_address", $req, true);
-    return Response\GetFundingAddress::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetFundingAddress);
   }
 
   /**
@@ -159,9 +179,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_R_Orders</code>
    */ 
-  public function GetOrder(Request\GetOrder $req): Response\GetOrder {
+  public function GetOrder(Request\GetOrder $req): Response\GetOrder
+  {
     $res = $this->do("GET", "/api/1/orders/{id}", $req, true);
-    return Response\GetOrder::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetOrder);
   }
 
   /**
@@ -171,9 +193,11 @@ class Client extends AbstractClient
    * price ascending. Bid orders are sorted by price descending. Note that
    * multiple orders at the same price are not necessarily conflated.
    */ 
-  public function GetOrderBook(Request\GetOrderBook $req): Response\GetOrderBook {
+  public function GetOrderBook(Request\GetOrderBook $req): Response\GetOrderBook
+  {
     $res = $this->do("GET", "/api/1/orderbook", $req, false);
-    return Response\GetOrderBook::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetOrderBook);
   }
 
   /**
@@ -183,9 +207,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_R_Orders</code>
    */ 
-  public function GetQuote(Request\GetQuote $req): Response\GetQuote {
+  public function GetQuote(Request\GetQuote $req): Response\GetQuote
+  {
     $res = $this->do("GET", "/api/1/quotes/{id}", $req, true);
-    return Response\GetQuote::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetQuote);
   }
 
   /**
@@ -193,9 +219,11 @@ class Client extends AbstractClient
    *
    * Returns the latest ticker indicators.
    */ 
-  public function GetTicker(Request\GetTicker $req): Response\GetTicker {
+  public function GetTicker(Request\GetTicker $req): Response\GetTicker
+  {
     $res = $this->do("GET", "/api/1/ticker", $req, false);
-    return Response\GetTicker::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetTicker);
   }
 
   /**
@@ -203,9 +231,11 @@ class Client extends AbstractClient
    *
    * Returns the latest ticker indicators from all active Luno exchanges.
    */ 
-  public function GetTickers(Request\GetTickers $req): Response\GetTickers {
+  public function GetTickers(Request\GetTickers $req): Response\GetTickers
+  {
     $res = $this->do("GET", "/api/1/tickers", $req, false);
-    return Response\GetTickers::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetTickers);
   }
 
   /**
@@ -215,9 +245,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_R_Withdrawals</code>
    */ 
-  public function GetWithdrawal(Request\GetWithdrawal $req): Response\GetWithdrawal {
+  public function GetWithdrawal(Request\GetWithdrawal $req): Response\GetWithdrawal
+  {
     $res = $this->do("GET", "/api/1/withdrawals/{id}", $req, true);
-    return Response\GetWithdrawal::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetWithdrawal);
   }
 
   /**
@@ -227,9 +259,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_R_Withdrawals</code>
    */ 
-  public function GetWithdrawals(Request\GetWithdrawals $req): Response\GetWithdrawals {
+  public function GetWithdrawals(Request\GetWithdrawals $req): Response\GetWithdrawals
+  {
     $res = $this->do("GET", "/api/1/withdrawals", $req, true);
-    return Response\GetWithdrawals::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetWithdrawals);
   }
 
   /**
@@ -242,9 +276,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_R_Orders</code>
    */ 
-  public function ListOrders(Request\ListOrders $req): Response\ListOrders {
+  public function ListOrders(Request\ListOrders $req): Response\ListOrders
+  {
     $res = $this->do("GET", "/api/1/listorders", $req, true);
-    return Response\ListOrders::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ListOrders);
   }
 
   /**
@@ -257,9 +293,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_R_Transactions</code>
    */ 
-  public function ListPendingTransactions(Request\ListPendingTransactions $req): Response\ListPendingTransactions {
+  public function ListPendingTransactions(Request\ListPendingTransactions $req): Response\ListPendingTransactions
+  {
     $res = $this->do("GET", "/api/1/accounts/{id}/pending", $req, true);
-    return Response\ListPendingTransactions::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ListPendingTransactions);
   }
 
   /**
@@ -268,9 +306,11 @@ class Client extends AbstractClient
    * Returns a list of the most recent trades. At most 100 results are returned
    * per call.
    */ 
-  public function ListTrades(Request\ListTrades $req): Response\ListTrades {
+  public function ListTrades(Request\ListTrades $req): Response\ListTrades
+  {
     $res = $this->do("GET", "/api/1/trades", $req, false);
-    return Response\ListTrades::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ListTrades);
   }
 
   /**
@@ -289,9 +329,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_R_Transactions</code>
    */ 
-  public function ListTransactions(Request\ListTransactions $req): Response\ListTransactions {
+  public function ListTransactions(Request\ListTransactions $req): Response\ListTransactions
+  {
     $res = $this->do("GET", "/api/1/{id}/transactions", $req, true);
-    return Response\ListTransactions::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ListTransactions);
   }
 
   /**
@@ -311,9 +353,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_R_Orders</code>
    */ 
-  public function ListUserTrades(Request\ListUserTrades $req): Response\ListUserTrades {
+  public function ListUserTrades(Request\ListUserTrades $req): Response\ListUserTrades
+  {
     $res = $this->do("GET", "/api/1/listtrades", $req, true);
-    return Response\ListUserTrades::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ListUserTrades);
   }
 
   /**
@@ -331,9 +375,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_W_Orders</code>
    */ 
-  public function PostLimitOrder(Request\PostLimitOrder $req): Response\PostLimitOrder {
+  public function PostLimitOrder(Request\PostLimitOrder $req): Response\PostLimitOrder
+  {
     $res = $this->do("POST", "/api/1/postorder", $req, true);
-    return Response\PostLimitOrder::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\PostLimitOrder);
   }
 
   /**
@@ -354,9 +400,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_W_Orders</code>
    */ 
-  public function PostMarketOrder(Request\PostMarketOrder $req): Response\PostMarketOrder {
+  public function PostMarketOrder(Request\PostMarketOrder $req): Response\PostMarketOrder
+  {
     $res = $this->do("POST", "/api/1/marketorder", $req, true);
-    return Response\PostMarketOrder::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\PostMarketOrder);
   }
 
   /**
@@ -373,9 +421,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_W_Send</code>
    */ 
-  public function Send(Request\Send $req): Response\Send {
+  public function Send(Request\Send $req): Response\Send
+  {
     $res = $this->do("POST", "/api/1/send", $req, true);
-    return Response\Send::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\Send);
   }
 
   /**
@@ -385,9 +435,11 @@ class Client extends AbstractClient
    * 
    * Permissions required: <code>Perm_W_Orders</code>
    */ 
-  public function StopOrder(Request\StopOrder $req): Response\StopOrder {
+  public function StopOrder(Request\StopOrder $req): Response\StopOrder
+  {
     $res = $this->do("POST", "/api/1/stoporder", $req, true);
-    return Response\StopOrder::make($res);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\StopOrder);
   }
 }
 
