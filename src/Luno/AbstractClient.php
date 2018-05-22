@@ -6,10 +6,10 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
 
 /**
- * BaseClient is a Luno API wrapper. It doesn't have any API functions
+ * AbstractClient is a Luno API wrapper. It doesn't have any API functions
  * implemented, though - those are added in Client.
  */
-class BaseClient
+abstract class AbstractClient
 {
   private static $defaultBaseURL = 'https://api.mybitx.com/';
 

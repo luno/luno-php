@@ -8,7 +8,7 @@ class BaseClientTest extends \PHPUnit\Framework\TestCase
 {
   public function testSetAuthGoodValues()
   {
-    $client = new Luno\BaseClient();
+    $client = new BaseClient();
 
     $client->setAuth('api_key', 'api_secret');
     $this->addToAssertionCount(1);
@@ -16,7 +16,7 @@ class BaseClientTest extends \PHPUnit\Framework\TestCase
 
   public function testSetAuthEmptyValues()
   {
-    $client = new Luno\BaseClient();
+    $client = new BaseClient();
 
     $this->expectException(\InvalidArgumentException::class);
     $client->setAuth('', '');
@@ -24,7 +24,7 @@ class BaseClientTest extends \PHPUnit\Framework\TestCase
 
   public function testSetAuthSomeValues()
   {
-    $client = new Luno\BaseClient();
+    $client = new BaseClient();
 
     $this->expectException(\InvalidArgumentException::class);
     $client->setAuth('api_key', '');
@@ -32,7 +32,7 @@ class BaseClientTest extends \PHPUnit\Framework\TestCase
 
   public function testSetAuthSomeValues2()
   {
-    $client = new Luno\BaseClient();
+    $client = new BaseClient();
 
     $this->expectException(\InvalidArgumentException::class);
     $client->setAuth('', 'api_secret');
@@ -40,7 +40,7 @@ class BaseClientTest extends \PHPUnit\Framework\TestCase
 
   public function testSetBaseURLGoodValue()
   {
-    $client = new Luno\BaseClient();
+    $client = new BaseClient();
 
     $client->setBaseURL('http://api.mybitx.com/');
     $this->addToAssertionCount(1);
@@ -48,7 +48,7 @@ class BaseClientTest extends \PHPUnit\Framework\TestCase
 
   public function testSetBaseURLEmptyValue()
   {
-    $client = new Luno\BaseClient();
+    $client = new BaseClient();
 
     $this->expectException(\InvalidArgumentException::class);
     $client->setBaseURL('');
@@ -56,7 +56,7 @@ class BaseClientTest extends \PHPUnit\Framework\TestCase
 
   public function testSetBaseURLBadValue()
   {
-    $client = new Luno\BaseClient();
+    $client = new BaseClient();
 
     $this->expectException(\InvalidArgumentException::class);
     $client->setBaseURL('invalid_url');
@@ -64,7 +64,7 @@ class BaseClientTest extends \PHPUnit\Framework\TestCase
 
   public function testSetBaseURLBadValue2()
   {
-    $client = new Luno\BaseClient();
+    $client = new BaseClient();
 
     $this->expectException(\InvalidArgumentException::class);
     $client->setBaseURL('api.mybitx.com');
@@ -72,7 +72,7 @@ class BaseClientTest extends \PHPUnit\Framework\TestCase
 
   public function testSetTimeoutGoodValue()
   {
-    $client = new Luno\BaseClient();
+    $client = new BaseClient();
 
     $client->setTimeout(1);
     $this->addToAssertionCount(1);
@@ -80,7 +80,7 @@ class BaseClientTest extends \PHPUnit\Framework\TestCase
 
   public function testSetTimeoutBadValue()
   {
-    $client = new Luno\BaseClient();
+    $client = new BaseClient();
 
     $this->expectException(\InvalidArgumentException::class);
     $client->setTimeout(0);
@@ -88,7 +88,7 @@ class BaseClientTest extends \PHPUnit\Framework\TestCase
 
   public function setClientBadValue()
   {
-    $client = new Luno\BaseClient();
+    $client = new BaseClient();
 
     $this->expectException(\InvalidArgumentException::class);
     $client->setClient(null);

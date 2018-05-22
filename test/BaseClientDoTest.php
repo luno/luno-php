@@ -18,11 +18,11 @@ class BaseClientDoTest extends \PHPUnit\Framework\TestCase
 
   protected function setUp()
   {
-     $class = new \ReflectionClass('Luno\BaseClient');
+     $class = new \ReflectionClass('Luno\Test\BaseClient');
      $this->method = $class->getMethod('do');
      $this->method->setAccessible(true);
 
-     $this->client = new Luno\BaseClient();
+     $this->client = new BaseClient();
   }
 
   public function testDoBasic()
