@@ -7,4 +7,5 @@ install:
   - composer install
 
 script:
+  - find src/ -name "*.php" | while read line; do php -l $line; done;
   - phpunit
