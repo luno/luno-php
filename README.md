@@ -23,11 +23,12 @@ to generate an API key.
 $client = new Luno\Client();
 $client->setAuth("api_key_id", "api_key_secret");
 
-$req = new Luno\GetOrderBookRequest();
-$req->pair = "XBTZAR";
+$req = new Luno\Request\GetOrderBook();
+$req->setPair("XBTZAR");
 
 try {
   $res = $client->getOrderBook($req);
+  echo "Found " . count($res->getBids()) . " bid(s)";
 } catch (Luno\Error $e) {
   echo $e->message();
 }
