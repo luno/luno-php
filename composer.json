@@ -1,0 +1,25 @@
+{
+  "name": "luno/luno-php",
+  "type": "library",
+  "description": "Luno API client",
+  "keywords": ["luno", "bitcoin", "ethereum"],
+  "homepage": "https://github.com/luno/luno-php",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Neil Garb",
+      "email": "neil@luno.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Luno\\": "src/Luno/"
+    }
+  },
+  "require": {
+    "guzzlehttp/guzzle": "6.3.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "7.1.4"
+  }
+}
