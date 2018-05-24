@@ -253,20 +253,6 @@ class Client extends AbstractClient
   }
 
   /**
-   * GetWithdrawals makes a call to GET /api/1/withdrawals.
-   *
-   * Returns a list of withdrawal requests.
-   * 
-   * Permissions required: <code>Perm_R_Withdrawals</code>
-   */ 
-  public function GetWithdrawals(Request\GetWithdrawals $req): Response\GetWithdrawals
-  {
-    $res = $this->do("GET", "/api/1/withdrawals", $req, true);
-    $mapper = new \JsonMapper();
-    return $mapper->map($res, new Response\GetWithdrawals);
-  }
-
-  /**
    * ListOrders makes a call to GET /api/1/listorders.
    *
    * Returns a list of the most recently placed orders. You can specify an
@@ -314,7 +300,7 @@ class Client extends AbstractClient
   }
 
   /**
-   * ListTransactions makes a call to GET /api/1/{id}/transactions.
+   * ListTransactions makes a call to GET /api/1/accounts/{id}/transactions.
    *
    * Return a list of transaction entries from an account.
    * 
@@ -331,7 +317,7 @@ class Client extends AbstractClient
    */ 
   public function ListTransactions(Request\ListTransactions $req): Response\ListTransactions
   {
-    $res = $this->do("GET", "/api/1/{id}/transactions", $req, true);
+    $res = $this->do("GET", "/api/1/accounts/{id}/transactions", $req, true);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\ListTransactions);
   }
@@ -358,6 +344,20 @@ class Client extends AbstractClient
     $res = $this->do("GET", "/api/1/listtrades", $req, true);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\ListUserTrades);
+  }
+
+  /**
+   * ListWithdrawals makes a call to GET /api/1/withdrawals.
+   *
+   * Returns a list of withdrawal requests.
+   * 
+   * Permissions required: <code>Perm_R_Withdrawals</code>
+   */ 
+  public function ListWithdrawals(Request\ListWithdrawals $req): Response\ListWithdrawals
+  {
+    $res = $this->do("GET", "/api/1/withdrawals", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ListWithdrawals);
   }
 
   /**

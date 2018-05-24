@@ -2,7 +2,7 @@
 
 namespace Luno\Response;
 
-class GetWithdrawals extends AbstractResponse
+class ListWithdrawals extends AbstractResponse
 {
   protected $withdrawals;
   

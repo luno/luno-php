@@ -74,12 +74,17 @@ abstract class AbstractClient
     $this->client = $client;
   }
 
-  protected function do(string $method, string $path, $req, bool $auth)
+  protected function do(string $method, string $path,
+    Request\AbstractRequest $req, bool $auth)
   {
+    $reqMap = null;
     if ($req !== null) {
-      $req = json_decode(json_encode($req));
-      foreach ($req as $k => $v) {
-        $path = str_replace('{' . $k . '}', $v, $path);
+      $reqMap = $req->serialize();
+      foreach ($reqMap as $k => $v) {
+        if (strstr($path, '{' . $k . '}')) {
+          $path = str_replace('{' . $k . '}', $v, $path);
+          unset($reqMap[$k]);
+        }
       }
     }
 
@@ -89,9 +94,9 @@ abstract class AbstractClient
       'timeout' => $this->timeoutSeconds,
     ];
     if ($method == 'GET') {
-      $options['query'] = $req;
+      $options['query'] = $reqMap;
     } else {
-      $options['form_params'] = $req;
+      $options['form_params'] = $reqMap;
     }
     if ($auth) {
       $options['auth'] = [$this->apiKeyID, $this->apiKeySecret];
@@ -99,14 +104,25 @@ abstract class AbstractClient
 
     try {
       $res = $this->client->request($method, $url, $options);
+      $json = json_decode($res->getBody());
+      $this->maybeThrowError($json);
     } catch (ClientException $e) {
       $json = json_decode($e->getResponse()->getBody());
-      if (isset($json->error_code)) {
-        throw new Error($json->error_code, $json->error);
-      }
+      $this->maybeThrowError($json);
       throw $e;
     }
 
-    return json_decode($res->getBody());
+    return $json;
+  }
+
+  private function maybeThrowError($json)
+  {
+    if ($json === null) {
+      return;
+    }
+    if (isset($json->error_code)) {
+      throw new Error($json->error_code, $json->error);
+    }
   }
 }
+

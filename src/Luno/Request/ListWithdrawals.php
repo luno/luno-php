@@ -2,7 +2,7 @@
 
 namespace Luno\Request;
 
-class GetWithdrawals extends AbstractRequest
+class ListWithdrawals extends AbstractRequest
 {
   }
 
