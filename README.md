@@ -30,7 +30,7 @@ try {
   $res = $client->getOrderBook($req);
   echo "Found " . count($res->getBids()) . " bid(s)";
 } catch (Luno\Error $e) {
-  echo $e->message();
+  echo $e->getMessage();
 }
 ```
 
