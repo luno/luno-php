@@ -33,7 +33,7 @@ class BaseClientDoTest extends \PHPUnit\Framework\TestCase
      $handler = HandlerStack::create($mock);
      $this->client->setClient(new HttpClient(['handler' => $handler]));
 
-     $res = $this->method->invokeArgs($this->client, ['GET', '/', null, false]);
+     $res = $this->method->invokeArgs($this->client, ['GET', '/', new Luno\Request\GetOrderBook, false]);
      $this->assertEquals('value', $res->key);
   }
 
@@ -46,7 +46,7 @@ class BaseClientDoTest extends \PHPUnit\Framework\TestCase
      $this->client->setClient(new HttpClient(['handler' => $handler]));
 
      $this->expectException(ClientException::class);
-     $this->method->invokeArgs($this->client, ['GET', '/', null, false]);
+     $this->method->invokeArgs($this->client, ['GET', '/', new Luno\Request\GetOrderBook, false]);
   }
 
   public function testDoNon200APIError()
@@ -58,6 +58,6 @@ class BaseClientDoTest extends \PHPUnit\Framework\TestCase
      $this->client->setClient(new HttpClient(['handler' => $handler]));
 
      $this->expectException(Luno\Error::class);
-     $this->method->invokeArgs($this->client, ['GET', '/', null, false]);
+     $this->method->invokeArgs($this->client, ['GET', '/', new Luno\Request\GetOrderBook, false]);
   }
 }
