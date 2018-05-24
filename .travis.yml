@@ -8,4 +8,7 @@ install:
 
 script:
   - find src/ -name "*.php" | while read line; do php -l $line; done;
-  - phpunit
+  - phpunit --coverage-clover=coverage.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
