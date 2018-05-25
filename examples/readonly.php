@@ -5,6 +5,7 @@
 require('../vendor/autoload.php');
 
 $client = new Luno\Client();
+$client->setAuth(getenv("LUNO_API_KEY_ID"), getenv("LUNO_API_KEY_SECRET"));
 
 $req = new Luno\Request\GetTickers;
 $res = $client->GetTickers($req);
@@ -29,8 +30,6 @@ $req->setSince(strtotime("yesterday")*1000);
 $res = $client->ListTrades($req);
 print_r($res);
 usleep(500000);
-
-$client->setAuth("", "");
 
 $req = new Luno\Request\GetBalances;
 $res = $client->GetBalances($req);
