@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Luno;
 
@@ -104,10 +104,10 @@ abstract class AbstractClient
 
     try {
       $res = $this->client->request($method, $url, $options);
-      $json = json_decode($res->getBody());
+      $json = json_decode($res->getBody()->getContents());
       $this->maybeThrowError($json);
     } catch (ClientException $e) {
-      $json = json_decode($e->getResponse()->getBody());
+      $json = json_decode($e->getResponse()->getBody()->getContents());
       $this->maybeThrowError($json);
       throw $e;
     }
