@@ -10,20 +10,20 @@ class CancelWithdrawal extends AbstractRequest
   protected $id;
   
   /**
-   * @return int
+   * @return string
    */
-  public function getId(): int
+  public function getId(): string
   {
     if (!isset($this->id)) {
-      return 0;
+      return "";
     }
     return $this->id;
   }
 
   /**
-   * @param int $id
+   * @param string $id
    */
-  public function setId(int $id)
+  public function setId(string $id)
   {
     $this->id = $id;
   }
