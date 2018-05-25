@@ -11,6 +11,7 @@ use GuzzleHttp\Exception\ClientException;
  */
 abstract class AbstractClient
 {
+  private static $version = "0.0.1-alpha";
   private static $defaultBaseURL = 'https://api.mybitx.com/';
   private static $defaultTimeoutSeconds = 10.0;
 
@@ -92,6 +93,9 @@ abstract class AbstractClient
 
     $options = [
       'timeout' => $this->timeoutSeconds,
+      'headers' => [
+        'User-Agent' => $this->makeUserAgent()
+      ]
     ];
     if ($method == 'GET') {
       $options['query'] = $reqMap;
@@ -123,6 +127,12 @@ abstract class AbstractClient
     if (isset($json->error_code)) {
       throw new Error($json->error_code, $json->error);
     }
+  }
+
+  private function makeUserAgent(): string
+  {
+    return "LunoPhpSDK/" . self::$version . " php" . phpversion() . " " .
+      php_uname("s") . " " . php_uname("m");
   }
 }
 
