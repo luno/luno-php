@@ -11,7 +11,7 @@ use GuzzleHttp\Exception\ClientException;
  */
 abstract class AbstractClient
 {
-  private static $version = "0.0.1-alpha";
+  private static $version = "0.0.2";
   private static $defaultBaseURL = 'https://api.mybitx.com/';
   private static $defaultTimeoutSeconds = 10.0;
 

@@ -1,7 +1,8 @@
 {
   "name": "luno/luno-php",
+  "version": "0.0.2",
   "type": "library",
-  "description": "Luno API client",
+  "description": "PHP SDK for the Luno API",
   "keywords": ["luno", "bitcoin", "ethereum"],
   "homepage": "https://github.com/luno/luno-php",
   "license": "MIT",
