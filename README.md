@@ -4,8 +4,6 @@
 
 This PHP package provides a wrapper for the [Luno API](https://www.luno.com/api).
 
-⚠️ WARNING This package is currently being tested, and should not be used in production.
-
 ### Installation
 
 ```
