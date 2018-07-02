@@ -35,6 +35,15 @@ class PostLimitOrder extends AbstractRequest
    * The counter currency account to use in the trade.
    */
   protected $counter_account_id;
+
+  /**
+   * Post-only orders will be cancelled if they would otherwise have traded
+   * immediately. For example, if there's a bid at ZAR 100,000 and you place
+   * a post-only ask at ZAR 100,000, your order will be cancelled instead of
+   * trading. If the best bid is ZAR 100,000 and you place a post-only ask at
+   * ZAR 101,000, your order won't trade but will go into the order book.
+   */
+  protected $post_only;
   
   /**
    * @return string
@@ -148,6 +157,25 @@ class PostLimitOrder extends AbstractRequest
   public function setCounterAccountId(string $counterAccountId)
   {
     $this->counter_account_id = $counterAccountId;
+  }
+
+  /**
+   * @return bool
+   */
+  public function getPostOnly(): bool
+  {
+    if (!isset($this->post_only)) {
+      return false;
+    }
+    return $this->post_only;
+  }
+
+  /**
+   * @param bool $postOnly
+   */
+  public function setPostOnly(bool $postOnly)
+  {
+    $this->post_only = $postOnly;
   }
 }
 
