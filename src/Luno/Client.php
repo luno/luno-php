@@ -187,17 +187,36 @@ class Client extends AbstractClient
   }
 
   /**
-   * GetOrderBook makes a call to GET /api/1/orderbook.
+   * GetOrderBook makes a call to GET /api/1/orderbook_top.
    *
-   * Returns a list of bids and asks in the order book. Ask orders are sorted by
-   * price ascending. Bid orders are sorted by price descending. Note that
-   * multiple orders at the same price are not necessarily conflated.
+   * Returns a list of the top 100 bids and asks in the order book.
+   * Ask orders are sorted by price ascending.
+   * Bid orders are sorted by price descending.
+   * Orders of the same price are aggregated.
    */ 
   public function GetOrderBook(Request\GetOrderBook $req): Response\GetOrderBook
   {
-    $res = $this->do("GET", "/api/1/orderbook", $req, false);
+    $res = $this->do("GET", "/api/1/orderbook_top", $req, false);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\GetOrderBook);
+  }
+
+  /**
+   * GetOrderBookFull makes a call to GET /api/1/orderbook.
+   *
+   * Returns a list of all bids and asks in the order book.
+   * Ask orders are sorted by price ascending.
+   * Bid orders are sorted by price descending.
+   * Multiple orders at the same price are not aggregated.
+   * 
+   * Warning: This may return a large amount of data. Generally you should rather
+   * use GetOrderBook or the Streaming API.
+   */ 
+  public function GetOrderBookFull(Request\GetOrderBookFull $req): Response\GetOrderBookFull
+  {
+    $res = $this->do("GET", "/api/1/orderbook", $req, false);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetOrderBookFull);
   }
 
   /**
