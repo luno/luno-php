@@ -10,6 +10,23 @@ class ListUserTrades extends AbstractRequest
   protected $pair;
 
   /**
+   * Filter to trades from (including) this sequence number.
+   * Default behaviour is not to include this filter.
+   */
+  protected $after_seq;
+
+  /**
+   * Filter to trades before this timestamp.
+   */
+  protected $before;
+
+  /**
+   * Filter to trades before (excluding) this sequence number.
+   * Default behaviour is not to include this filter.
+   */
+  protected $before_seq;
+
+  /**
    * Limit to this number of trades (default 100).
    */
   protected $limit;
@@ -18,6 +35,12 @@ class ListUserTrades extends AbstractRequest
    * Filter to trades on or after this timestamp.
    */
   protected $since;
+
+  /**
+   * If set to true, sorts trades in descending order, otherwise ascending
+   * order will be assumed.
+   */
+  protected $sort_desc;
   
   /**
    * @return string
@@ -36,6 +59,63 @@ class ListUserTrades extends AbstractRequest
   public function setPair(string $pair)
   {
     $this->pair = $pair;
+  }
+
+  /**
+   * @return int
+   */
+  public function getAfterSeq(): int
+  {
+    if (!isset($this->after_seq)) {
+      return 0;
+    }
+    return $this->after_seq;
+  }
+
+  /**
+   * @param int $afterSeq
+   */
+  public function setAfterSeq(int $afterSeq)
+  {
+    $this->after_seq = $afterSeq;
+  }
+
+  /**
+   * @return int
+   */
+  public function getBefore(): int
+  {
+    if (!isset($this->before)) {
+      return 0;
+    }
+    return $this->before;
+  }
+
+  /**
+   * @param int $before
+   */
+  public function setBefore(int $before)
+  {
+    $this->before = $before;
+  }
+
+  /**
+   * @return int
+   */
+  public function getBeforeSeq(): int
+  {
+    if (!isset($this->before_seq)) {
+      return 0;
+    }
+    return $this->before_seq;
+  }
+
+  /**
+   * @param int $beforeSeq
+   */
+  public function setBeforeSeq(int $beforeSeq)
+  {
+    $this->before_seq = $beforeSeq;
   }
 
   /**
@@ -74,6 +154,25 @@ class ListUserTrades extends AbstractRequest
   public function setSince(int $since)
   {
     $this->since = $since;
+  }
+
+  /**
+   * @return bool
+   */
+  public function getSortDesc(): bool
+  {
+    if (!isset($this->sort_desc)) {
+      return false;
+    }
+    return $this->sort_desc;
+  }
+
+  /**
+   * @param bool $sortDesc
+   */
+  public function setSortDesc(bool $sortDesc)
+  {
+    $this->sort_desc = $sortDesc;
   }
 }
 

@@ -345,7 +345,8 @@ class Client extends AbstractClient
    * ListUserTrades makes a call to GET /api/1/listtrades.
    *
    * Returns a list of your recent trades for a given pair, sorted by oldest
-   * first.
+   * first. If <code>before</code> is specified, then the trades are returned
+   * sorted by most-recent first.
    * 
    * <code>type</code> in the response indicates the type of order that you placed
    * in order to participate in the trade. Possible types: <code>BID</code>,
@@ -435,7 +436,7 @@ class Client extends AbstractClient
    * If the email address is not associated with an existing Luno account, an
    * invitation to create an account and claim the funds will be sent.
    * 
-   * Warning! Digital currency transactions are irreversible. Please ensure your
+   * Warning! Cryptocurrency transactions are irreversible. Please ensure your
    * program has been thoroughly tested before using this call.
    * 
    * Permissions required: <code>Perm_W_Send</code>
