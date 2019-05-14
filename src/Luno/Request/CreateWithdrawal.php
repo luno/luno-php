@@ -23,6 +23,13 @@ class CreateWithdrawal extends AbstractRequest
   protected $beneficiary_id;
 
   /**
+   * Optional unique ID to associate with this withdrawal. Useful to prevent
+   * duplicate sends in case of failure. It supports all alphanumeric
+   * characters, as well as "-" and "_".
+   */
+  protected $external_id;
+
+  /**
    * For internal use.
    */
   protected $reference;
@@ -82,6 +89,25 @@ class CreateWithdrawal extends AbstractRequest
   public function setBeneficiaryId(string $beneficiaryId)
   {
     $this->beneficiary_id = $beneficiaryId;
+  }
+
+  /**
+   * @return string
+   */
+  public function getExternalId(): string
+  {
+    if (!isset($this->external_id)) {
+      return "";
+    }
+    return $this->external_id;
+  }
+
+  /**
+   * @param string $externalId
+   */
+  public function setExternalId(string $externalId)
+  {
+    $this->external_id = $externalId;
   }
 
   /**
