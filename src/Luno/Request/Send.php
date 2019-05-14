@@ -33,6 +33,13 @@ class Send extends AbstractRequest
   protected $description;
 
   /**
+   * Optional unique ID to associate with this withdrawal. Useful to prevent
+   * duplicate sends in case of failure. It supports all alphanumeric
+   * characters, as well as "-" and "_".
+   */
+  protected $external_id;
+
+  /**
    * Message to send to the recipient. This is only relevant when sending to
    * an email address.
    */
@@ -112,6 +119,25 @@ class Send extends AbstractRequest
   public function setDescription(string $description)
   {
     $this->description = $description;
+  }
+
+  /**
+   * @return string
+   */
+  public function getExternalId(): string
+  {
+    if (!isset($this->external_id)) {
+      return "";
+    }
+    return $this->external_id;
+  }
+
+  /**
+   * @param string $externalId
+   */
+  public function setExternalId(string $externalId)
+  {
+    $this->external_id = $externalId;
   }
 
   /**
