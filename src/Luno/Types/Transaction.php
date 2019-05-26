@@ -19,6 +19,11 @@ class Transaction
    * Human-readable description of the transaction.
    */
   protected $description;
+
+  /**
+   * Human-readable label-value attributes.
+   */
+  protected $details;
   protected $row_index;
   protected $timestamp;
   
@@ -153,6 +158,25 @@ class Transaction
   public function setDescription(string $description)
   {
     $this->description = $description;
+  }
+
+  /**
+   * @return array
+   */
+  public function getDetails(): array
+  {
+    if (!isset($this->details)) {
+      return [];
+    }
+    return $this->details;
+  }
+
+  /**
+   * @param array $details
+   */
+  public function setDetails(array $details)
+  {
+    $this->details = $details;
   }
 
   /**
