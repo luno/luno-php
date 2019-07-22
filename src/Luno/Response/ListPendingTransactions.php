@@ -4,6 +4,7 @@ namespace Luno\Response;
 
 use Luno\Types\AccountBalance;
 use Luno\Types\AccountCapabilities;
+use Luno\Types\DetailFields;
 
 class ListPendingTransactions extends AbstractResponse
 {
