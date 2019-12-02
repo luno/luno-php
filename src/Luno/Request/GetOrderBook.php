@@ -5,7 +5,7 @@ namespace Luno\Request;
 class GetOrderBook extends AbstractRequest
 {
   /**
-   * Currency pair
+   * Currency pair of the Orders to retrieve
    */
   protected $pair;
   

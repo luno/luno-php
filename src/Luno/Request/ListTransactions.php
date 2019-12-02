@@ -5,56 +5,37 @@ namespace Luno\Request;
 class ListTransactions extends AbstractRequest
 {
   /**
-   * Account ID
+   * Account ID - the unique identifier for the specific Account.
    */
   protected $id;
-
-  /**
-   * Maximum of the row range to return (exclusive)
-   */
-  protected $max_row;
 
   /**
    * Minimum of the row range to return (inclusive)
    */
   protected $min_row;
+
+  /**
+   * Maximum of the row range to return (exclusive)
+   */
+  protected $max_row;
   
   /**
-   * @return string
+   * @return int
    */
-  public function getId(): string
+  public function getId(): int
   {
     if (!isset($this->id)) {
-      return "";
+      return 0;
     }
     return $this->id;
   }
 
   /**
-   * @param string $id
+   * @param int $id
    */
-  public function setId(string $id)
+  public function setId(int $id)
   {
     $this->id = $id;
-  }
-
-  /**
-   * @return int
-   */
-  public function getMaxRow(): int
-  {
-    if (!isset($this->max_row)) {
-      return 0;
-    }
-    return $this->max_row;
-  }
-
-  /**
-   * @param int $maxRow
-   */
-  public function setMaxRow(int $maxRow)
-  {
-    $this->max_row = $maxRow;
   }
 
   /**
@@ -74,6 +55,25 @@ class ListTransactions extends AbstractRequest
   public function setMinRow(int $minRow)
   {
     $this->min_row = $minRow;
+  }
+
+  /**
+   * @return int
+   */
+  public function getMaxRow(): int
+  {
+    if (!isset($this->max_row)) {
+      return 0;
+    }
+    return $this->max_row;
+  }
+
+  /**
+   * @param int $maxRow
+   */
+  public function setMaxRow(int $maxRow)
+  {
+    $this->max_row = $maxRow;
   }
 }
 

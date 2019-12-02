@@ -5,6 +5,16 @@ namespace Luno\Request;
 class Send extends AbstractRequest
 {
   /**
+   * Amount to send as a decimal string.
+   */
+  protected $amount;
+
+  /**
+   * Currency to send.
+   */
+  protected $currency;
+
+  /**
    * Destination Bitcoin address or email address, or Ethereum address to send
    * to.
    * 
@@ -18,19 +28,15 @@ class Send extends AbstractRequest
   protected $address;
 
   /**
-   * Amount to send as a decimal string.
-   */
-  protected $amount;
-
-  /**
-   * Currency to send.
-   */
-  protected $currency;
-
-  /**
    * Description for the transaction to record on the account statement.
    */
   protected $description;
+
+  /**
+   * Message to send to the recipient. This is only relevant when sending to
+   * an email address.
+   */
+  protected $message;
 
   /**
    * Optional unique ID to associate with this withdrawal. Useful to prevent
@@ -38,32 +44,7 @@ class Send extends AbstractRequest
    * characters, as well as "-" and "_".
    */
   protected $external_id;
-
-  /**
-   * Message to send to the recipient. This is only relevant when sending to
-   * an email address.
-   */
-  protected $message;
   
-  /**
-   * @return string
-   */
-  public function getAddress(): string
-  {
-    if (!isset($this->address)) {
-      return "";
-    }
-    return $this->address;
-  }
-
-  /**
-   * @param string $address
-   */
-  public function setAddress(string $address)
-  {
-    $this->address = $address;
-  }
-
   /**
    * @return float
    */
@@ -105,6 +86,25 @@ class Send extends AbstractRequest
   /**
    * @return string
    */
+  public function getAddress(): string
+  {
+    if (!isset($this->address)) {
+      return "";
+    }
+    return $this->address;
+  }
+
+  /**
+   * @param string $address
+   */
+  public function setAddress(string $address)
+  {
+    $this->address = $address;
+  }
+
+  /**
+   * @return string
+   */
   public function getDescription(): string
   {
     if (!isset($this->description)) {
@@ -124,25 +124,6 @@ class Send extends AbstractRequest
   /**
    * @return string
    */
-  public function getExternalId(): string
-  {
-    if (!isset($this->external_id)) {
-      return "";
-    }
-    return $this->external_id;
-  }
-
-  /**
-   * @param string $externalId
-   */
-  public function setExternalId(string $externalId)
-  {
-    $this->external_id = $externalId;
-  }
-
-  /**
-   * @return string
-   */
   public function getMessage(): string
   {
     if (!isset($this->message)) {
@@ -157,6 +138,25 @@ class Send extends AbstractRequest
   public function setMessage(string $message)
   {
     $this->message = $message;
+  }
+
+  /**
+   * @return string
+   */
+  public function getExternalId(): string
+  {
+    if (!isset($this->external_id)) {
+      return "";
+    }
+    return $this->external_id;
+  }
+
+  /**
+   * @param string $externalId
+   */
+  public function setExternalId(string $externalId)
+  {
+    $this->external_id = $externalId;
   }
 }
 

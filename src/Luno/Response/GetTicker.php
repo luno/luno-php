@@ -9,6 +9,15 @@ class GetTicker extends AbstractResponse
   protected $last_trade;
   protected $pair;
   protected $rolling_24_hour_volume;
+
+  /**
+   * <code>ACTIVE</code> when the market is trading normally
+   * 
+   * <code>POSTONLY</code> when the market has been suspended and only post-only orders will be accepted
+   * 
+   * <code>DISABLED</code> when the market is shutdown and no orders can be accepted
+   */
+  protected $status;
   protected $timestamp;
   
   /**
@@ -104,6 +113,25 @@ class GetTicker extends AbstractResponse
   public function setRolling24HourVolume(float $rolling24HourVolume)
   {
     $this->rolling_24_hour_volume = $rolling24HourVolume;
+  }
+
+  /**
+   * @return string
+   */
+  public function getStatus(): string
+  {
+    if (!isset($this->status)) {
+      return "";
+    }
+    return $this->status;
+  }
+
+  /**
+   * @param string $status
+   */
+  public function setStatus(string $status)
+  {
+    $this->status = $status;
   }
 
   /**
