@@ -5,14 +5,14 @@ namespace Luno\Request;
 class CreateWithdrawal extends AbstractRequest
 {
   /**
-   * Amount to withdraw. The currency depends on the type.
-   */
-  protected $amount;
-
-  /**
    * Withdrawal type.
    */
   protected $type;
+
+  /**
+   * Amount to withdraw. The currency depends on the type.
+   */
+  protected $amount;
 
   /**
    * The beneficiary ID of the bank account the withdrawal will be paid out
@@ -23,36 +23,17 @@ class CreateWithdrawal extends AbstractRequest
   protected $beneficiary_id;
 
   /**
+   * For internal use.
+   */
+  protected $reference;
+
+  /**
    * Optional unique ID to associate with this withdrawal. Useful to prevent
    * duplicate sends in case of failure. It supports all alphanumeric
    * characters, as well as "-" and "_".
    */
   protected $external_id;
-
-  /**
-   * For internal use.
-   */
-  protected $reference;
   
-  /**
-   * @return float
-   */
-  public function getAmount(): float
-  {
-    if (!isset($this->amount)) {
-      return 0;
-    }
-    return $this->amount;
-  }
-
-  /**
-   * @param float $amount
-   */
-  public function setAmount(float $amount)
-  {
-    $this->amount = $amount;
-  }
-
   /**
    * @return string
    */
@@ -73,41 +54,41 @@ class CreateWithdrawal extends AbstractRequest
   }
 
   /**
-   * @return string
+   * @return float
    */
-  public function getBeneficiaryId(): string
+  public function getAmount(): float
+  {
+    if (!isset($this->amount)) {
+      return 0;
+    }
+    return $this->amount;
+  }
+
+  /**
+   * @param float $amount
+   */
+  public function setAmount(float $amount)
+  {
+    $this->amount = $amount;
+  }
+
+  /**
+   * @return int
+   */
+  public function getBeneficiaryId(): int
   {
     if (!isset($this->beneficiary_id)) {
-      return "";
+      return 0;
     }
     return $this->beneficiary_id;
   }
 
   /**
-   * @param string $beneficiaryId
+   * @param int $beneficiaryId
    */
-  public function setBeneficiaryId(string $beneficiaryId)
+  public function setBeneficiaryId(int $beneficiaryId)
   {
     $this->beneficiary_id = $beneficiaryId;
-  }
-
-  /**
-   * @return string
-   */
-  public function getExternalId(): string
-  {
-    if (!isset($this->external_id)) {
-      return "";
-    }
-    return $this->external_id;
-  }
-
-  /**
-   * @param string $externalId
-   */
-  public function setExternalId(string $externalId)
-  {
-    $this->external_id = $externalId;
   }
 
   /**
@@ -127,6 +108,25 @@ class CreateWithdrawal extends AbstractRequest
   public function setReference(string $reference)
   {
     $this->reference = $reference;
+  }
+
+  /**
+   * @return string
+   */
+  public function getExternalId(): string
+  {
+    if (!isset($this->external_id)) {
+      return "";
+    }
+    return $this->external_id;
+  }
+
+  /**
+   * @param string $externalId
+   */
+  public function setExternalId(string $externalId)
+  {
+    $this->external_id = $externalId;
   }
 }
 

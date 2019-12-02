@@ -10,7 +10,7 @@ class GetFundingAddress extends AbstractRequest
   protected $asset;
 
   /**
-   * Specific Bitcoin or Ethereum address to retrieve. If not provided, the
+   * Specific cryptocurrency address to retrieve. If not provided, the
    * default address will be used.
    */
   protected $address;

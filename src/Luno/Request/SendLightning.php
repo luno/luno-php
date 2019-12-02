@@ -2,41 +2,22 @@
 
 namespace Luno\Request;
 
-class Send extends AbstractRequest
+class SendLightning extends AbstractRequest
 {
-  /**
-   * Amount to send as a decimal string.
-   */
-  protected $amount;
-
   /**
    * Currency to send.
    */
   protected $currency;
 
   /**
-   * Destination Bitcoin address or email address, or Ethereum address to send
-   * to.
-   * 
-   * Note:
-   * <ul>
-   * <li>Ethereum addresses must be
-   * <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-55.md" target="_blank" rel="nofollow">checksummed</a>.</li>
-   * <li>Ethereum sends to email addresses are not supported.</li>
-   * </ul>
+   * Lightning payment request to send to.
    */
-  protected $address;
+  protected $payment_request;
 
   /**
    * Description for the transaction to record on the account statement.
    */
   protected $description;
-
-  /**
-   * Message to send to the recipient. This is only relevant when sending to
-   * an email address.
-   */
-  protected $message;
 
   /**
    * Optional unique ID to associate with this withdrawal. Useful to prevent
@@ -45,25 +26,6 @@ class Send extends AbstractRequest
    */
   protected $external_id;
   
-  /**
-   * @return float
-   */
-  public function getAmount(): float
-  {
-    if (!isset($this->amount)) {
-      return 0;
-    }
-    return $this->amount;
-  }
-
-  /**
-   * @param float $amount
-   */
-  public function setAmount(float $amount)
-  {
-    $this->amount = $amount;
-  }
-
   /**
    * @return string
    */
@@ -86,20 +48,20 @@ class Send extends AbstractRequest
   /**
    * @return string
    */
-  public function getAddress(): string
+  public function getPaymentRequest(): string
   {
-    if (!isset($this->address)) {
+    if (!isset($this->payment_request)) {
       return "";
     }
-    return $this->address;
+    return $this->payment_request;
   }
 
   /**
-   * @param string $address
+   * @param string $paymentRequest
    */
-  public function setAddress(string $address)
+  public function setPaymentRequest(string $paymentRequest)
   {
-    $this->address = $address;
+    $this->payment_request = $paymentRequest;
   }
 
   /**
@@ -119,25 +81,6 @@ class Send extends AbstractRequest
   public function setDescription(string $description)
   {
     $this->description = $description;
-  }
-
-  /**
-   * @return string
-   */
-  public function getMessage(): string
-  {
-    if (!isset($this->message)) {
-      return "";
-    }
-    return $this->message;
-  }
-
-  /**
-   * @param string $message
-   */
-  public function setMessage(string $message)
-  {
-    $this->message = $message;
   }
 
   /**

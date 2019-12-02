@@ -22,7 +22,7 @@ class Client extends AbstractClient
   /**
    * CreateAccount makes a call to POST /api/1/accounts.
    *
-   * Create an additional account for the specified currency.
+   * This request creates an Account for the specified currency.  Please note that the balances for the Account will be displayed based on the <code>asset</code> value, which is the currency the Account is based on.
    * 
    * Permissions required: <code>Perm_W_Addresses</code>
    */ 
@@ -127,7 +127,7 @@ class Client extends AbstractClient
   /**
    * GetBalances makes a call to GET /api/1/balance.
    *
-   * Return the list of all accounts and their respective balances.
+   * The list of all Accounts and their respective balances for the requesting user.
    * 
    * Permissions required: <code>Perm_R_Balance</code>
    */ 
@@ -141,8 +141,7 @@ class Client extends AbstractClient
   /**
    * GetFeeInfo makes a call to GET /api/1/fee_info.
    *
-   * Returns your fees and 30 day trading volume (as of midnight) for a given
-   * pair.
+   * Returns the fees and 30 day trading volume (as of midnight) for a given currency pair.  For complete details, please see <a href="en/countries">Fees & Features</a>.
    * 
    * Permissions required: <code>Perm_R_Orders</code>
    */ 
@@ -157,11 +156,10 @@ class Client extends AbstractClient
    * GetFundingAddress makes a call to GET /api/1/funding_address.
    *
    * Returns the default receive address associated with your account and the
-   * amount received via the address. You can specify an optional address
-   * parameter to return information for a non-default receive address. In the
-   * response, total_received is the total confirmed Bitcoin amount received
-   * excluding unconfirmed transactions. total_unconfirmed is the total sum of
-   * unconfirmed receive transactions.
+   * amount received via the address. Users can specify an optional address parameter to return information for a non-default receive address.
+   * 
+   * In the response, <code>total_received</code> is the total confirmed amount received excluding unconfirmed transactions.
+   * <code>total_unconfirmed</code> is the total sum of unconfirmed receive transactions.
    * 
    * Permissions required: <code>Perm_R_Addresses</code>
    */ 
@@ -170,6 +168,23 @@ class Client extends AbstractClient
     $res = $this->do("GET", "/api/1/funding_address", $req, true);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\GetFundingAddress);
+  }
+
+  /**
+   * GetLightningReceive makes a call to GET /api/1/lightning/receive/{id}.
+   *
+   * <b>Alpha warning!</b> The Lightning API is still in Alpha stage.
+   * The risks are limited api availability and channel capacity.
+   * 
+   * Lookup the status of a Lightning Receive Invoice.
+   * 
+   * Permissions required: <code>Perm_W_Send</code>
+   */ 
+  public function GetLightningReceive(Request\GetLightningReceive $req): Response\GetLightningReceive
+  {
+    $res = $this->do("GET", "/api/1/lightning/receive/{id}", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetLightningReceive);
   }
 
   /**
@@ -189,9 +204,12 @@ class Client extends AbstractClient
   /**
    * GetOrderBook makes a call to GET /api/1/orderbook_top.
    *
-   * Returns a list of the top 100 bids and asks in the order book.
-   * Ask orders are sorted by price ascending.
-   * Bid orders are sorted by price descending.
+   * Returns a list of the top 100 <em>bids</em> and <em>asks</em> for the currency pair specified in the Order Book.
+   * 
+   * Ask Orders are sorted by price ascending.
+   * 
+   * Bid Orders are sorted by price descending.
+   * 
    * Orders of the same price are aggregated.
    */ 
   public function GetOrderBook(Request\GetOrderBook $req): Response\GetOrderBook
@@ -204,13 +222,17 @@ class Client extends AbstractClient
   /**
    * GetOrderBookFull makes a call to GET /api/1/orderbook.
    *
-   * Returns a list of all bids and asks in the order book.
+   * This request returns a list of all <em>bids</em> and <em>asks</em> for the currency pair specified in the Order Book.
+   * 
    * Ask orders are sorted by price ascending.
+   * 
    * Bid orders are sorted by price descending.
+   * 
    * Multiple orders at the same price are not aggregated.
    * 
-   * Warning: This may return a large amount of data. Generally you should rather
-   * use GetOrderBook or the Streaming API.
+   * <b>Warning:</b> This may return a large amount of data.
+   * Users are recommended to use the <a href="#operation/getOrderBook">top 100 bids and asks</a>
+   * or the <a href="#tag/streaming-API-(beta)">Streaming API</a>.
    */ 
   public function GetOrderBookFull(Request\GetOrderBookFull $req): Response\GetOrderBookFull
   {
@@ -274,10 +296,10 @@ class Client extends AbstractClient
   /**
    * ListOrders makes a call to GET /api/1/listorders.
    *
-   * Returns a list of the most recently placed orders. You can specify an
-   * optional <code>state=PENDING</code> parameter to restrict the results to only
-   * open orders. You can also specify the market by using the optional pair
-   * parameter. The list is truncated after 100 items.
+   * Returns a list of the most recently placed Orders.
+   * Users can specify an optional <code>state=PENDING</code> parameter to restrict the results to only open Orders.
+   * Users can also specify the market by using the optional currency pair parameter.
+   * The list is truncated after 100 items.
    * 
    * Permissions required: <code>Perm_R_Orders</code>
    */ 
@@ -291,10 +313,9 @@ class Client extends AbstractClient
   /**
    * ListPendingTransactions makes a call to GET /api/1/accounts/{id}/pending.
    *
-   * Return a list of all pending transactions related to the account.
+   * Return a list of all transactions that have not completed for the Account.
    * 
-   * Unlike account entries, pending transactions are not numbered, and may be
-   * reordered, deleted or updated at any time.
+   * Pending transactions are not numbered, and may be reordered, deleted or updated at any time.
    * 
    * Permissions required: <code>Perm_R_Transactions</code>
    */ 
@@ -308,8 +329,8 @@ class Client extends AbstractClient
   /**
    * ListTrades makes a call to GET /api/1/trades.
    *
-   * Returns a list of the most recent trades. At most 100 results are returned
-   * per call.
+   * Returns a list of the most recent trades that happened in the last 24h. At
+   * most 100 results are returned per call.
    */ 
   public function ListTrades(Request\ListTrades $req): Response\ListTrades
   {
@@ -344,16 +365,13 @@ class Client extends AbstractClient
   /**
    * ListUserTrades makes a call to GET /api/1/listtrades.
    *
-   * Returns a list of your recent trades for a given pair, sorted by oldest
-   * first. If <code>before</code> is specified, then the trades are returned
-   * sorted by most-recent first.
+   * Returns a list of the recent Trades for a given currency pair for this user, sorted by oldest first.
+   * If <code>before</code> is specified, then Trades are returned sorted by most-recent first.
    * 
-   * <code>type</code> in the response indicates the type of order that you placed
-   * in order to participate in the trade. Possible types: <code>BID</code>,
-   * <code>ASK</code>.
+   * <code>type</code> in the response indicates the type of Order that was placed to participate in the trade.
+   * Possible types: <code>BID</code>, <code>ASK</code>.
    * 
-   * If <code>is_buy</code> in the response is true, then the order which
-   * completed the trade (market taker) was a bid order.
+   * If <code>is_buy</code> in the response is true, then the Order which completed the trade (market taker) was a Bid Order.
    * 
    * Results of this query may lag behind the latest data.
    * 
@@ -405,18 +423,15 @@ class Client extends AbstractClient
   /**
    * PostMarketOrder makes a call to POST /api/1/marketorder.
    *
-   * Create a new market order.
+   * Create a new Market Order.
    * 
-   * A market order executes immediately, and either buys as much Bitcoin or
-   * Ethereum that can be bought for a set amount of fiat currency, or sells a
-   * set amount of Bitcoin or Ethereum for as much fiat as possible.
+   * A Market Order executes immediately, and either buys as much of the asset that can be bought for a set amount of fiat currency, or sells a set amount of the asset for as much as possible.
    * 
-   * Warning! Orders cannot be reversed once they have executed. Please ensure
-   * your program has been thoroughly tested before submitting orders.
+   * <b>Warning!</b> Orders cannot be reversed once they have executed.
+   * Please ensure your program has been thoroughly tested before submitting Orders.
    * 
-   * If no base_account_id or counter_account_id are specified, your default base
-   * currency or counter currency account will be used. You can find your account
-   * IDs by calling the <a href="#operation/getBalances">Balances</a> API.
+   * If no <code>base_account_id</code> or <code>counter_account_id</code> are specified, the default base currency or counter currency account will be used.
+   * Users can find their account IDs by calling the <a href="#operation/getBalances">Balances</a> request.
    * 
    * Permissions required: <code>Perm_W_Orders</code>
    */ 
@@ -425,6 +440,24 @@ class Client extends AbstractClient
     $res = $this->do("POST", "/api/1/marketorder", $req, true);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\PostMarketOrder);
+  }
+
+  /**
+   * ReceiveLightning makes a call to POST /api/1/lightning/receive.
+   *
+   * <b>Alpha warning!</b> The Lightning API is still in Alpha stage.
+   * The risks are limited api availability and channel capacity.
+   * 
+   * Create a lightning invoice which can be used to receive
+   * BTC payments over the lightning network.
+   * 
+   * Permissions required: <code>Perm_W_Send</code>
+   */ 
+  public function ReceiveLightning(Request\ReceiveLightning $req): Response\ReceiveLightning
+  {
+    $res = $this->do("POST", "/api/1/lightning/receive", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ReceiveLightning);
   }
 
   /**
@@ -446,6 +479,26 @@ class Client extends AbstractClient
     $res = $this->do("POST", "/api/1/send", $req, true);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\Send);
+  }
+
+  /**
+   * SendLightning makes a call to POST /api/1/lightning/send.
+   *
+   * <b>Alpha warning!</b> The Lightning API is still in Alpha stage.
+   * The risks are limited api availability and channel capacity.
+   * 
+   * Send Bitcoin over the Lightning network from your Bitcoin Account.
+   * 
+   * Warning! Cryptocurrency transactions are irreversible. Please ensure your
+   * program has been thoroughly tested before using this call.
+   * 
+   * Permissions required: <code>Perm_W_Send</code>
+   */ 
+  public function SendLightning(Request\SendLightning $req): Response\SendLightning
+  {
+    $res = $this->do("POST", "/api/1/lightning/send", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\SendLightning);
   }
 
   /**

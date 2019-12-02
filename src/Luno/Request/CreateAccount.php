@@ -5,10 +5,11 @@ namespace Luno\Request;
 class CreateAccount extends AbstractRequest
 {
   /**
-   * The currency code for the account you want to create
+   * The currency code for the Account you want to create.  Please see the Currency section for a detailed list of currencies supported by the Luno platform.
    * 
-   * You must be verified to trade currency in order to be able to create an
-   * account. A user has a limit of 4 accounts per currency.
+   * Users must be verified to trade currency in order to be able to create an Account.  For more information on the verification process, please see <a href="/help/en/articles/1000168396">How do I verify my identity?</a>.
+   * 
+   * Users have a limit of 4 accounts per currency.
    */
   protected $currency;
 

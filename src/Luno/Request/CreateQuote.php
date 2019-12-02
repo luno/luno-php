@@ -5,6 +5,11 @@ namespace Luno\Request;
 class CreateQuote extends AbstractRequest
 {
   /**
+   * <code>BUY</code> or <code>SELL</code>.
+   */
+  protected $type;
+
+  /**
    * Amount to buy or sell in the pair base currency.
    */
   protected $base_amount;
@@ -16,11 +21,6 @@ class CreateQuote extends AbstractRequest
   protected $pair;
 
   /**
-   * <code>BUY</code> or <code>SELL</code>.
-   */
-  protected $type;
-
-  /**
    * Optional account for the pair's base currency.
    */
   protected $base_account_id;
@@ -30,6 +30,25 @@ class CreateQuote extends AbstractRequest
    */
   protected $counter_account_id;
   
+  /**
+   * @return string
+   */
+  public function getType(): string
+  {
+    if (!isset($this->type)) {
+      return "";
+    }
+    return $this->type;
+  }
+
+  /**
+   * @param string $type
+   */
+  public function setType(string $type)
+  {
+    $this->type = $type;
+  }
+
   /**
    * @return float
    */
@@ -69,58 +88,39 @@ class CreateQuote extends AbstractRequest
   }
 
   /**
-   * @return string
+   * @return int
    */
-  public function getType(): string
-  {
-    if (!isset($this->type)) {
-      return "";
-    }
-    return $this->type;
-  }
-
-  /**
-   * @param string $type
-   */
-  public function setType(string $type)
-  {
-    $this->type = $type;
-  }
-
-  /**
-   * @return string
-   */
-  public function getBaseAccountId(): string
+  public function getBaseAccountId(): int
   {
     if (!isset($this->base_account_id)) {
-      return "";
+      return 0;
     }
     return $this->base_account_id;
   }
 
   /**
-   * @param string $baseAccountId
+   * @param int $baseAccountId
    */
-  public function setBaseAccountId(string $baseAccountId)
+  public function setBaseAccountId(int $baseAccountId)
   {
     $this->base_account_id = $baseAccountId;
   }
 
   /**
-   * @return string
+   * @return int
    */
-  public function getCounterAccountId(): string
+  public function getCounterAccountId(): int
   {
     if (!isset($this->counter_account_id)) {
-      return "";
+      return 0;
     }
     return $this->counter_account_id;
   }
 
   /**
-   * @param string $counterAccountId
+   * @param int $counterAccountId
    */
-  public function setCounterAccountId(string $counterAccountId)
+  public function setCounterAccountId(int $counterAccountId)
   {
     $this->counter_account_id = $counterAccountId;
   }

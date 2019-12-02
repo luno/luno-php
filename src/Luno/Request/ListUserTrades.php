@@ -10,15 +10,20 @@ class ListUserTrades extends AbstractRequest
   protected $pair;
 
   /**
-   * Filter to trades from (including) this sequence number.
-   * Default behaviour is not to include this filter.
+   * Filter to trades on or after this timestamp.
    */
-  protected $after_seq;
+  protected $since;
 
   /**
    * Filter to trades before this timestamp.
    */
   protected $before;
+
+  /**
+   * Filter to trades from (including) this sequence number.
+   * Default behaviour is not to include this filter.
+   */
+  protected $after_seq;
 
   /**
    * Filter to trades before (excluding) this sequence number.
@@ -27,20 +32,15 @@ class ListUserTrades extends AbstractRequest
   protected $before_seq;
 
   /**
-   * Limit to this number of trades (default 100).
-   */
-  protected $limit;
-
-  /**
-   * Filter to trades on or after this timestamp.
-   */
-  protected $since;
-
-  /**
    * If set to true, sorts trades in descending order, otherwise ascending
    * order will be assumed.
    */
   protected $sort_desc;
+
+  /**
+   * Limit to this number of trades (default 100).
+   */
+  protected $limit;
   
   /**
    * @return string
@@ -64,20 +64,20 @@ class ListUserTrades extends AbstractRequest
   /**
    * @return int
    */
-  public function getAfterSeq(): int
+  public function getSince(): int
   {
-    if (!isset($this->after_seq)) {
+    if (!isset($this->since)) {
       return 0;
     }
-    return $this->after_seq;
+    return $this->since;
   }
 
   /**
-   * @param int $afterSeq
+   * @param int $since
    */
-  public function setAfterSeq(int $afterSeq)
+  public function setSince(int $since)
   {
-    $this->after_seq = $afterSeq;
+    $this->since = $since;
   }
 
   /**
@@ -102,6 +102,25 @@ class ListUserTrades extends AbstractRequest
   /**
    * @return int
    */
+  public function getAfterSeq(): int
+  {
+    if (!isset($this->after_seq)) {
+      return 0;
+    }
+    return $this->after_seq;
+  }
+
+  /**
+   * @param int $afterSeq
+   */
+  public function setAfterSeq(int $afterSeq)
+  {
+    $this->after_seq = $afterSeq;
+  }
+
+  /**
+   * @return int
+   */
   public function getBeforeSeq(): int
   {
     if (!isset($this->before_seq)) {
@@ -116,44 +135,6 @@ class ListUserTrades extends AbstractRequest
   public function setBeforeSeq(int $beforeSeq)
   {
     $this->before_seq = $beforeSeq;
-  }
-
-  /**
-   * @return int
-   */
-  public function getLimit(): int
-  {
-    if (!isset($this->limit)) {
-      return 0;
-    }
-    return $this->limit;
-  }
-
-  /**
-   * @param int $limit
-   */
-  public function setLimit(int $limit)
-  {
-    $this->limit = $limit;
-  }
-
-  /**
-   * @return int
-   */
-  public function getSince(): int
-  {
-    if (!isset($this->since)) {
-      return 0;
-    }
-    return $this->since;
-  }
-
-  /**
-   * @param int $since
-   */
-  public function setSince(int $since)
-  {
-    $this->since = $since;
   }
 
   /**
@@ -173,6 +154,25 @@ class ListUserTrades extends AbstractRequest
   public function setSortDesc(bool $sortDesc)
   {
     $this->sort_desc = $sortDesc;
+  }
+
+  /**
+   * @return int
+   */
+  public function getLimit(): int
+  {
+    if (!isset($this->limit)) {
+      return 0;
+    }
+    return $this->limit;
+  }
+
+  /**
+   * @param int $limit
+   */
+  public function setLimit(int $limit)
+  {
+    $this->limit = $limit;
   }
 }
 
