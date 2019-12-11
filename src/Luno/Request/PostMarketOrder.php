@@ -10,8 +10,8 @@ class PostMarketOrder extends AbstractRequest
   protected $pair;
 
   /**
-   * <code>BUY</code> to buy Bitcoin or Ethereum<br>
-   * <code>SELL</code> to sell Bitcoin or Ethereum
+   * <code>BUY</code> to buy an asset<br>
+   * <code>SELL</code> to sell an asset
    */
   protected $type;
 
@@ -21,8 +21,7 @@ class PostMarketOrder extends AbstractRequest
   protected $base_account_id;
 
   /**
-   * For a <code>SELL</code> order: amount of Bitcoin to sell as a decimal
-   * string in units of BTC or ETH.
+   * For a <code>SELL</code> order: amount of the base currency to use (e.g. how much BTC to sell for EUR in the BTC/EUR market)
    */
   protected $base_volume;
 
@@ -32,8 +31,7 @@ class PostMarketOrder extends AbstractRequest
   protected $counter_account_id;
 
   /**
-   * For a <code>BUY</code> order: amount of local currency (e.g. ZAR, MYR) to
-   * spend as a decimal string in units of the local currency.
+   * For a <code>BUY</code> order: amount of the counter currency to use (e.g. how much EUR to use to buy BTC in the BTC/EUR market)
    */
   protected $counter_volume;
   
@@ -76,20 +74,20 @@ class PostMarketOrder extends AbstractRequest
   }
 
   /**
-   * @return string
+   * @return int
    */
-  public function getBaseAccountId(): string
+  public function getBaseAccountId(): int
   {
     if (!isset($this->base_account_id)) {
-      return "";
+      return 0;
     }
     return $this->base_account_id;
   }
 
   /**
-   * @param string $baseAccountId
+   * @param int $baseAccountId
    */
-  public function setBaseAccountId(string $baseAccountId)
+  public function setBaseAccountId(int $baseAccountId)
   {
     $this->base_account_id = $baseAccountId;
   }
@@ -114,20 +112,20 @@ class PostMarketOrder extends AbstractRequest
   }
 
   /**
-   * @return string
+   * @return int
    */
-  public function getCounterAccountId(): string
+  public function getCounterAccountId(): int
   {
     if (!isset($this->counter_account_id)) {
-      return "";
+      return 0;
     }
     return $this->counter_account_id;
   }
 
   /**
-   * @param string $counterAccountId
+   * @param int $counterAccountId
    */
-  public function setCounterAccountId(string $counterAccountId)
+  public function setCounterAccountId(int $counterAccountId)
   {
     $this->counter_account_id = $counterAccountId;
   }

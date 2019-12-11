@@ -5,7 +5,7 @@ namespace Luno\Request;
 class ListTransactions extends AbstractRequest
 {
   /**
-   * Account ID
+   * Account ID - the unique identifier for the specific Account.
    */
   protected $id;
 
@@ -20,20 +20,20 @@ class ListTransactions extends AbstractRequest
   protected $min_row;
   
   /**
-   * @return string
+   * @return int
    */
-  public function getId(): string
+  public function getId(): int
   {
     if (!isset($this->id)) {
-      return "";
+      return 0;
     }
     return $this->id;
   }
 
   /**
-   * @param string $id
+   * @param int $id
    */
-  public function setId(string $id)
+  public function setId(int $id)
   {
     $this->id = $id;
   }

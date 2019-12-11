@@ -10,7 +10,7 @@ class CreateFundingAddress extends AbstractRequest
   protected $asset;
 
   /**
-   * An optional name for the new address
+   * An optional name for the new Receive Address
    */
   protected $name;
   

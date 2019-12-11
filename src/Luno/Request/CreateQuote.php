@@ -88,39 +88,39 @@ class CreateQuote extends AbstractRequest
   }
 
   /**
-   * @return string
+   * @return int
    */
-  public function getBaseAccountId(): string
+  public function getBaseAccountId(): int
   {
     if (!isset($this->base_account_id)) {
-      return "";
+      return 0;
     }
     return $this->base_account_id;
   }
 
   /**
-   * @param string $baseAccountId
+   * @param int $baseAccountId
    */
-  public function setBaseAccountId(string $baseAccountId)
+  public function setBaseAccountId(int $baseAccountId)
   {
     $this->base_account_id = $baseAccountId;
   }
 
   /**
-   * @return string
+   * @return int
    */
-  public function getCounterAccountId(): string
+  public function getCounterAccountId(): int
   {
     if (!isset($this->counter_account_id)) {
-      return "";
+      return 0;
     }
     return $this->counter_account_id;
   }
 
   /**
-   * @param string $counterAccountId
+   * @param int $counterAccountId
    */
-  public function setCounterAccountId(string $counterAccountId)
+  public function setCounterAccountId(int $counterAccountId)
   {
     $this->counter_account_id = $counterAccountId;
   }
