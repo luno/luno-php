@@ -12,6 +12,7 @@ class Trade
   protected $order_id;
   protected $pair;
   protected $price;
+  protected $sequence;
   protected $timestamp;
   protected $type;
   protected $volume;
@@ -166,6 +167,25 @@ class Trade
   public function setPrice(float $price)
   {
     $this->price = $price;
+  }
+
+  /**
+   * @return int
+   */
+  public function getSequence(): int
+  {
+    if (!isset($this->sequence)) {
+      return 0;
+    }
+    return $this->sequence;
+  }
+
+  /**
+   * @param int $sequence
+   */
+  public function setSequence(int $sequence)
+  {
+    $this->sequence = $sequence;
   }
 
   /**

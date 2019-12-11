@@ -4,8 +4,8 @@ namespace Luno\Types;
 
 class OrderState
 {
-  const PENDING = "PENDING";
   const COMPLETE = "COMPLETE";
+  const PENDING = "PENDING";
 }
 
 // vi: ft=php

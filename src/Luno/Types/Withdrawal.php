@@ -7,6 +7,7 @@ class Withdrawal
   protected $amount;
   protected $created_at;
   protected $currency;
+  protected $external_id;
   protected $fee;
   protected $id;
   protected $status;
@@ -67,6 +68,25 @@ class Withdrawal
   public function setCurrency(string $currency)
   {
     $this->currency = $currency;
+  }
+
+  /**
+   * @return string
+   */
+  public function getExternalId(): string
+  {
+    if (!isset($this->external_id)) {
+      return "";
+    }
+    return $this->external_id;
+  }
+
+  /**
+   * @param string $externalId
+   */
+  public function setExternalId(string $externalId)
+  {
+    $this->external_id = $externalId;
   }
 
   /**

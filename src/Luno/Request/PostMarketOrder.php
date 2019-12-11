@@ -10,10 +10,20 @@ class PostMarketOrder extends AbstractRequest
   protected $pair;
 
   /**
-   * <code>BUY</code> to buy Bitcoin or Ethereum<br>
-   * <code>SELL</code> to sell Bitcoin or Ethereum
+   * <code>BUY</code> to buy an asset<br>
+   * <code>SELL</code> to sell an asset
    */
   protected $type;
+
+  /**
+   * For a <code>BUY</code> order: amount of the counter currency to use (e.g. how much EUR to use to buy BTC in the BTC/EUR market)
+   */
+  protected $counter_volume;
+
+  /**
+   * For a <code>SELL</code> order: amount of the base currency to use (e.g. how much BTC to sell for EUR in the BTC/EUR market)
+   */
+  protected $base_volume;
 
   /**
    * The base currency account to use in the trade.
@@ -21,21 +31,9 @@ class PostMarketOrder extends AbstractRequest
   protected $base_account_id;
 
   /**
-   * For a <code>SELL</code> order: amount of Bitcoin to sell as a decimal
-   * string in units of BTC or ETH.
-   */
-  protected $base_volume;
-
-  /**
    * The counter currency account to use in the trade.
    */
   protected $counter_account_id;
-
-  /**
-   * For a <code>BUY</code> order: amount of local currency (e.g. ZAR, MYR) to
-   * spend as a decimal string in units of the local currency.
-   */
-  protected $counter_volume;
   
   /**
    * @return string
@@ -76,22 +74,22 @@ class PostMarketOrder extends AbstractRequest
   }
 
   /**
-   * @return string
+   * @return float
    */
-  public function getBaseAccountId(): string
+  public function getCounterVolume(): float
   {
-    if (!isset($this->base_account_id)) {
-      return "";
+    if (!isset($this->counter_volume)) {
+      return 0;
     }
-    return $this->base_account_id;
+    return $this->counter_volume;
   }
 
   /**
-   * @param string $baseAccountId
+   * @param float $counterVolume
    */
-  public function setBaseAccountId(string $baseAccountId)
+  public function setCounterVolume(float $counterVolume)
   {
-    $this->base_account_id = $baseAccountId;
+    $this->counter_volume = $counterVolume;
   }
 
   /**
@@ -114,41 +112,41 @@ class PostMarketOrder extends AbstractRequest
   }
 
   /**
-   * @return string
+   * @return int
    */
-  public function getCounterAccountId(): string
+  public function getBaseAccountId(): int
+  {
+    if (!isset($this->base_account_id)) {
+      return 0;
+    }
+    return $this->base_account_id;
+  }
+
+  /**
+   * @param int $baseAccountId
+   */
+  public function setBaseAccountId(int $baseAccountId)
+  {
+    $this->base_account_id = $baseAccountId;
+  }
+
+  /**
+   * @return int
+   */
+  public function getCounterAccountId(): int
   {
     if (!isset($this->counter_account_id)) {
-      return "";
+      return 0;
     }
     return $this->counter_account_id;
   }
 
   /**
-   * @param string $counterAccountId
+   * @param int $counterAccountId
    */
-  public function setCounterAccountId(string $counterAccountId)
+  public function setCounterAccountId(int $counterAccountId)
   {
     $this->counter_account_id = $counterAccountId;
-  }
-
-  /**
-   * @return float
-   */
-  public function getCounterVolume(): float
-  {
-    if (!isset($this->counter_volume)) {
-      return 0;
-    }
-    return $this->counter_volume;
-  }
-
-  /**
-   * @param float $counterVolume
-   */
-  public function setCounterVolume(float $counterVolume)
-  {
-    $this->counter_volume = $counterVolume;
   }
 }
 
