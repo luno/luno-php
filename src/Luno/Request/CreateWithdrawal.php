@@ -73,20 +73,20 @@ class CreateWithdrawal extends AbstractRequest
   }
 
   /**
-   * @return string
+   * @return int
    */
-  public function getBeneficiaryId(): string
+  public function getBeneficiaryId(): int
   {
     if (!isset($this->beneficiary_id)) {
-      return "";
+      return 0;
     }
     return $this->beneficiary_id;
   }
 
   /**
-   * @param string $beneficiaryId
+   * @param int $beneficiaryId
    */
-  public function setBeneficiaryId(string $beneficiaryId)
+  public function setBeneficiaryId(int $beneficiaryId)
   {
     $this->beneficiary_id = $beneficiaryId;
   }

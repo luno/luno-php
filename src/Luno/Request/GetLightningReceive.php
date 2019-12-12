@@ -2,10 +2,10 @@
 
 namespace Luno\Request;
 
-class GetWithdrawal extends AbstractRequest
+class GetLightningReceive extends AbstractRequest
 {
   /**
-   * Withdrawal ID to retrieve.
+   * ID of invoice.
    */
   protected $id;
   
