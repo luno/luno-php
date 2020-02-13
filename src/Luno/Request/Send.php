@@ -5,10 +5,9 @@ namespace Luno\Request;
 class Send extends AbstractRequest
 {
   /**
-   * Destination Bitcoin address or email address, or Ethereum address to send
-   * to.
+   * Destination address or email address.
    * 
-   * Note:
+   * <b>Note</b>:
    * <ul>
    * <li>Ethereum addresses must be
    * <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-55.md" target="_blank" rel="nofollow">checksummed</a>.</li>
@@ -28,20 +27,20 @@ class Send extends AbstractRequest
   protected $currency;
 
   /**
-   * Description for the transaction to record on the account statement.
+   * User description for the transaction to record on the account statement.
    */
   protected $description;
 
   /**
-   * Optional unique ID to associate with this withdrawal. Useful to prevent
-   * duplicate sends in case of failure. It supports all alphanumeric
-   * characters, as well as "-" and "_".
+   * Optional unique ID to associate with this withdrawal.
+   * Useful to prevent duplicate sends in case of failure.
+   * This supports all alphanumeric characters, as well as "-" and "_".
    */
   protected $external_id;
 
   /**
-   * Message to send to the recipient. This is only relevant when sending to
-   * an email address.
+   * Message to send to the recipient.
+   * This is only relevant when sending to an email address.
    */
   protected $message;
   

@@ -5,7 +5,7 @@ namespace Luno\Request;
 class StopOrder extends AbstractRequest
 {
   /**
-   * The order reference as a string.
+   * The Order identifier as a string.
    */
   protected $order_id;
   
