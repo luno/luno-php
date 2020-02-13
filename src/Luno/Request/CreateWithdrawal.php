@@ -5,7 +5,7 @@ namespace Luno\Request;
 class CreateWithdrawal extends AbstractRequest
 {
   /**
-   * Amount to withdraw. The currency depends on the type.
+   * Amount to withdraw. The currency withdrawn depends on the type setting.
    */
   protected $amount;
 
@@ -15,17 +15,16 @@ class CreateWithdrawal extends AbstractRequest
   protected $type;
 
   /**
-   * The beneficiary ID of the bank account the withdrawal will be paid out
-   * to. This parameter is required if you have multiple bank accounts. Your
-   * bank account beneficiary ID can be found by clicking on the beneficiary
-   * name on the <a href="/wallet/beneficiaries">Beneficiaries</a> page.
+   * The beneficiary ID of the bank account the withdrawal will be paid out to.
+   * This parameter is required if the user has set up multiple beneficiaries.
+   * The beneficiary ID can be found by selecting on the beneficiary name on the user’s <a href="/wallet/beneficiaries">Beneficiaries</a> page.
    */
   protected $beneficiary_id;
 
   /**
-   * Optional unique ID to associate with this withdrawal. Useful to prevent
-   * duplicate sends in case of failure. It supports all alphanumeric
-   * characters, as well as "-" and "_".
+   * Optional unique ID to associate with this withdrawal.
+   * Useful to prevent duplicate sends.
+   * This field supports all alphanumeric characters including "-" and "_".
    */
   protected $external_id;
 
