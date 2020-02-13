@@ -7,8 +7,8 @@ class Client extends AbstractClient
   /**
    * CancelWithdrawal makes a call to DELETE /api/1/withdrawals/{id}.
    *
-   * Cancel a withdrawal request. This can only be done if the request is still
-   * in state <code>PENDING</code>.
+   * Cancel a withdrawal request.
+   * This can only be done if the request is still in state <code>PENDING</code>.
    * 
    * Permissions required: <code>Perm_W_Withdrawals</code>
    */ 
@@ -52,20 +52,17 @@ class Client extends AbstractClient
   /**
    * CreateQuote makes a call to POST /api/1/quotes.
    *
-   * Creates a new quote to buy or sell a particular amount.
+   * Creates a new quote to buy or sell a particular amount of a base currency for a counter currency.
    * 
-   * You can specify either the exact amount that you want to pay or the exact
-   * amount that you want too receive.
+   * Users can specify either the exact amount to pay or the exact amount to receive.
    * 
-   * For example, to buy exactly 0.1 Bitcoin using ZAR, you would create a quote
-   * to BUY 0.1 XBTZAR. The returned quote includes the appropriate ZAR amount. To
-   * buy Bitcoin using exactly ZAR 100, you would create a quote to SELL 100
-   * ZARXBT. The returned quote specifies the Bitcoin as the counter amount that
-   * will be returned.
+   * For example, to buy exactly 0.1 Bitcoin using ZAR, you would create a quote to BUY 0.1 XBTZAR.
+   * The returned quote includes the appropriate ZAR amount.
+   * To buy Bitcoin using exactly ZAR 100, create a quote to SELL 100 ZARXBT.
+   * The returned quote specifies the Bitcoin as the counter amount returned.
    * 
-   * An error is returned if your account is not verified for the currency pair,
-   * or if your account would have insufficient balance to ever exercise the
-   * quote.
+   * An error is returned if the Account is not verified for the currency pair,
+   * or if the Account would have insufficient balance to ever exercise the quote.
    * 
    * Permissions required: <code>Perm_W_Orders</code>
    */ 
@@ -79,7 +76,7 @@ class Client extends AbstractClient
   /**
    * CreateWithdrawal makes a call to POST /api/1/withdrawals.
    *
-   * Creates a new withdrawal request.
+   * Creates a new withdrawal request to the specified beneficiary.
    * 
    * Permissions required: <code>Perm_W_Withdrawals</code>
    */ 
@@ -93,8 +90,8 @@ class Client extends AbstractClient
   /**
    * DiscardQuote makes a call to DELETE /api/1/quotes/{id}.
    *
-   * Discard a quote. Once a quote has been discarded, it cannot be exercised even
-   * if it has not expired yet.
+   * Discard a Quote.
+   * Once a Quote has been discarded, it cannot be exercised even if it has not expired.
    * 
    * Permissions required: <code>Perm_W_Orders</code>
    */ 
@@ -108,12 +105,11 @@ class Client extends AbstractClient
   /**
    * ExerciseQuote makes a call to PUT /api/1/quotes/{id}.
    *
-   * Exercise a quote to perform the trade. If there is sufficient balance
-   * available in your account, it will be debited and the counter amount
-   * credited.
+   * Exercise a quote to perform the Trade.
+   * If there is sufficient balance available in the Account,
+   * it will be debited and the counter amount credited.
    * 
-   * An error is returned if the quote has expired or if you have insufficient
-   * available balance.
+   * An error is returned if the quote has expired or if the Account has insufficient available balance.
    * 
    * Permissions required: <code>Perm_W_Orders</code>
    */ 
@@ -190,7 +186,7 @@ class Client extends AbstractClient
   /**
    * GetOrder makes a call to GET /api/1/orders/{id}.
    *
-   * Get an order by its ID.
+   * Get an Order's details by its ID.
    * 
    * Permissions required: <code>Perm_R_Orders</code>
    */ 
@@ -244,7 +240,7 @@ class Client extends AbstractClient
   /**
    * GetQuote makes a call to GET /api/1/quotes/{id}.
    *
-   * Get the latest status of a quote.
+   * Get the latest status of a quote by its id.
    * 
    * Permissions required: <code>Perm_R_Orders</code>
    */ 
@@ -258,7 +254,9 @@ class Client extends AbstractClient
   /**
    * GetTicker makes a call to GET /api/1/ticker.
    *
-   * Returns the latest ticker indicators.
+   * Returns the latest ticker indicators for the specified currency pair.
+   * 
+   * Please see the <a href="#tag/currency ">Currency list</a> for the complete list of supported currency pairs.
    */ 
   public function GetTicker(Request\GetTicker $req): Response\GetTicker
   {
@@ -271,6 +269,8 @@ class Client extends AbstractClient
    * GetTickers makes a call to GET /api/1/tickers.
    *
    * Returns the latest ticker indicators from all active Luno exchanges.
+   * 
+   * Please see the <a href="#tag/currency ">Currency list</a> for the complete list of supported currency pairs.
    */ 
   public function GetTickers(Request\GetTickers $req): Response\GetTickers
   {
@@ -291,6 +291,20 @@ class Client extends AbstractClient
     $res = $this->do("GET", "/api/1/withdrawals/{id}", $req, true);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\GetWithdrawal);
+  }
+
+  /**
+   * ListBeneficiariesResponse makes a call to GET /api/1/beneficiaries.
+   *
+   * Returns a list of bank beneficiaries.
+   * 
+   * Permissions required: <code>Perm_R_Beneficiaries</code>
+   */ 
+  public function ListBeneficiariesResponse(Request\ListBeneficiariesResponse $req): Response\ListBeneficiariesResponse
+  {
+    $res = $this->do("GET", "/api/1/beneficiaries", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ListBeneficiariesResponse);
   }
 
   /**
@@ -329,8 +343,10 @@ class Client extends AbstractClient
   /**
    * ListTrades makes a call to GET /api/1/trades.
    *
-   * Returns a list of the most recent trades that happened in the last 24h. At
-   * most 100 results are returned per call.
+   * Returns a list of the most recent Trades for the specified currency pair in the last 24 hours.
+   * At most 100 results are returned per call.
+   * 
+   * Please see the <a href="#tag/currency ">Currency list</a> for the complete list of supported currency pairs.
    */ 
   public function ListTrades(Request\ListTrades $req): Response\ListTrades
   {
@@ -401,15 +417,14 @@ class Client extends AbstractClient
   /**
    * PostLimitOrder makes a call to POST /api/1/postorder.
    *
-   * Create a new trade order.
+   * Create a new Trade Order.
    * 
-   * Warning! Orders cannot be reversed once they have executed. Please ensure
-   * your program has been thoroughly tested before submitting orders.
+   * <b>Warning!</b> Orders cannot be reversed once they have executed.
+   * Please ensure your program has been thoroughly tested before submitting Orders.
    * 
-   * If no <code>base_account_id</code> or <code>counter_account_id</code> are
-   * specified, your default base currency or counter currency account will be
-   * used. You can find your account IDs by calling the
-   * <a href="#operation/getBalances">Balances</a> API.
+   * If no <code>base_account_id</code> or <code>counter_account_id</code> are specified,
+   * your default base currency or counter currency account will be used.
+   * You can find your Account IDs by calling the <a href="#operation/getBalances">Balances</a> API.
    * 
    * Permissions required: <code>Perm_W_Orders</code>
    */ 
@@ -463,14 +478,9 @@ class Client extends AbstractClient
   /**
    * Send makes a call to POST /api/1/send.
    *
-   * Send Bitcoin from your account to a Bitcoin address or email address. Send
-   * Ethereum from your account to an Ethereum address.
+   * Send assets from an Account. Please note that the asset type sent must match the receive address of the same cryptocurrency of the same type - Bitcoin to Bitcoin, Ethereum to Ethereum, etc.
    * 
-   * If the email address is not associated with an existing Luno account, an
-   * invitation to create an account and claim the funds will be sent.
-   * 
-   * Warning! Cryptocurrency transactions are irreversible. Please ensure your
-   * program has been thoroughly tested before using this call.
+   * Sends can be to a cryptocurrency receive address, or the email address of another Luno platform user.
    * 
    * Permissions required: <code>Perm_W_Send</code>
    */ 
@@ -504,7 +514,10 @@ class Client extends AbstractClient
   /**
    * StopOrder makes a call to POST /api/1/stoporder.
    *
-   * Request to stop an order.
+   * Request to stop an Order.
+   * 
+   * <b>Note!</b>: Once as Order has been completed, it can not be reversed.
+   * The return value from this request will indicate if the Stop request was successful or not.
    * 
    * Permissions required: <code>Perm_W_Orders</code>
    */ 
@@ -513,6 +526,20 @@ class Client extends AbstractClient
     $res = $this->do("POST", "/api/1/stoporder", $req, true);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\StopOrder);
+  }
+
+  /**
+   * UpdateAccountName makes a call to PUT /api/1/accounts/{id}/name.
+   *
+   * Update the name of an account with a given ID.
+   * 
+   * Permissions required: <code>Perm_W_Addresses</code>
+   */ 
+  public function UpdateAccountName(Request\UpdateAccountName $req): Response\UpdateAccountName
+  {
+    $res = $this->do("PUT", "/api/1/accounts/{id}/name", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\UpdateAccountName);
   }
 }
 
