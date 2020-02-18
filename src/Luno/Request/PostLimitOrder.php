@@ -16,32 +16,32 @@ class PostLimitOrder extends AbstractRequest
 
   /**
    * <code>BID</code> for a bid (buy) limit order<br>
-   * <code>ASK</code> for ab ask (sell) limit order
+   * <code>ASK</code> for an ask (sell) limit order
    */
   protected $type;
 
   /**
-   * Amount of Bitcoin or Ethereum to buy or sell as a decimal string in units
-   * of the currency.
+   * Amount of cryptocurrency to buy or sell as a decimal string in units of the currency.
    */
   protected $volume;
 
   /**
-   * The base currency account to use in the trade.
+   * The base currency Account to use in the trade.
    */
   protected $base_account_id;
 
   /**
-   * The counter currency account to use in the trade.
+   * The counter currency Account to use in the trade.
    */
   protected $counter_account_id;
 
   /**
-   * Post-only orders will be cancelled if they would otherwise have traded
-   * immediately. For example, if there's a bid at ZAR 100,000 and you place
-   * a post-only ask at ZAR 100,000, your order will be cancelled instead of
-   * trading. If the best bid is ZAR 100,000 and you place a post-only ask at
-   * ZAR 101,000, your order won't trade but will go into the order book.
+   * Post-only Orders will be cancelled if they would otherwise have traded
+   * immediately.
+   * For example, if there's a bid at ZAR 100,000 and you place a post-only ask at ZAR 100,000,
+   * your order will be cancelled instead of trading.
+   * If the best bid is ZAR 100,000 and you place a post-only ask at ZAR 101,000,
+   * your order won't trade but will go into the order book.
    */
   protected $post_only;
   

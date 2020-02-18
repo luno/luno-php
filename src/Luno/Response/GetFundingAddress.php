@@ -6,9 +6,11 @@ class GetFundingAddress extends AbstractResponse
 {
   protected $account_id;
   protected $address;
+  protected $address_meta;
   protected $asset;
   protected $assigned_at;
   protected $name;
+  protected $qr_code_uri;
   protected $receive_fee;
   protected $total_received;
   protected $total_unconfirmed;
@@ -49,6 +51,25 @@ class GetFundingAddress extends AbstractResponse
   public function setAddress(string $address)
   {
     $this->address = $address;
+  }
+
+  /**
+   * @return \Luno\Types\AddressMeta[]
+   */
+  public function getAddressMeta(): array
+  {
+    if (!isset($this->address_meta)) {
+      return [];
+    }
+    return $this->address_meta;
+  }
+
+  /**
+   * @param \Luno\Types\AddressMeta[] $addressMeta
+   */
+  public function setAddressMeta(array $addressMeta)
+  {
+    $this->address_meta = $addressMeta;
   }
 
   /**
@@ -106,6 +127,25 @@ class GetFundingAddress extends AbstractResponse
   public function setName(string $name)
   {
     $this->name = $name;
+  }
+
+  /**
+   * @return string
+   */
+  public function getQrCodeUri(): string
+  {
+    if (!isset($this->qr_code_uri)) {
+      return "";
+    }
+    return $this->qr_code_uri;
+  }
+
+  /**
+   * @param string $qrCodeUri
+   */
+  public function setQrCodeUri(string $qrCodeUri)
+  {
+    $this->qr_code_uri = $qrCodeUri;
   }
 
   /**

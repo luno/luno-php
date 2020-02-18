@@ -45,8 +45,7 @@ abstract class AbstractClient
    */
   public function setBaseURL(string $baseURL)
   {
-    $flags = \FILTER_FLAG_SCHEME_REQUIRED | \FILTER_FLAG_HOST_REQUIRED; 
-    $valid = filter_var($baseURL, \FILTER_VALIDATE_URL, $flags);
+    $valid = filter_var($baseURL, \FILTER_VALIDATE_URL);
     if (!$valid) {
       throw new \InvalidArgumentException('baseURL should be a valid URL');
     }

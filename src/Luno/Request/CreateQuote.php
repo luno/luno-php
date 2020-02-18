@@ -21,12 +21,12 @@ class CreateQuote extends AbstractRequest
   protected $type;
 
   /**
-   * Optional account for the pair's base currency.
+   * Optional Account for the pair's base currency.
    */
   protected $base_account_id;
 
   /**
-   * Optional account for the pair's counter currency.
+   * Optional Account for the pair's counter currency.
    */
   protected $counter_account_id;
   
