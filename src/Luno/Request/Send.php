@@ -32,11 +32,21 @@ class Send extends AbstractRequest
   protected $description;
 
   /**
+   * Optional XRP destination tag. Note that HasDestinationTag must be true if this value is provided.
+   */
+  protected $destination_tag;
+
+  /**
    * Optional unique ID to associate with this withdrawal.
    * Useful to prevent duplicate sends in case of failure.
    * This supports all alphanumeric characters, as well as "-" and "_".
    */
   protected $external_id;
+
+  /**
+   * Optional boolean flag indicating that a XRP destination tag is provided (even if zero).
+   */
+  protected $has_destination_tag;
 
   /**
    * Message to send to the recipient.
@@ -121,6 +131,25 @@ class Send extends AbstractRequest
   }
 
   /**
+   * @return int
+   */
+  public function getDestinationTag(): int
+  {
+    if (!isset($this->destination_tag)) {
+      return 0;
+    }
+    return $this->destination_tag;
+  }
+
+  /**
+   * @param int $destinationTag
+   */
+  public function setDestinationTag(int $destinationTag)
+  {
+    $this->destination_tag = $destinationTag;
+  }
+
+  /**
    * @return string
    */
   public function getExternalId(): string
@@ -137,6 +166,25 @@ class Send extends AbstractRequest
   public function setExternalId(string $externalId)
   {
     $this->external_id = $externalId;
+  }
+
+  /**
+   * @return bool
+   */
+  public function getHasDestinationTag(): bool
+  {
+    if (!isset($this->has_destination_tag)) {
+      return false;
+    }
+    return $this->has_destination_tag;
+  }
+
+  /**
+   * @param bool $hasDestinationTag
+   */
+  public function setHasDestinationTag(bool $hasDestinationTag)
+  {
+    $this->has_destination_tag = $hasDestinationTag;
   }
 
   /**
