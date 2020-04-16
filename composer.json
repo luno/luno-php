@@ -18,7 +18,7 @@
     }
   },
   "require": {
-    "guzzlehttp/guzzle": "6.3.3",
+    "guzzlehttp/guzzle": "^6.3.3",
     "netresearch/jsonmapper": "^1.4"
   },
   "require-dev": {
