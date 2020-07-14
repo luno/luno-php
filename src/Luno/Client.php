@@ -238,6 +238,22 @@ class Client extends AbstractClient
   }
 
   /**
+   * GetOrderV2 makes a call to GET /api/exchange/2/orders/{id}.
+   *
+   * Get the details for an order.<br>
+   * This endpoint is in BETA, behaviour and specification may change without
+   * any previous notice.
+   * 
+   * Permissions required: <code>Perm_R_Orders</code>
+   */ 
+  public function GetOrderV2(Request\GetOrderV2 $req): Response\GetOrderV2
+  {
+    $res = $this->do("GET", "/api/exchange/2/orders/{id}", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetOrderV2);
+  }
+
+  /**
    * GetQuote makes a call to GET /api/1/quotes/{id}.
    *
    * Get the latest status of a quote by its id.
@@ -322,6 +338,23 @@ class Client extends AbstractClient
     $res = $this->do("GET", "/api/1/listorders", $req, true);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\ListOrders);
+  }
+
+  /**
+   * ListOrdersV2 makes a call to GET /api/exchange/2/listorders.
+   *
+   * Returns a list of the most recently placed orders. The list is truncated
+   * after 100 items by default<br>
+   * This endpoint is in BETA, behaviour and specification may change without
+   * any previous notice.
+   * 
+   * Permissions required: <Code>Perm_R_Orders</Code>
+   */ 
+  public function ListOrdersV2(Request\ListOrdersV2 $req): Response\ListOrdersV2
+  {
+    $res = $this->do("GET", "/api/exchange/2/listorders", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ListOrdersV2);
   }
 
   /**
@@ -516,7 +549,7 @@ class Client extends AbstractClient
    *
    * Request to stop an Order.
    * 
-   * <b>Note!</b>: Once as Order has been completed, it can not be reversed.
+   * <b>Note!</b>: Once an Order has been completed, it can not be reversed.
    * The return value from this request will indicate if the Stop request was successful or not.
    * 
    * Permissions required: <code>Perm_W_Orders</code>
