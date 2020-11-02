@@ -167,23 +167,6 @@ class Client extends AbstractClient
   }
 
   /**
-   * GetLightningReceive makes a call to GET /api/1/lightning/receive/{id}.
-   *
-   * <b>Alpha warning!</b> The Lightning API is still in Alpha stage.
-   * The risks are limited api availability and channel capacity.
-   * 
-   * Lookup the status of a Lightning Receive Invoice.
-   * 
-   * Permissions required: <code>Perm_W_Send</code>
-   */ 
-  public function GetLightningReceive(Request\GetLightningReceive $req): Response\GetLightningReceive
-  {
-    $res = $this->do("GET", "/api/1/lightning/receive/{id}", $req, true);
-    $mapper = new \JsonMapper();
-    return $mapper->map($res, new Response\GetLightningReceive);
-  }
-
-  /**
    * GetOrder makes a call to GET /api/1/orders/{id}.
    *
    * Get an Order's details by its ID.
@@ -235,6 +218,22 @@ class Client extends AbstractClient
     $res = $this->do("GET", "/api/1/orderbook", $req, false);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\GetOrderBookFull);
+  }
+
+  /**
+   * GetOrderV2 makes a call to GET /api/exchange/2/orders/{id}.
+   *
+   * Get the details for an order.<br>
+   * This endpoint is in BETA, behaviour and specification may change without
+   * any previous notice.
+   * 
+   * Permissions required: <code>Perm_R_Orders</code>
+   */ 
+  public function GetOrderV2(Request\GetOrderV2 $req): Response\GetOrderV2
+  {
+    $res = $this->do("GET", "/api/exchange/2/orders/{id}", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetOrderV2);
   }
 
   /**
@@ -322,6 +321,23 @@ class Client extends AbstractClient
     $res = $this->do("GET", "/api/1/listorders", $req, true);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\ListOrders);
+  }
+
+  /**
+   * ListOrdersV2 makes a call to GET /api/exchange/2/listorders.
+   *
+   * Returns a list of the most recently placed orders. This endpoint will list
+   * up to 100 open orders by default.<br>
+   * This endpoint is in BETA, behaviour and specification may change without
+   * any previous notice.
+   * 
+   * Permissions required: <Code>Perm_R_Orders</Code>
+   */ 
+  public function ListOrdersV2(Request\ListOrdersV2 $req): Response\ListOrdersV2
+  {
+    $res = $this->do("GET", "/api/exchange/2/listorders", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ListOrdersV2);
   }
 
   /**
@@ -415,6 +431,19 @@ class Client extends AbstractClient
   }
 
   /**
+   * Markets makes a call to GET /api/exchange/1/markets.
+   *
+   * Get all supported markets parameter information like price scale, min and
+   * max volumes and market ID.
+   */ 
+  public function Markets(Request\Markets $req): Response\Markets
+  {
+    $res = $this->do("GET", "/api/exchange/1/markets", $req, false);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\Markets);
+  }
+
+  /**
    * PostLimitOrder makes a call to POST /api/1/postorder.
    *
    * Create a new Trade Order.
@@ -458,24 +487,6 @@ class Client extends AbstractClient
   }
 
   /**
-   * ReceiveLightning makes a call to POST /api/1/lightning/receive.
-   *
-   * <b>Alpha warning!</b> The Lightning API is still in Alpha stage.
-   * The risks are limited api availability and channel capacity.
-   * 
-   * Create a lightning invoice which can be used to receive
-   * BTC payments over the lightning network.
-   * 
-   * Permissions required: <code>Perm_W_Send</code>
-   */ 
-  public function ReceiveLightning(Request\ReceiveLightning $req): Response\ReceiveLightning
-  {
-    $res = $this->do("POST", "/api/1/lightning/receive", $req, true);
-    $mapper = new \JsonMapper();
-    return $mapper->map($res, new Response\ReceiveLightning);
-  }
-
-  /**
    * Send makes a call to POST /api/1/send.
    *
    * Send assets from an Account. Please note that the asset type sent must match the receive address of the same cryptocurrency of the same type - Bitcoin to Bitcoin, Ethereum to Ethereum, etc.
@@ -492,31 +503,11 @@ class Client extends AbstractClient
   }
 
   /**
-   * SendLightning makes a call to POST /api/1/lightning/send.
-   *
-   * <b>Alpha warning!</b> The Lightning API is still in Alpha stage.
-   * The risks are limited api availability and channel capacity.
-   * 
-   * Send Bitcoin over the Lightning network from your Bitcoin Account.
-   * 
-   * Warning! Cryptocurrency transactions are irreversible. Please ensure your
-   * program has been thoroughly tested before using this call.
-   * 
-   * Permissions required: <code>Perm_W_Send</code>
-   */ 
-  public function SendLightning(Request\SendLightning $req): Response\SendLightning
-  {
-    $res = $this->do("POST", "/api/1/lightning/send", $req, true);
-    $mapper = new \JsonMapper();
-    return $mapper->map($res, new Response\SendLightning);
-  }
-
-  /**
    * StopOrder makes a call to POST /api/1/stoporder.
    *
    * Request to stop an Order.
    * 
-   * <b>Note!</b>: Once as Order has been completed, it can not be reversed.
+   * <b>Note!</b>: Once an Order has been completed, it can not be reversed.
    * The return value from this request will indicate if the Stop request was successful or not.
    * 
    * Permissions required: <code>Perm_W_Orders</code>
