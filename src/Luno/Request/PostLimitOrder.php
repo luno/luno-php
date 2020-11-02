@@ -44,6 +44,23 @@ class PostLimitOrder extends AbstractRequest
    * your order won't trade but will go into the order book.
    */
   protected $post_only;
+
+  /**
+   * Side of the trigger price to activate the order. This should be set if `stop_price` is also
+   * set.
+   * 
+   * `RELATIVE_LAST_TRADE` will automatically infer the direction based on the last
+   * trade price and the stop price. If last trade price is less than stop price then stop
+   * direction is ABOVE otherwise is BELOW.
+   */
+  protected $stop_direction;
+
+  /**
+   * Trigger trade price to activate this order as a decimal string. If this
+   * is set then this is treated as a Stop Limit Order and `stop_direction`
+   * is expected to be set too.
+   */
+  protected $stop_price;
   
   /**
    * @return string
@@ -176,6 +193,44 @@ class PostLimitOrder extends AbstractRequest
   public function setPostOnly(bool $postOnly)
   {
     $this->post_only = $postOnly;
+  }
+
+  /**
+   * @return string
+   */
+  public function getStopDirection(): string
+  {
+    if (!isset($this->stop_direction)) {
+      return "";
+    }
+    return $this->stop_direction;
+  }
+
+  /**
+   * @param string $stopDirection
+   */
+  public function setStopDirection(string $stopDirection)
+  {
+    $this->stop_direction = $stopDirection;
+  }
+
+  /**
+   * @return float
+   */
+  public function getStopPrice(): float
+  {
+    if (!isset($this->stop_price)) {
+      return 0;
+    }
+    return $this->stop_price;
+  }
+
+  /**
+   * @param float $stopPrice
+   */
+  public function setStopPrice(float $stopPrice)
+  {
+    $this->stop_price = $stopPrice;
   }
 }
 
