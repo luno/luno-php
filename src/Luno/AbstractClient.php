@@ -11,7 +11,7 @@ use GuzzleHttp\Exception\ClientException;
  */
 abstract class AbstractClient
 {
-  private static $version = "0.0.10";
+  private static $version = "0.0.11";
   private static $defaultBaseURL = 'https://api.luno.com/';
   private static $defaultTimeoutSeconds = 10.0;
 
