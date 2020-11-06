@@ -5,16 +5,6 @@ namespace Luno\Types;
 class MarketInfo
 {
   /**
-   * Maximum order price
-   */
-  protected $MaxPrice;
-
-  /**
-   * Minimum order price
-   */
-  protected $MinPrice;
-
-  /**
    * Base currency code
    */
   protected $base_currency;
@@ -35,9 +25,19 @@ class MarketInfo
   protected $market_id;
 
   /**
+   * Maximum order price
+   */
+  protected $max_price;
+
+  /**
    * Maximum order volume
    */
   protected $max_volume;
+
+  /**
+   * Minimum order price
+   */
+  protected $min_price;
 
   /**
    * Minimum order volume
@@ -67,44 +67,6 @@ class MarketInfo
    */
   protected $volume_scale;
   
-  /**
-   * @return float
-   */
-  public function getMaxPrice(): float
-  {
-    if (!isset($this->MaxPrice)) {
-      return 0;
-    }
-    return $this->MaxPrice;
-  }
-
-  /**
-   * @param float $MaxPrice
-   */
-  public function setMaxPrice(float $MaxPrice)
-  {
-    $this->MaxPrice = $MaxPrice;
-  }
-
-  /**
-   * @return float
-   */
-  public function getMinPrice(): float
-  {
-    if (!isset($this->MinPrice)) {
-      return 0;
-    }
-    return $this->MinPrice;
-  }
-
-  /**
-   * @param float $MinPrice
-   */
-  public function setMinPrice(float $MinPrice)
-  {
-    $this->MinPrice = $MinPrice;
-  }
-
   /**
    * @return string
    */
@@ -184,6 +146,25 @@ class MarketInfo
   /**
    * @return float
    */
+  public function getMaxPrice(): float
+  {
+    if (!isset($this->max_price)) {
+      return 0;
+    }
+    return $this->max_price;
+  }
+
+  /**
+   * @param float $maxPrice
+   */
+  public function setMaxPrice(float $maxPrice)
+  {
+    $this->max_price = $maxPrice;
+  }
+
+  /**
+   * @return float
+   */
   public function getMaxVolume(): float
   {
     if (!isset($this->max_volume)) {
@@ -198,6 +179,25 @@ class MarketInfo
   public function setMaxVolume(float $maxVolume)
   {
     $this->max_volume = $maxVolume;
+  }
+
+  /**
+   * @return float
+   */
+  public function getMinPrice(): float
+  {
+    if (!isset($this->min_price)) {
+      return 0;
+    }
+    return $this->min_price;
+  }
+
+  /**
+   * @param float $minPrice
+   */
+  public function setMinPrice(float $minPrice)
+  {
+    $this->min_price = $minPrice;
   }
 
   /**

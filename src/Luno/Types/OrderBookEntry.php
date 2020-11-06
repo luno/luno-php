@@ -4,7 +4,14 @@ namespace Luno\Types;
 
 class OrderBookEntry
 {
+  /**
+   * Limit price
+   */
   protected $price;
+
+  /**
+   * Volume available
+   */
   protected $volume;
   
   /**
