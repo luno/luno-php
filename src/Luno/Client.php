@@ -181,13 +181,29 @@ class Client extends AbstractClient
   }
 
   /**
+   * GetOrderBook makes a call to GET /api/1/orderbook_top.
+   *
+   * This request returns the best 100 `bids` and `asks`, for the currency pair specified, in the Order Book.
+   * 
+   * `asks` are sorted by price ascending and `bids` are sorted by price descending.
+   * 
+   * Multiple orders at the same price are aggregated.
+   */ 
+  public function GetOrderBook(Request\GetOrderBook $req): Response\GetOrderBook
+  {
+    $res = $this->do("GET", "/api/1/orderbook_top", $req, false);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetOrderBook);
+  }
+
+  /**
    * GetOrderBookFull makes a call to GET /api/1/orderbook.
    *
    * This request returns all `bids` and `asks`, for the currency pair specified, in the Order Book.
    * 
    * `asks` are sorted by price ascending and `bids` are sorted by price descending.
    * 
-   * Multiple orders at the same price are aggregated.
+   * Multiple orders at the same price are not aggregated.
    * 
    * <b>WARNING:</b> This may return a large amount of data.
    * Users are recommended to use the <a href="#operation/getOrderBookTop">top 100 bids and asks</a>
@@ -198,22 +214,6 @@ class Client extends AbstractClient
     $res = $this->do("GET", "/api/1/orderbook", $req, false);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\GetOrderBookFull);
-  }
-
-  /**
-   * GetOrderBookTop makes a call to GET /api/1/orderbook_top.
-   *
-   * This request returns the best 100 `bids` and `asks`, for the currency pair specified, in the Order Book.
-   * 
-   * `asks` are sorted by price ascending and `bids` are sorted by price descending.
-   * 
-   * Multiple orders at the same price are aggregated.
-   */ 
-  public function GetOrderBookTop(Request\GetOrderBookTop $req): Response\GetOrderBookTop
-  {
-    $res = $this->do("GET", "/api/1/orderbook_top", $req, false);
-    $mapper = new \JsonMapper();
-    return $mapper->map($res, new Response\GetOrderBookTop);
   }
 
   /**

@@ -4,14 +4,30 @@ namespace Luno\Response;
 
 class GetTicker extends AbstractResponse
 {
+  /**
+   * The lowest ask price
+   */
   protected $ask;
+
+  /**
+   * The highest bid price
+   */
   protected $bid;
-  protected $currency_pair;
+
+  /**
+   * Last trade price
+   */
   protected $last_trade;
   protected $pair;
+
+  /**
+   * 24h rolling trade volume
+   */
   protected $rolling_24_hour_volume;
 
   /**
+   * Market current status
+   * 
    * <code>ACTIVE</code> when the market is trading normally
    * 
    * <code>POSTONLY</code> when the market has been suspended and only post-only orders will be accepted
@@ -19,6 +35,10 @@ class GetTicker extends AbstractResponse
    * <code>DISABLED</code> when the market is shutdown and no orders can be accepted
    */
   protected $status;
+
+  /**
+   * Unix timestamp in milliseconds of the tick
+   */
   protected $timestamp;
   
   /**
@@ -57,25 +77,6 @@ class GetTicker extends AbstractResponse
   public function setBid(float $bid)
   {
     $this->bid = $bid;
-  }
-
-  /**
-   * @return string
-   */
-  public function getCurrencyPair(): string
-  {
-    if (!isset($this->currency_pair)) {
-      return "";
-    }
-    return $this->currency_pair;
-  }
-
-  /**
-   * @param string $currencyPair
-   */
-  public function setCurrencyPair(string $currencyPair)
-  {
-    $this->currency_pair = $currencyPair;
   }
 
   /**

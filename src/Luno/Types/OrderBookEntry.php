@@ -10,7 +10,7 @@ class OrderBookEntry
   protected $price;
 
   /**
-   * Aggregated volume available at the limit price
+   * The volume available at the limit price
    */
   protected $volume;
   
