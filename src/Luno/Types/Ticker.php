@@ -6,6 +6,7 @@ class Ticker
 {
   protected $ask;
   protected $bid;
+  protected $currency_pair;
   protected $last_trade;
   protected $pair;
   protected $rolling_24_hour_volume;
@@ -56,6 +57,25 @@ class Ticker
   public function setBid(float $bid)
   {
     $this->bid = $bid;
+  }
+
+  /**
+   * @return string
+   */
+  public function getCurrencyPair(): string
+  {
+    if (!isset($this->currency_pair)) {
+      return "";
+    }
+    return $this->currency_pair;
+  }
+
+  /**
+   * @param string $currencyPair
+   */
+  public function setCurrencyPair(string $currencyPair)
+  {
+    $this->currency_pair = $currencyPair;
   }
 
   /**

@@ -181,43 +181,39 @@ class Client extends AbstractClient
   }
 
   /**
-   * GetOrderBook makes a call to GET /api/1/orderbook_top.
-   *
-   * Returns a list of the top 100 <em>bids</em> and <em>asks</em> for the currency pair specified in the Order Book.
-   * 
-   * Ask Orders are sorted by price ascending.
-   * 
-   * Bid Orders are sorted by price descending.
-   * 
-   * Orders of the same price are aggregated.
-   */ 
-  public function GetOrderBook(Request\GetOrderBook $req): Response\GetOrderBook
-  {
-    $res = $this->do("GET", "/api/1/orderbook_top", $req, false);
-    $mapper = new \JsonMapper();
-    return $mapper->map($res, new Response\GetOrderBook);
-  }
-
-  /**
    * GetOrderBookFull makes a call to GET /api/1/orderbook.
    *
-   * This request returns a list of all <em>bids</em> and <em>asks</em> for the currency pair specified in the Order Book.
+   * This request returns all `bids` and `asks`, for the currency pair specified, in the Order Book.
    * 
-   * Ask orders are sorted by price ascending.
+   * `asks` are sorted by price ascending and `bids` are sorted by price descending.
    * 
-   * Bid orders are sorted by price descending.
+   * Multiple orders at the same price are aggregated.
    * 
-   * Multiple orders at the same price are not aggregated.
-   * 
-   * <b>Warning:</b> This may return a large amount of data.
-   * Users are recommended to use the <a href="#operation/getOrderBook">top 100 bids and asks</a>
-   * or the <a href="#tag/streaming-API-(beta)">Streaming API</a>.
+   * <b>WARNING:</b> This may return a large amount of data.
+   * Users are recommended to use the <a href="#operation/getOrderBookTop">top 100 bids and asks</a>
+   * or the <a href="#tag/Streaming-API">Streaming API</a>.
    */ 
   public function GetOrderBookFull(Request\GetOrderBookFull $req): Response\GetOrderBookFull
   {
     $res = $this->do("GET", "/api/1/orderbook", $req, false);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\GetOrderBookFull);
+  }
+
+  /**
+   * GetOrderBookTop makes a call to GET /api/1/orderbook_top.
+   *
+   * This request returns the best 100 `bids` and `asks`, for the currency pair specified, in the Order Book.
+   * 
+   * `asks` are sorted by price ascending and `bids` are sorted by price descending.
+   * 
+   * Multiple orders at the same price are aggregated.
+   */ 
+  public function GetOrderBookTop(Request\GetOrderBookTop $req): Response\GetOrderBookTop
+  {
+    $res = $this->do("GET", "/api/1/orderbook_top", $req, false);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetOrderBookTop);
   }
 
   /**
@@ -326,8 +322,9 @@ class Client extends AbstractClient
   /**
    * ListOrdersV2 makes a call to GET /api/exchange/2/listorders.
    *
-   * Returns a list of the most recently placed orders. This endpoint will list
-   * up to 100 open orders by default.<br>
+   * Returns a list of the most recently placed orders ordered from newest to
+   * oldest. This endpoint will list up to 100 most recent open orders by
+   * default.<br>
    * This endpoint is in BETA, behaviour and specification may change without
    * any previous notice.
    * 
@@ -395,6 +392,34 @@ class Client extends AbstractClient
   }
 
   /**
+   * ListTransfers makes a call to GET /api/exchange/1/transfers.
+   *
+   * Returns a list of the most recent confirmed transfers ordered from newest to
+   * oldest.
+   * This includes bank transfers, card payments, or on-chain transactions that
+   * have been reflected on your account available balance.
+   * 
+   * Note that the Transfer `amount` is always a positive value and you should
+   * use the `inbound` flag to determine the direction of the transfer.
+   * 
+   * If you need to paginate the results you can set the `before` parameter to
+   * the last returned transfer `created_at` field value and repeat the request
+   * until you have all the transfers you need.
+   * This endpoint will list up to 100 transfers at a time by default.
+   * 
+   * This endpoint is in BETA, behaviour and specification may change without
+   * any previous notice.
+   * 
+   * Permissions required: <Code>Perm_R_Transfers</Code>
+   */ 
+  public function ListTransfers(Request\ListTransfers $req): Response\ListTransfers
+  {
+    $res = $this->do("GET", "/api/exchange/1/transfers", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ListTransfers);
+  }
+
+  /**
    * ListUserTrades makes a call to GET /api/1/listtrades.
    *
    * Returns a list of the recent Trades for a given currency pair for this user, sorted by oldest first.
@@ -433,8 +458,8 @@ class Client extends AbstractClient
   /**
    * Markets makes a call to GET /api/exchange/1/markets.
    *
-   * Get all supported markets parameter information like price scale, min and
-   * max volumes and market ID.
+   * List all supported markets parameter information like price scale, min and
+   * max order volumes and market ID.
    */ 
   public function Markets(Request\Markets $req): Response\Markets
   {

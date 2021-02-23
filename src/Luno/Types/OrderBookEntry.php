@@ -5,12 +5,12 @@ namespace Luno\Types;
 class OrderBookEntry
 {
   /**
-   * Limit price
+   * Limit price at which orders are trading at
    */
   protected $price;
 
   /**
-   * Volume available
+   * Aggregated volume available at the limit price
    */
   protected $volume;
   
