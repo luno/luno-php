@@ -4,11 +4,37 @@ namespace Luno\Types;
 
 class AccountBalance
 {
+  /**
+   * ID of the account.
+   */
   protected $account_id;
+
+  /**
+   * Currency code for the asset held in this account.
+   */
   protected $asset;
+
+  /**
+   * The amount available to send or trade.
+   */
   protected $balance;
+
+  /**
+   * The name set by the user upon creating the account.
+   */
   protected $name;
+
+  /**
+   * Amount locked by Luno and cannot be sent or traded. This could be due to
+   * open orders.
+   */
   protected $reserved;
+
+  /**
+   * Amount that is awaiting some sort of verification to be credited to this
+   * account. This could be an on-chain transaction that Luno is waiting for
+   * further block verifications to happen.
+   */
   protected $unconfirmed;
   
   /**

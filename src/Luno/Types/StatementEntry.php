@@ -2,15 +2,27 @@
 
 namespace Luno\Types;
 
-class Transaction
+class StatementEntry
 {
   protected $account_id;
+
+  /**
+   * Amount available
+   */
   protected $available;
+
+  /**
+   * Change in amount available
+   */
   protected $available_delta;
+
+  /**
+   * Account balance
+   */
   protected $balance;
 
   /**
-   * Transaction amounts computed for convenience.
+   * Change in balance
    */
   protected $balance_delta;
   protected $currency;
@@ -25,7 +37,21 @@ class Transaction
    * Human-readable label-value attributes.
    */
   protected $details;
+
+  /**
+   * The kind of the transaction indicates the transaction flow
+   * 
+   * Kinds explained:<br>
+   * <code>FEE</code> when transaction is towards Luno fees<br>
+   * <code>TRANSFER</code> when the transaction is a one way flow of funds, e.g. a deposit or crypto send<br>
+   * <code>EXCHANGE</code> when the transaction is part of a two way exchange, e.g. a trade or instant buy
+   */
+  protected $kind;
   protected $row_index;
+
+  /**
+   * Unix timestamp, in milliseconds
+   */
   protected $timestamp;
   
   /**
@@ -197,6 +223,25 @@ class Transaction
   public function setDetails(array $details)
   {
     $this->details = $details;
+  }
+
+  /**
+   * @return string
+   */
+  public function getKind(): string
+  {
+    if (!isset($this->kind)) {
+      return "";
+    }
+    return $this->kind;
+  }
+
+  /**
+   * @param string $kind
+   */
+  public function setKind(string $kind)
+  {
+    $this->kind = $kind;
   }
 
   /**
