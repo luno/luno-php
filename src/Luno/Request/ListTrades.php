@@ -5,13 +5,15 @@ namespace Luno\Request;
 class ListTrades extends AbstractRequest
 {
   /**
-   * Currency pair
+   * Currency pair of the market to list the trades from
    */
   protected $pair;
 
   /**
    * Fetch trades executed after this time, specified as a Unix timestamp in
-   * milliseconds.
+   * milliseconds. An error will be returned if this is before 24h ago. Use
+   * this parameter to either restrict to a shorter window or to iterate over
+   * the trades in case you need more than the 100 most recent trades.
    */
   protected $since;
   

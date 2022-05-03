@@ -2,36 +2,35 @@
 
 namespace Luno\Request;
 
-class ListWithdrawals extends AbstractRequest
+class ListMoves extends AbstractRequest
 {
   /**
-   * Filter to withdrawals requested on or before the withdrawal with this ID.
-   * Can be used for pagination.
+   * Filter to moves requested before this timestamp (Unix milliseconds)
    */
-  protected $before_id;
+  protected $before;
 
   /**
-   * Limit to this many withdrawals
+   * Limit to this many moves
    */
   protected $limit;
   
   /**
    * @return int
    */
-  public function getBeforeId(): int
+  public function getBefore(): int
   {
-    if (!isset($this->before_id)) {
+    if (!isset($this->before)) {
       return 0;
     }
-    return $this->before_id;
+    return $this->before;
   }
 
   /**
-   * @param int $beforeId
+   * @param int $before
    */
-  public function setBeforeId(int $beforeId)
+  public function setBefore(int $before)
   {
-    $this->before_id = $beforeId;
+    $this->before = $before;
   }
 
   /**

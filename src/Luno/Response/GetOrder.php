@@ -4,14 +4,55 @@ namespace Luno\Response;
 
 class GetOrder extends AbstractResponse
 {
+  /**
+   * Amount of base filled, this value is always positive.
+   */
   protected $base;
+
+  /**
+   * Time of order completion (Unix milliseconds)
+   * 
+   * This value is set at the time of this order leaving the order book,
+   * either immediately upon posting or later on due to a trade or cancellation.
+   * Whilst the order is still pending/live it will be 0.
+   */
   protected $completed_timestamp;
+
+  /**
+   * Amount of counter filled, this value is always positive.
+   */
   protected $counter;
+
+  /**
+   * Time of order creation (Unix milliseconds)
+   */
   protected $creation_timestamp;
+
+  /**
+   * Time of order expiration (Unix milliseconds)
+   * 
+   * This value is set at the time of processing a request from you to cancel the order, otherwise it will be 0.
+   */
   protected $expiration_timestamp;
+
+  /**
+   * Base amount of fees to be charged
+   */
   protected $fee_base;
+
+  /**
+   * Counter amount of fees to be charged
+   */
   protected $fee_counter;
+
+  /**
+   * Limit price to transact
+   */
   protected $limit_price;
+
+  /**
+   * Limit volume to transact
+   */
   protected $limit_volume;
   protected $order_id;
 
@@ -29,6 +70,8 @@ class GetOrder extends AbstractResponse
   protected $state;
 
   /**
+   * <code>BUY</code> buy market order.<br>
+   * <code>SELL</code> sell market order.<br>
    * <code>BID</code> bid (buy) limit order.<br>
    * <code>ASK</code> ask (sell) limit order.
    */

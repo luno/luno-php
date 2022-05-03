@@ -6,7 +6,9 @@ class GetBalances extends AbstractRequest
 {
   /**
    * Only return balances for wallets with these currencies (if not provided,
-   * all balances will be returned)
+   * all balances will be returned). To request balances for multiple currencies,
+   * pass the parameter multiple times,
+   * e.g. `assets=XBT&assets=ETH`.
    */
   protected $assets;
   

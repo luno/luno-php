@@ -4,13 +4,30 @@ namespace Luno\Types;
 
 class Ticker
 {
+  /**
+   * The lowest ask price
+   */
   protected $ask;
+
+  /**
+   * The highest bid price
+   */
   protected $bid;
+
+  /**
+   * Last trade price
+   */
   protected $last_trade;
   protected $pair;
+
+  /**
+   * 24h rolling trade volume
+   */
   protected $rolling_24_hour_volume;
 
   /**
+   * Market current status
+   * 
    * <code>ACTIVE</code> when the market is trading normally
    * 
    * <code>POSTONLY</code> when the market has been suspended and only post-only orders will be accepted
@@ -18,6 +35,10 @@ class Ticker
    * <code>DISABLED</code> when the market is shutdown and no orders can be accepted
    */
   protected $status;
+
+  /**
+   * Unix timestamp in milliseconds of the tick
+   */
   protected $timestamp;
   
   /**

@@ -7,7 +7,7 @@ class ListUserTrades extends AbstractResponse
   protected $trades;
   
   /**
-   * @return \Luno\Types\Trade[]
+   * @return \Luno\Types\TradeV2[]
    */
   public function getTrades(): array
   {
@@ -18,7 +18,7 @@ class ListUserTrades extends AbstractResponse
   }
 
   /**
-   * @param \Luno\Types\Trade[] $trades
+   * @param \Luno\Types\TradeV2[] $trades
    */
   public function setTrades(array $trades)
   {

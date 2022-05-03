@@ -4,6 +4,9 @@ namespace Luno\Response;
 
 class PostMarketOrder extends AbstractResponse
 {
+  /**
+   * Unique order identifier
+   */
   protected $order_id;
   
   /**

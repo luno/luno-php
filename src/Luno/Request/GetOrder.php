@@ -5,7 +5,7 @@ namespace Luno\Request;
 class GetOrder extends AbstractRequest
 {
   /**
-   * The order ID.
+   * Order reference
    */
   protected $id;
   

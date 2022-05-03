@@ -12,6 +12,7 @@ class beneficiary
   protected $bank_recipient;
   protected $created_at;
   protected $id;
+  protected $supports_fast_withdrawals;
   
   /**
    * @return string
@@ -163,6 +164,25 @@ class beneficiary
   public function setId(string $id)
   {
     $this->id = $id;
+  }
+
+  /**
+   * @return bool
+   */
+  public function getSupportsFastWithdrawals(): bool
+  {
+    if (!isset($this->supports_fast_withdrawals)) {
+      return false;
+    }
+    return $this->supports_fast_withdrawals;
+  }
+
+  /**
+   * @param bool $supportsFastWithdrawals
+   */
+  public function setSupportsFastWithdrawals(bool $supportsFastWithdrawals)
+  {
+    $this->supports_fast_withdrawals = $supportsFastWithdrawals;
   }
 
 }

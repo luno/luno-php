@@ -4,6 +4,9 @@ namespace Luno\Response;
 
 class PostLimitOrder extends AbstractResponse
 {
+  /**
+   * Unique order identifier
+   */
   protected $order_id;
   
   /**

@@ -16,7 +16,7 @@ class ListUserTrades extends AbstractRequest
   protected $after_seq;
 
   /**
-   * Filter to trades before this timestamp.
+   * Filter to trades before this timestamp (Unix milliseconds).
    */
   protected $before;
 
@@ -32,7 +32,7 @@ class ListUserTrades extends AbstractRequest
   protected $limit;
 
   /**
-   * Filter to trades on or after this timestamp.
+   * Filter to trades on or after this timestamp (Unix milliseconds).
    */
   protected $since;
 

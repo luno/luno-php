@@ -7,7 +7,7 @@ class Client extends AbstractClient
   /**
    * CancelWithdrawal makes a call to DELETE /api/1/withdrawals/{id}.
    *
-   * Cancel a withdrawal request.
+   * Cancels a withdrawal request.
    * This can only be done if the request is still in state <code>PENDING</code>.
    * 
    * Permissions required: <code>Perm_W_Withdrawals</code>
@@ -50,30 +50,6 @@ class Client extends AbstractClient
   }
 
   /**
-   * CreateQuote makes a call to POST /api/1/quotes.
-   *
-   * Creates a new quote to buy or sell a particular amount of a base currency for a counter currency.
-   * 
-   * Users can specify either the exact amount to pay or the exact amount to receive.
-   * 
-   * For example, to buy exactly 0.1 Bitcoin using ZAR, you would create a quote to BUY 0.1 XBTZAR.
-   * The returned quote includes the appropriate ZAR amount.
-   * To buy Bitcoin using exactly ZAR 100, create a quote to SELL 100 ZARXBT.
-   * The returned quote specifies the Bitcoin as the counter amount returned.
-   * 
-   * An error is returned if the Account is not verified for the currency pair,
-   * or if the Account would have insufficient balance to ever exercise the quote.
-   * 
-   * Permissions required: <code>Perm_W_Orders</code>
-   */ 
-  public function CreateQuote(Request\CreateQuote $req): Response\CreateQuote
-  {
-    $res = $this->do("POST", "/api/1/quotes", $req, true);
-    $mapper = new \JsonMapper();
-    return $mapper->map($res, new Response\CreateQuote);
-  }
-
-  /**
    * CreateWithdrawal makes a call to POST /api/1/withdrawals.
    *
    * Creates a new withdrawal request to the specified beneficiary.
@@ -88,39 +64,6 @@ class Client extends AbstractClient
   }
 
   /**
-   * DiscardQuote makes a call to DELETE /api/1/quotes/{id}.
-   *
-   * Discard a Quote.
-   * Once a Quote has been discarded, it cannot be exercised even if it has not expired.
-   * 
-   * Permissions required: <code>Perm_W_Orders</code>
-   */ 
-  public function DiscardQuote(Request\DiscardQuote $req): Response\DiscardQuote
-  {
-    $res = $this->do("DELETE", "/api/1/quotes/{id}", $req, true);
-    $mapper = new \JsonMapper();
-    return $mapper->map($res, new Response\DiscardQuote);
-  }
-
-  /**
-   * ExerciseQuote makes a call to PUT /api/1/quotes/{id}.
-   *
-   * Exercise a quote to perform the Trade.
-   * If there is sufficient balance available in the Account,
-   * it will be debited and the counter amount credited.
-   * 
-   * An error is returned if the quote has expired or if the Account has insufficient available balance.
-   * 
-   * Permissions required: <code>Perm_W_Orders</code>
-   */ 
-  public function ExerciseQuote(Request\ExerciseQuote $req): Response\ExerciseQuote
-  {
-    $res = $this->do("PUT", "/api/1/quotes/{id}", $req, true);
-    $mapper = new \JsonMapper();
-    return $mapper->map($res, new Response\ExerciseQuote);
-  }
-
-  /**
    * GetBalances makes a call to GET /api/1/balance.
    *
    * The list of all Accounts and their respective balances for the requesting user.
@@ -132,6 +75,20 @@ class Client extends AbstractClient
     $res = $this->do("GET", "/api/1/balance", $req, true);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\GetBalances);
+  }
+
+  /**
+   * GetCandles makes a call to GET /api/exchange/1/candles.
+   *
+   * Get candlestick market data from the specified time until now, from the oldest to the most recent.
+   * 
+   * Permissions required: <code>MP_None</code>
+   */ 
+  public function GetCandles(Request\GetCandles $req): Response\GetCandles
+  {
+    $res = $this->do("GET", "/api/exchange/1/candles", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetCandles);
   }
 
   /**
@@ -167,6 +124,25 @@ class Client extends AbstractClient
   }
 
   /**
+   * GetMove makes a call to GET /api/exchange/1/move.
+   *
+   * Get a specific move funds instruction by either <code>id</code> or
+   * <code>client_move_id</code>. If both are provided an API error will be
+   * returned.
+   * 
+   * This endpoint is in BETA, behaviour and specification may change without
+   * any previous notice.
+   * 
+   * Permissions required: <code>MP_None</code>
+   */ 
+  public function GetMove(Request\GetMove $req): Response\GetMove
+  {
+    $res = $this->do("GET", "/api/exchange/1/move", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\GetMove);
+  }
+
+  /**
    * GetOrder makes a call to GET /api/1/orders/{id}.
    *
    * Get an Order's details by its ID.
@@ -183,13 +159,11 @@ class Client extends AbstractClient
   /**
    * GetOrderBook makes a call to GET /api/1/orderbook_top.
    *
-   * Returns a list of the top 100 <em>bids</em> and <em>asks</em> for the currency pair specified in the Order Book.
+   * This request returns the best 100 `bids` and `asks`, for the currency pair specified, in the Order Book.
    * 
-   * Ask Orders are sorted by price ascending.
+   * `asks` are sorted by price ascending and `bids` are sorted by price descending.
    * 
-   * Bid Orders are sorted by price descending.
-   * 
-   * Orders of the same price are aggregated.
+   * Multiple orders at the same price are aggregated.
    */ 
   public function GetOrderBook(Request\GetOrderBook $req): Response\GetOrderBook
   {
@@ -201,17 +175,15 @@ class Client extends AbstractClient
   /**
    * GetOrderBookFull makes a call to GET /api/1/orderbook.
    *
-   * This request returns a list of all <em>bids</em> and <em>asks</em> for the currency pair specified in the Order Book.
+   * This request returns all `bids` and `asks`, for the currency pair specified, in the Order Book.
    * 
-   * Ask orders are sorted by price ascending.
-   * 
-   * Bid orders are sorted by price descending.
+   * `asks` are sorted by price ascending and `bids` are sorted by price descending.
    * 
    * Multiple orders at the same price are not aggregated.
    * 
-   * <b>Warning:</b> This may return a large amount of data.
-   * Users are recommended to use the <a href="#operation/getOrderBook">top 100 bids and asks</a>
-   * or the <a href="#tag/streaming-API-(beta)">Streaming API</a>.
+   * <b>WARNING:</b> This may return a large amount of data.
+   * Users are recommended to use the <a href="#operation/getOrderBookTop">top 100 bids and asks</a>
+   * or the <a href="#tag/Streaming-API">Streaming API</a>.
    */ 
   public function GetOrderBookFull(Request\GetOrderBookFull $req): Response\GetOrderBookFull
   {
@@ -223,9 +195,7 @@ class Client extends AbstractClient
   /**
    * GetOrderV2 makes a call to GET /api/exchange/2/orders/{id}.
    *
-   * Get the details for an order.<br>
-   * This endpoint is in BETA, behaviour and specification may change without
-   * any previous notice.
+   * Get the details for an order.
    * 
    * Permissions required: <code>Perm_R_Orders</code>
    */ 
@@ -237,17 +207,17 @@ class Client extends AbstractClient
   }
 
   /**
-   * GetQuote makes a call to GET /api/1/quotes/{id}.
+   * GetOrderV3 makes a call to GET /api/exchange/3/order.
    *
-   * Get the latest status of a quote by its id.
-   * 
+   * Get the details for an order by order reference or client order ID.
+   * Exactly one of the two parameters must be provided, otherwise an error is returned.
    * Permissions required: <code>Perm_R_Orders</code>
    */ 
-  public function GetQuote(Request\GetQuote $req): Response\GetQuote
+  public function GetOrderV3(Request\GetOrderV3 $req): Response\GetOrderV3
   {
-    $res = $this->do("GET", "/api/1/quotes/{id}", $req, true);
+    $res = $this->do("GET", "/api/exchange/3/order", $req, true);
     $mapper = new \JsonMapper();
-    return $mapper->map($res, new Response\GetQuote);
+    return $mapper->map($res, new Response\GetOrderV3);
   }
 
   /**
@@ -307,12 +277,29 @@ class Client extends AbstractClient
   }
 
   /**
+   * ListMoves makes a call to GET /api/exchange/1/move/list_moves.
+   *
+   * Returns a list of the most recent moves ordered from newest to oldest.
+   * This endpoint will list up to 100 most recent moves by default.
+   * 
+   * This endpoint is in BETA, behaviour and specification may change without
+   * any previous notice.
+   * 
+   * Permissions required: <code>MP_None</code>
+   */ 
+  public function ListMoves(Request\ListMoves $req): Response\ListMoves
+  {
+    $res = $this->do("GET", "/api/exchange/1/move/list_moves", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ListMoves);
+  }
+
+  /**
    * ListOrders makes a call to GET /api/1/listorders.
    *
    * Returns a list of the most recently placed Orders.
    * Users can specify an optional <code>state=PENDING</code> parameter to restrict the results to only open Orders.
    * Users can also specify the market by using the optional currency pair parameter.
-   * The list is truncated after 100 items.
    * 
    * Permissions required: <code>Perm_R_Orders</code>
    */ 
@@ -326,10 +313,9 @@ class Client extends AbstractClient
   /**
    * ListOrdersV2 makes a call to GET /api/exchange/2/listorders.
    *
-   * Returns a list of the most recently placed orders. This endpoint will list
-   * up to 100 open orders by default.<br>
-   * This endpoint is in BETA, behaviour and specification may change without
-   * any previous notice.
+   * Returns a list of the most recently placed orders ordered from newest to
+   * oldest. This endpoint will list up to 100 most recent open orders by
+   * default.
    * 
    * Permissions required: <Code>Perm_R_Orders</Code>
    */ 
@@ -359,8 +345,9 @@ class Client extends AbstractClient
   /**
    * ListTrades makes a call to GET /api/1/trades.
    *
-   * Returns a list of the most recent Trades for the specified currency pair in the last 24 hours.
-   * At most 100 results are returned per call.
+   * Returns a list of recent trades for the specified currency pair. At most
+   * 100 trades are returned per call and never trades older than 24h. The
+   * trades are sorted from newest to oldest.
    * 
    * Please see the <a href="#tag/currency ">Currency list</a> for the complete list of supported currency pairs.
    */ 
@@ -392,6 +379,34 @@ class Client extends AbstractClient
     $res = $this->do("GET", "/api/1/accounts/{id}/transactions", $req, true);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\ListTransactions);
+  }
+
+  /**
+   * ListTransfers makes a call to GET /api/exchange/1/transfers.
+   *
+   * Returns a list of the most recent confirmed transfers ordered from newest to
+   * oldest.
+   * This includes bank transfers, card payments, or on-chain transactions that
+   * have been reflected on your account available balance.
+   * 
+   * Note that the Transfer `amount` is always a positive value and you should
+   * use the `inbound` flag to determine the direction of the transfer.
+   * 
+   * If you need to paginate the results you can set the `before` parameter to
+   * the last returned transfer `created_at` field value and repeat the request
+   * until you have all the transfers you need.
+   * This endpoint will list up to 100 transfers at a time by default.
+   * 
+   * This endpoint is in BETA, behaviour and specification may change without
+   * any previous notice.
+   * 
+   * Permissions required: <Code>Perm_R_Transfers</Code>
+   */ 
+  public function ListTransfers(Request\ListTransfers $req): Response\ListTransfers
+  {
+    $res = $this->do("GET", "/api/exchange/1/transfers", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\ListTransfers);
   }
 
   /**
@@ -433,8 +448,8 @@ class Client extends AbstractClient
   /**
    * Markets makes a call to GET /api/exchange/1/markets.
    *
-   * Get all supported markets parameter information like price scale, min and
-   * max volumes and market ID.
+   * List all supported markets parameter information like price scale, min and
+   * max order volumes and market ID.
    */ 
   public function Markets(Request\Markets $req): Response\Markets
   {
@@ -444,10 +459,29 @@ class Client extends AbstractClient
   }
 
   /**
+   * Move makes a call to POST /api/exchange/1/move.
+   *
+   * Move funds between two of your accounts with the same currency
+   * The funds may not be moved by the time the request returns. The GET method
+   * can be used to poll for the move's status.
+   * 
+   * Note: moves will show as transactions, but not as transfers.
+   * 
+   * This endpoint is in BETA, behaviour and specification may change without
+   * any previous notice.
+   * 
+   * Permissions required: <code>MP_None_Write</code>
+   */ 
+  public function Move(Request\Move $req): Response\Move
+  {
+    $res = $this->do("POST", "/api/exchange/1/move", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\Move);
+  }
+
+  /**
    * PostLimitOrder makes a call to POST /api/1/postorder.
    *
-   * Create a new Trade Order.
-   * 
    * <b>Warning!</b> Orders cannot be reversed once they have executed.
    * Please ensure your program has been thoroughly tested before submitting Orders.
    * 
@@ -467,8 +501,6 @@ class Client extends AbstractClient
   /**
    * PostMarketOrder makes a call to POST /api/1/marketorder.
    *
-   * Create a new Market Order.
-   * 
    * A Market Order executes immediately, and either buys as much of the asset that can be bought for a set amount of fiat currency, or sells a set amount of the asset for as much as possible.
    * 
    * <b>Warning!</b> Orders cannot be reversed once they have executed.
@@ -493,6 +525,8 @@ class Client extends AbstractClient
    * 
    * Sends can be to a cryptocurrency receive address, or the email address of another Luno platform user.
    * 
+   * <b>Note:</b> This is currently unavailable to users who are verified in countries with money travel rules.
+   * 
    * Permissions required: <code>Perm_W_Send</code>
    */ 
   public function Send(Request\Send $req): Response\Send
@@ -503,9 +537,25 @@ class Client extends AbstractClient
   }
 
   /**
+   * SendFee makes a call to GET /api/1/send_fee.
+   *
+   * Calculate fees involved with a crypto send request.
+   * 
+   * Send address can be to a cryptocurrency receive address, or the email address of another Luno platform user.
+   * 
+   * Permissions required: <code>MP_None</code>
+   */ 
+  public function SendFee(Request\SendFee $req): Response\SendFee
+  {
+    $res = $this->do("GET", "/api/1/send_fee", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\SendFee);
+  }
+
+  /**
    * StopOrder makes a call to POST /api/1/stoporder.
    *
-   * Request to stop an Order.
+   * Request to cancel an Order.
    * 
    * <b>Note!</b>: Once an Order has been completed, it can not be reversed.
    * The return value from this request will indicate if the Stop request was successful or not.

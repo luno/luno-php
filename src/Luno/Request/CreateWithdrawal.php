@@ -10,7 +10,7 @@ class CreateWithdrawal extends AbstractRequest
   protected $amount;
 
   /**
-   * Withdrawal type.
+   * Withdrawal method.
    */
   protected $type;
 
@@ -27,6 +27,14 @@ class CreateWithdrawal extends AbstractRequest
    * This field supports all alphanumeric characters including "-" and "_".
    */
   protected $external_id;
+
+  /**
+   * If true, it will be a fast withdrawal if possible. Fast withdrawals come with a fee.
+   * Currently fast withdrawals are only available for `type=ZAR_EFT`; for other types, an error is returned.
+   * Fast withdrawals are not possible for Bank of Baroda, Deutsche Bank, Merrill Lynch South Africa, UBS, Postbank and Tyme Bank.
+   * The fee to be charged is the same as when withdrawing from the UI.
+   */
+  protected $fast;
 
   /**
    * For internal use.
@@ -107,6 +115,25 @@ class CreateWithdrawal extends AbstractRequest
   public function setExternalId(string $externalId)
   {
     $this->external_id = $externalId;
+  }
+
+  /**
+   * @return bool
+   */
+  public function getFast(): bool
+  {
+    if (!isset($this->fast)) {
+      return false;
+    }
+    return $this->fast;
+  }
+
+  /**
+   * @param bool $fast
+   */
+  public function setFast(bool $fast)
+  {
+    $this->fast = $fast;
   }
 
   /**

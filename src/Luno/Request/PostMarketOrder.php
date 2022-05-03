@@ -26,6 +26,15 @@ class PostMarketOrder extends AbstractRequest
   protected $base_volume;
 
   /**
+   * Client order ID.
+   * May only contain alphanumeric (0-9, a-z, or A-Z) and special characters (_ ; , . -). Maximum length: 255.
+   * It will be available in read endpoints, so you can use it to reconcile Luno with your internal system.
+   * Values must be unique across all your successful order creation endpoint calls; trying to create an order
+   * with the same `client_order_id` as one of your past orders will result in a HTTP 409 Conflict response.
+   */
+  protected $client_order_id;
+
+  /**
    * The counter currency account to use in the trade.
    */
   protected $counter_account_id;
@@ -34,6 +43,17 @@ class PostMarketOrder extends AbstractRequest
    * For a <code>BUY</code> order: amount of the counter currency to use (e.g. how much EUR to use to buy BTC in the BTC/EUR market)
    */
   protected $counter_volume;
+
+  /**
+   * Unix timestamp in milliseconds of when the request was created and sent.
+   */
+  protected $timestamp;
+
+  /**
+   * Specifies the number of milliseconds after timestamp the request is valid for.
+   * If `timestamp` is not specified, `ttl` will not be used.
+   */
+  protected $ttl;
   
   /**
    * @return string
@@ -112,6 +132,25 @@ class PostMarketOrder extends AbstractRequest
   }
 
   /**
+   * @return string
+   */
+  public function getClientOrderId(): string
+  {
+    if (!isset($this->client_order_id)) {
+      return "";
+    }
+    return $this->client_order_id;
+  }
+
+  /**
+   * @param string $clientOrderId
+   */
+  public function setClientOrderId(string $clientOrderId)
+  {
+    $this->client_order_id = $clientOrderId;
+  }
+
+  /**
    * @return int
    */
   public function getCounterAccountId(): int
@@ -147,6 +186,44 @@ class PostMarketOrder extends AbstractRequest
   public function setCounterVolume(float $counterVolume)
   {
     $this->counter_volume = $counterVolume;
+  }
+
+  /**
+   * @return int
+   */
+  public function getTimestamp(): int
+  {
+    if (!isset($this->timestamp)) {
+      return 0;
+    }
+    return $this->timestamp;
+  }
+
+  /**
+   * @param int $timestamp
+   */
+  public function setTimestamp(int $timestamp)
+  {
+    $this->timestamp = $timestamp;
+  }
+
+  /**
+   * @return int
+   */
+  public function getTtl(): int
+  {
+    if (!isset($this->ttl)) {
+      return 0;
+    }
+    return $this->ttl;
+  }
+
+  /**
+   * @param int $ttl
+   */
+  public function setTtl(int $ttl)
+  {
+    $this->ttl = $ttl;
   }
 }
 

@@ -4,8 +4,19 @@ namespace Luno\Response;
 
 class GetOrderBookFull extends AbstractResponse
 {
+  /**
+   * List of asks sorted from lowest to highest price
+   */
   protected $asks;
+
+  /**
+   * List of bids sorted from highest to lowest price
+   */
   protected $bids;
+
+  /**
+   * Unix timestamp in milliseconds
+   */
   protected $timestamp;
   
   /**

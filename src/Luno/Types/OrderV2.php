@@ -5,27 +5,42 @@ namespace Luno\Types;
 class OrderV2
 {
   /**
-   * Amount of base filled
+   * Amount of base filled, this value is always positive.
+   * 
+   * Use this field and `side` to determine credit or debit of funds.
    */
   protected $base;
 
   /**
-   * Time of order completion in milliseconds
+   * Client Order ID has the value that was passed in when the Order was posted.
+   */
+  protected $client_order_id;
+
+  /**
+   * Time of order completion (Unix milliseconds)
+   * 
+   * This value is set at the time of this order leaving the order book,
+   * either immediately upon posting or later on due to a trade or cancellation.
+   * Whilst the order is still pending/live it will be 0.
    */
   protected $completed_timestamp;
 
   /**
-   * Amount of counter filled
+   * Amount of counter filled, this value is always positive.
+   * 
+   * Use this field and `side` to determine credit or debit of funds.
    */
   protected $counter;
 
   /**
-   * Time of order creation in milliseconds
+   * Time of order creation (Unix milliseconds)
    */
   protected $creation_timestamp;
 
   /**
-   * Time of order expiration in milliseconds
+   * Time of order expiration (Unix milliseconds)
+   * 
+   * This value is set at the time of processing a request from you to cancel the order, otherwise it will be 0.
    */
   protected $expiration_timestamp;
 
@@ -60,7 +75,9 @@ class OrderV2
   protected $pair;
 
   /**
-   * The order intention
+   * The intention of the order, whether to buy or sell funds in the market.
+   * 
+   * You can use this to determine the flow of funds in the order.
    */
   protected $side;
 
@@ -108,6 +125,25 @@ class OrderV2
   public function setBase(float $base)
   {
     $this->base = $base;
+  }
+
+  /**
+   * @return string
+   */
+  public function getClientOrderId(): string
+  {
+    if (!isset($this->client_order_id)) {
+      return "";
+    }
+    return $this->client_order_id;
+  }
+
+  /**
+   * @param string $clientOrderId
+   */
+  public function setClientOrderId(string $clientOrderId)
+  {
+    $this->client_order_id = $clientOrderId;
   }
 
   /**

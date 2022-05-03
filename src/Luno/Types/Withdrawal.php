@@ -4,13 +4,41 @@ namespace Luno\Types;
 
 class Withdrawal
 {
+  /**
+   * Amount to withdraw
+   */
   protected $amount;
+
+  /**
+   * Unix time the withdrawal was initiated, in milliseconds
+   */
   protected $created_at;
+
+  /**
+   * Withdrawal currency.
+   */
   protected $currency;
+
+  /**
+   * External ID has the value that was passed in when the Withdrawal request was posted.
+   */
   protected $external_id;
+
+  /**
+   * Withdrawal fee
+   */
   protected $fee;
   protected $id;
+
+  /**
+   * Status
+   */
   protected $status;
+
+  /**
+   * Type distinguishes between different withdrawal methods where more than one is supported
+   * for the given currency.
+   */
   protected $type;
   
   /**

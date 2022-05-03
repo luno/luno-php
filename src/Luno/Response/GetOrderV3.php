@@ -1,13 +1,20 @@
 <?php declare(strict_types=1);
 
-namespace Luno\Types;
+namespace Luno\Response;
 
-class Order
+class GetOrderV3 extends AbstractResponse
 {
   /**
    * Amount of base filled, this value is always positive.
+   * 
+   * Use this field and `side` to determine credit or debit of funds.
    */
   protected $base;
+
+  /**
+   * Client Order ID has the value that was passed in when the Order was posted.
+   */
+  protected $client_order_id;
 
   /**
    * Time of order completion (Unix milliseconds)
@@ -20,6 +27,8 @@ class Order
 
   /**
    * Amount of counter filled, this value is always positive.
+   * 
+   * Use this field and `side` to determine credit or debit of funds.
    */
   protected $counter;
 
@@ -54,26 +63,48 @@ class Order
    * Limit volume to transact
    */
   protected $limit_volume;
+
+  /**
+   * The order reference
+   */
   protected $order_id;
 
   /**
-   * Specifies the market.
+   * Specifies the market
    */
   protected $pair;
 
   /**
-   * <code>PENDING</code> The order has been placed. Some trades may have
-   * taken place but the order is not filled yet.<br>
-   * <code>COMPLETE</code> The order is no longer active. It has been settled
-   * or has been cancelled.
+   * The intention of the order, whether to buy or sell funds in the market.
+   * 
+   * You can use this to determine the flow of funds in the order.
    */
-  protected $state;
+  protected $side;
 
   /**
-   * <code>BUY</code> buy market order.<br>
-   * <code>SELL</code> sell market order.<br>
-   * <code>BID</code> bid (buy) limit order.<br>
-   * <code>ASK</code> ask (sell) limit order.
+   * The current state of the order
+   * 
+   * Status meaning:<br>
+   * <code>AWAITING</code> The order is awaiting to enter the order book.<br>
+   * <code>PENDING</code> The order is in the order book. Some trades may
+   * have taken place but the order is not filled yet.<br>
+   * <code>COMPLETE</code> The order is no longer in the order book. It has
+   * been settled/filled or has been cancelled.
+   */
+  protected $status;
+
+  /**
+   * Direction to trigger the order
+   */
+  protected $stop_direction;
+
+  /**
+   * Price to trigger the order
+   */
+  protected $stop_price;
+
+  /**
+   * The order type
    */
   protected $type;
   
@@ -94,6 +125,25 @@ class Order
   public function setBase(float $base)
   {
     $this->base = $base;
+  }
+
+  /**
+   * @return string
+   */
+  public function getClientOrderId(): string
+  {
+    if (!isset($this->client_order_id)) {
+      return "";
+    }
+    return $this->client_order_id;
+  }
+
+  /**
+   * @param string $clientOrderId
+   */
+  public function setClientOrderId(string $clientOrderId)
+  {
+    $this->client_order_id = $clientOrderId;
   }
 
   /**
@@ -289,20 +339,77 @@ class Order
   /**
    * @return string
    */
-  public function getState(): string
+  public function getSide(): string
   {
-    if (!isset($this->state)) {
+    if (!isset($this->side)) {
       return "";
     }
-    return $this->state;
+    return $this->side;
   }
 
   /**
-   * @param string $state
+   * @param string $side
    */
-  public function setState(string $state)
+  public function setSide(string $side)
   {
-    $this->state = $state;
+    $this->side = $side;
+  }
+
+  /**
+   * @return string
+   */
+  public function getStatus(): string
+  {
+    if (!isset($this->status)) {
+      return "";
+    }
+    return $this->status;
+  }
+
+  /**
+   * @param string $status
+   */
+  public function setStatus(string $status)
+  {
+    $this->status = $status;
+  }
+
+  /**
+   * @return string
+   */
+  public function getStopDirection(): string
+  {
+    if (!isset($this->stop_direction)) {
+      return "";
+    }
+    return $this->stop_direction;
+  }
+
+  /**
+   * @param string $stopDirection
+   */
+  public function setStopDirection(string $stopDirection)
+  {
+    $this->stop_direction = $stopDirection;
+  }
+
+  /**
+   * @return float
+   */
+  public function getStopPrice(): float
+  {
+    if (!isset($this->stop_price)) {
+      return 0;
+    }
+    return $this->stop_price;
+  }
+
+  /**
+   * @param float $stopPrice
+   */
+  public function setStopPrice(float $stopPrice)
+  {
+    $this->stop_price = $stopPrice;
   }
 
   /**
@@ -323,7 +430,6 @@ class Order
   {
     $this->type = $type;
   }
-
 }
 
 // vi: ft=php
