@@ -110,7 +110,6 @@ class Client extends AbstractClient
    *
    * Returns the default receive address associated with your account and the
    * amount received via the address. Users can specify an optional address parameter to return information for a non-default receive address.
-   * 
    * In the response, <code>total_received</code> is the total confirmed amount received excluding unconfirmed transactions.
    * <code>total_unconfirmed</code> is the total sum of unconfirmed receive transactions.
    * 
@@ -461,7 +460,7 @@ class Client extends AbstractClient
   /**
    * Move makes a call to POST /api/exchange/1/move.
    *
-   * Move funds between two of your accounts with the same currency
+   * Move funds between two of your transactional accounts with the same currency
    * The funds may not be moved by the time the request returns. The GET method
    * can be used to poll for the move's status.
    * 
@@ -523,7 +522,7 @@ class Client extends AbstractClient
    *
    * Send assets from an Account. Please note that the asset type sent must match the receive address of the same cryptocurrency of the same type - Bitcoin to Bitcoin, Ethereum to Ethereum, etc.
    * 
-   * Sends can be to a cryptocurrency receive address, or the email address of another Luno platform user.
+   * Sends can be made to cryptocurrency receive addresses.
    * 
    * <b>Note:</b> This is currently unavailable to users who are verified in countries with money travel rules.
    * 
@@ -581,6 +580,21 @@ class Client extends AbstractClient
     $res = $this->do("PUT", "/api/1/accounts/{id}/name", $req, true);
     $mapper = new \JsonMapper();
     return $mapper->map($res, new Response\UpdateAccountName);
+  }
+
+  /**
+   * Validate makes a call to POST /api/1/address/validate.
+   *
+   * Validate receive addresses, to which a customer wishes to make cryptocurrency sends, are verified under covering
+   * regulatory requirements for the customer such as travel rules.
+   * 
+   * Permissions required: <code>Perm_W_Send</code>
+   */ 
+  public function Validate(Request\Validate $req): Response\Validate
+  {
+    $res = $this->do("POST", "/api/1/address/validate", $req, true);
+    $mapper = new \JsonMapper();
+    return $mapper->map($res, new Response\Validate);
   }
 }
 

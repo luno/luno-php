@@ -4,10 +4,10 @@ namespace Luno\Types;
 
 class Kind
 {
-  const FEE = "FEE";
-  const TRANSFER = "TRANSFER";
   const EXCHANGE = "EXCHANGE";
+  const FEE = "FEE";
   const INTEREST = "INTEREST";
+  const TRANSFER = "TRANSFER";
 }
 
 // vi: ft=php

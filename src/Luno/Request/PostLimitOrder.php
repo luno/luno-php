@@ -72,6 +72,13 @@ class PostLimitOrder extends AbstractRequest
   protected $stop_price;
 
   /**
+   * <code>GTC</code> Good 'Til Cancelled. The order remains open until it is filled or cancelled by the user.</br>
+   * <code>IOC</code> Immediate Or Cancel. The part of the order that cannot be filled immediately will be cancelled. Cannot be post-only.</br>
+   * <code>FOK</code> Fill Or Kill. If the order cannot be filled immediately and completely it will be cancelled before any trade. Cannot be post-only.
+   */
+  protected $time_in_force;
+
+  /**
    * Unix timestamp in milliseconds of when the request was created and sent.
    */
   protected $timestamp;
@@ -270,6 +277,25 @@ class PostLimitOrder extends AbstractRequest
   public function setStopPrice(float $stopPrice)
   {
     $this->stop_price = $stopPrice;
+  }
+
+  /**
+   * @return string
+   */
+  public function getTimeInForce(): string
+  {
+    if (!isset($this->time_in_force)) {
+      return "";
+    }
+    return $this->time_in_force;
+  }
+
+  /**
+   * @param string $timeInForce
+   */
+  public function setTimeInForce(string $timeInForce)
+  {
+    $this->time_in_force = $timeInForce;
   }
 
   /**
