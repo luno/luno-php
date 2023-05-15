@@ -2,15 +2,11 @@
 
 namespace Luno\Response;
 
-use Luno\Types\DetailFields;
-
 class CreateAccount extends AbstractResponse
 {
   protected $currency;
   protected $id;
   protected $name;
-  protected $pending;
-  protected $transactions;
   
   /**
    * @return string
@@ -67,44 +63,6 @@ class CreateAccount extends AbstractResponse
   public function setName(string $name)
   {
     $this->name = $name;
-  }
-
-  /**
-   * @return \Luno\Types\Transaction[]
-   */
-  public function getPending(): array
-  {
-    if (!isset($this->pending)) {
-      return [];
-    }
-    return $this->pending;
-  }
-
-  /**
-   * @param \Luno\Types\Transaction[] $pending
-   */
-  public function setPending(array $pending)
-  {
-    $this->pending = $pending;
-  }
-
-  /**
-   * @return \Luno\Types\Transaction[]
-   */
-  public function getTransactions(): array
-  {
-    if (!isset($this->transactions)) {
-      return [];
-    }
-    return $this->transactions;
-  }
-
-  /**
-   * @param \Luno\Types\Transaction[] $transactions
-   */
-  public function setTransactions(array $transactions)
-  {
-    $this->transactions = $transactions;
   }
 }
 

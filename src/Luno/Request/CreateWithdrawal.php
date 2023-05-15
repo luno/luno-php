@@ -38,6 +38,7 @@ class CreateWithdrawal extends AbstractRequest
 
   /**
    * For internal use.
+   * Deprecated: We don't allow custom references and will remove this soon.
    */
   protected $reference;
   

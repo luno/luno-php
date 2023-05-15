@@ -70,6 +70,16 @@ class Order
   protected $state;
 
   /**
+   * The Time in force option used when the LimitOrder was posted.
+   * 
+   * Only returned on limit orders.<br>
+   * <code>GTC</code> Good 'Til Cancelled. The order remains open until it is filled or cancelled by the user. (default)</br>
+   * <code>IOC</code> Immediate Or Cancel. The part of the order that cannot be filled immediately will be cancelled. Cannot be post-only.</br>
+   * <code>FOK</code> Fill Or Kill. If the order cannot be filled immediately and completely it will be cancelled before any trade. Cannot be post-only.
+   */
+  protected $time_in_force;
+
+  /**
    * <code>BUY</code> buy market order.<br>
    * <code>SELL</code> sell market order.<br>
    * <code>BID</code> bid (buy) limit order.<br>
@@ -303,6 +313,25 @@ class Order
   public function setState(string $state)
   {
     $this->state = $state;
+  }
+
+  /**
+   * @return string
+   */
+  public function getTimeInForce(): string
+  {
+    if (!isset($this->time_in_force)) {
+      return "";
+    }
+    return $this->time_in_force;
+  }
+
+  /**
+   * @param string $timeInForce
+   */
+  public function setTimeInForce(string $timeInForce)
+  {
+    $this->time_in_force = $timeInForce;
   }
 
   /**

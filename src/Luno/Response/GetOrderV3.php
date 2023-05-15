@@ -104,6 +104,16 @@ class GetOrderV3 extends AbstractResponse
   protected $stop_price;
 
   /**
+   * The Time in force option used when the LimitOrder was posted.
+   * 
+   * Only returned on limit orders.<br>
+   * <code>GTC</code> Good 'Til Cancelled. The order remains open until it is filled or cancelled by the user. (default)</br>
+   * <code>IOC</code> Immediate Or Cancel. The part of the order that cannot be filled immediately will be cancelled. Cannot be post-only.</br>
+   * <code>FOK</code> Fill Or Kill. If the order cannot be filled immediately and completely it will be cancelled before any trade. Cannot be post-only.
+   */
+  protected $time_in_force;
+
+  /**
    * The order type
    */
   protected $type;
@@ -410,6 +420,25 @@ class GetOrderV3 extends AbstractResponse
   public function setStopPrice(float $stopPrice)
   {
     $this->stop_price = $stopPrice;
+  }
+
+  /**
+   * @return string
+   */
+  public function getTimeInForce(): string
+  {
+    if (!isset($this->time_in_force)) {
+      return "";
+    }
+    return $this->time_in_force;
+  }
+
+  /**
+   * @param string $timeInForce
+   */
+  public function setTimeInForce(string $timeInForce)
+  {
+    $this->time_in_force = $timeInForce;
   }
 
   /**

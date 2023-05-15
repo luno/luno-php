@@ -29,7 +29,7 @@ class ListTransactions extends AbstractResponse
   }
 
   /**
-   * @return \Luno\Types\StatementEntry[]
+   * @return \Luno\Types\Transaction[]
    */
   public function getTransactions(): array
   {
@@ -40,7 +40,7 @@ class ListTransactions extends AbstractResponse
   }
 
   /**
-   * @param \Luno\Types\StatementEntry[] $transactions
+   * @param \Luno\Types\Transaction[] $transactions
    */
   public function setTransactions(array $transactions)
   {

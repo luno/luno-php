@@ -44,9 +44,24 @@ class Send extends AbstractRequest
   protected $external_id;
 
   /**
+   * Only required for Foreign Exchange Notification under the Malaysia FEN rules. ForexNoticeSelfDeclaration must be true if the user has exceeded his/her annual investment limit in foreign currency assets.
+   */
+  protected $forex_notice_self_declaration;
+
+  /**
    * Optional boolean flag indicating that a XRP destination tag is provided (even if zero).
    */
   protected $has_destination_tag;
+
+  /**
+   * Only required for Foreign Exchange Notification under the Malaysia FEN rules. IsDRB must be true if the user has Domestic Ringgit Borrowing (DRB).
+   */
+  protected $is_drb;
+
+  /**
+   * Only required for Foreign Exchange Notification under the Malaysia FEN rules. IsForexSend must be true if sending to an address hosted outside of Malaysia.
+   */
+  protected $is_forex_send;
 
   /**
    * Message to send to the recipient.
@@ -171,6 +186,25 @@ class Send extends AbstractRequest
   /**
    * @return bool
    */
+  public function getForexNoticeSelfDeclaration(): bool
+  {
+    if (!isset($this->forex_notice_self_declaration)) {
+      return false;
+    }
+    return $this->forex_notice_self_declaration;
+  }
+
+  /**
+   * @param bool $forexNoticeSelfDeclaration
+   */
+  public function setForexNoticeSelfDeclaration(bool $forexNoticeSelfDeclaration)
+  {
+    $this->forex_notice_self_declaration = $forexNoticeSelfDeclaration;
+  }
+
+  /**
+   * @return bool
+   */
   public function getHasDestinationTag(): bool
   {
     if (!isset($this->has_destination_tag)) {
@@ -185,6 +219,44 @@ class Send extends AbstractRequest
   public function setHasDestinationTag(bool $hasDestinationTag)
   {
     $this->has_destination_tag = $hasDestinationTag;
+  }
+
+  /**
+   * @return bool
+   */
+  public function getIsDrb(): bool
+  {
+    if (!isset($this->is_drb)) {
+      return false;
+    }
+    return $this->is_drb;
+  }
+
+  /**
+   * @param bool $isDrb
+   */
+  public function setIsDrb(bool $isDrb)
+  {
+    $this->is_drb = $isDrb;
+  }
+
+  /**
+   * @return bool
+   */
+  public function getIsForexSend(): bool
+  {
+    if (!isset($this->is_forex_send)) {
+      return false;
+    }
+    return $this->is_forex_send;
+  }
+
+  /**
+   * @param bool $isForexSend
+   */
+  public function setIsForexSend(bool $isForexSend)
+  {
+    $this->is_forex_send = $isForexSend;
   }
 
   /**
