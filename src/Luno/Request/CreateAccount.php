@@ -9,7 +9,7 @@ class CreateAccount extends AbstractRequest
    * 
    * Users must be verified to trade currency in order to be able to create an Account.  For more information on the verification process, please see <a href="/help/en/articles/1000168396">How do I verify my identity?</a>.
    * 
-   * Users have a limit of 4 accounts per currency.
+   * Users have a limit of 10 accounts per currency.
    */
   protected $currency;
 

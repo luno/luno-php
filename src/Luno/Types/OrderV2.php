@@ -12,6 +12,11 @@ class OrderV2
   protected $base;
 
   /**
+   * The base account ID used to place the order
+   */
+  protected $base_account_id;
+
+  /**
    * Client Order ID has the value that was passed in when the Order was posted.
    */
   protected $client_order_id;
@@ -31,6 +36,11 @@ class OrderV2
    * Use this field and `side` to determine credit or debit of funds.
    */
   protected $counter;
+
+  /**
+   * The counter account ID used to place the order
+   */
+  protected $counter_account_id;
 
   /**
    * Time of order creation (Unix milliseconds)
@@ -138,6 +148,25 @@ class OrderV2
   }
 
   /**
+   * @return int
+   */
+  public function getBaseAccountId(): int
+  {
+    if (!isset($this->base_account_id)) {
+      return 0;
+    }
+    return $this->base_account_id;
+  }
+
+  /**
+   * @param int $baseAccountId
+   */
+  public function setBaseAccountId(int $baseAccountId)
+  {
+    $this->base_account_id = $baseAccountId;
+  }
+
+  /**
    * @return string
    */
   public function getClientOrderId(): string
@@ -192,6 +221,25 @@ class OrderV2
   public function setCounter(float $counter)
   {
     $this->counter = $counter;
+  }
+
+  /**
+   * @return int
+   */
+  public function getCounterAccountId(): int
+  {
+    if (!isset($this->counter_account_id)) {
+      return 0;
+    }
+    return $this->counter_account_id;
+  }
+
+  /**
+   * @param int $counterAccountId
+   */
+  public function setCounterAccountId(int $counterAccountId)
+  {
+    $this->counter_account_id = $counterAccountId;
   }
 
   /**
