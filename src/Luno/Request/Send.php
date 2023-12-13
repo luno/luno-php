@@ -64,6 +64,12 @@ class Send extends AbstractRequest
   protected $is_forex_send;
 
   /**
+   * Optional memo string used to provide account information for ATOM, etc. where it holds "account" information
+   * for a generic address.
+   */
+  protected $memo;
+
+  /**
    * Message to send to the recipient.
    * This is only relevant when sending to an email address.
    */
@@ -257,6 +263,25 @@ class Send extends AbstractRequest
   public function setIsForexSend(bool $isForexSend)
   {
     $this->is_forex_send = $isForexSend;
+  }
+
+  /**
+   * @return string
+   */
+  public function getMemo(): string
+  {
+    if (!isset($this->memo)) {
+      return "";
+    }
+    return $this->memo;
+  }
+
+  /**
+   * @param string $memo
+   */
+  public function setMemo(string $memo)
+  {
+    $this->memo = $memo;
   }
 
   /**

@@ -78,6 +78,12 @@ class Validate extends AbstractRequest
   protected $is_self_send;
 
   /**
+   * Optional memo string used to provide account information for ATOM, etc. where it holds "account" information
+   * for a generic address.
+   */
+  protected $memo;
+
+  /**
    * Nationality ISO 3166-1 country code of the nationality of the (non-institutional) beneficial owner of the address
    */
   protected $nationality;
@@ -318,6 +324,25 @@ class Validate extends AbstractRequest
   public function setIsSelfSend(bool $isSelfSend)
   {
     $this->is_self_send = $isSelfSend;
+  }
+
+  /**
+   * @return string
+   */
+  public function getMemo(): string
+  {
+    if (!isset($this->memo)) {
+      return "";
+    }
+    return $this->memo;
+  }
+
+  /**
+   * @param string $memo
+   */
+  public function setMemo(string $memo)
+  {
+    $this->memo = $memo;
   }
 
   /**

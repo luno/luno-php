@@ -129,9 +129,6 @@ class Client extends AbstractClient
    * <code>client_move_id</code>. If both are provided an API error will be
    * returned.
    * 
-   * This endpoint is in BETA, behaviour and specification may change without
-   * any previous notice.
-   * 
    * Permissions required: <code>MP_None</code>
    */ 
   public function GetMove(Request\GetMove $req): Response\GetMove
@@ -281,9 +278,6 @@ class Client extends AbstractClient
    * Returns a list of the most recent moves ordered from newest to oldest.
    * This endpoint will list up to 100 most recent moves by default.
    * 
-   * This endpoint is in BETA, behaviour and specification may change without
-   * any previous notice.
-   * 
    * Permissions required: <code>MP_None</code>
    */ 
   public function ListMoves(Request\ListMoves $req): Response\ListMoves
@@ -396,9 +390,6 @@ class Client extends AbstractClient
    * until you have all the transfers you need.
    * This endpoint will list up to 100 transfers at a time by default.
    * 
-   * This endpoint is in BETA, behaviour and specification may change without
-   * any previous notice.
-   * 
    * Permissions required: <Code>Perm_R_Transfers</Code>
    */ 
   public function ListTransfers(Request\ListTransfers $req): Response\ListTransfers
@@ -465,9 +456,6 @@ class Client extends AbstractClient
    * can be used to poll for the move's status.
    * 
    * Note: moves will show as transactions, but not as transfers.
-   * 
-   * This endpoint is in BETA, behaviour and specification may change without
-   * any previous notice.
    * 
    * Permissions required: <code>MP_None_Write</code>
    */ 
