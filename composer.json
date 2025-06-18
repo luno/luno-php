@@ -22,6 +22,6 @@
     "netresearch/jsonmapper": "^1.4"
   },
   "require-dev": {
-    "phpunit/phpunit": "7.1.4"
+    "phpunit/phpunit": "7.5.20"
   }
 }
